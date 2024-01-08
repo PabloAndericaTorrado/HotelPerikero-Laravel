@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::resource('usuarios', 'UsuarioController');
+Route::resource('habitaciones', 'HabitacionController');
+Route::resource('reservas', 'ReservaController');
+Route::resource('servicios', 'ServicioController');
+Route::resource('reserva-servicios', 'ReservaServicioController');
+// routes/web.php
+
+use App\Http\Controllers\HabitacionController;
+
+Route::resource('habitaciones', HabitacionController::class);
