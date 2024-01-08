@@ -21,7 +21,7 @@ Route::resource('habitaciones', 'HabitacionController');
 Route::resource('reservas', 'ReservaController');
 Route::resource('servicios', 'ServicioController');
 Route::resource('reserva-servicios', 'ReservaServicioController');
-// routes/web.php
+
 
 use App\Http\Controllers\HabitacionController;
 

@@ -15,5 +15,5 @@ class HabitacionController extends Controller
         return view('habitaciones.index', compact('habitaciones'));
     }
 
-    // Resto de las funciones (create, store, show, edit, update, destroy)...
+
 }
