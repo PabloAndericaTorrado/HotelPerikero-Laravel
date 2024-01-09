@@ -23,32 +23,40 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        .header1 {
+            background: linear-gradient(to bottom, #272a2f, #282b30);
+        }
+
+        .section1 {
+            background: linear-gradient(to bottom, #282b30, #d1d1d1);
+        }
     </style>
 </head>
 
 <body class="font-sans">
-<header class="bg-white shadow-md">
+<header class="header1">
     <div class="container mx-auto py-4 px-4 flex justify-between items-center">
         <div class="flex items-center">
-            <img src="{{ asset('images/logo1.jpeg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+            <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
             <h1 class="text-2xl font-bold text-gray-800">Perikero Hotel</h1>
         </div>
         <nav>
             <ul class="flex space-x-4">
-                <li><a href="#" class="text-gray-600 hover:text-gray-800">Inicio</a></li>
-                <li><a class="text-gray-600 hover:text-gray-800" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
-                <li><a href="#" class="text-gray-600 hover:text-gray-800">Servicios</a></li>
-                <li><a href="#" class="text-gray-600 hover:text-gray-800">Reservas</a></li>
-                <li><a href="#" class="text-gray-600 hover:text-gray-800">Contacto</a></li>
+                <li><a href="#" class="text-white hover:text-gray-800">Inicio</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
+                <li><a href="#" class="text-white hover:text-gray-800">Servicios</a></li>
+                <li><a href="#" class="text-white hover:text-gray-800">Reservas</a></li>
+                <li><a href="#" class="text-white hover:text-gray-800">Contacto</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
-<main>
-    <section class="bg-gray-100 py-16">
+<main class="section1">
+    <section class="py-16">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-8 text-gray-800 text-center">Bienvenido al Perikero Hotel</h2>
+            <h2 class="text-4xl font-bold mb-8 text-white text-center">Bienvenido al Perikero Hotel</h2>
             <p class="text-lg text-gray-700 mb-8 text-center">Descubre nuestras habitaciones lujosas y servicios exclusivos para una estadía inolvidable.</p>
             <form action="#" class="max-w-md mx-auto">
                 <input type="text" placeholder="Buscar habitaciones, servicios, reservas"
