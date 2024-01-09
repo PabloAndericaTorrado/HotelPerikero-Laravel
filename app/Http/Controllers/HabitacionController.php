@@ -15,5 +15,9 @@ class HabitacionController extends Controller
         return view('habitaciones.index', compact('habitaciones'));
     }
 
+    public function contacto()
+    {
+        return view('habitaciones.contacto');
+    }
 
 }

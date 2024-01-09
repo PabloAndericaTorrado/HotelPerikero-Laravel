@@ -43,11 +43,10 @@
         </div>
         <nav>
             <ul class="flex space-x-4">
-                <li><a href="#" class="text-white hover:text-gray-800">Inicio</a></li>
                 <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
-                <li><a href="#" class="text-white hover:text-gray-800">Servicios</a></li>
-                <li><a href="#" class="text-white hover:text-gray-800">Reservas</a></li>
-                <li><a href="#" class="text-white hover:text-gray-800">Contacto</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('servicios.index') }}">Servicios</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('reservas.index') }}">Reservas</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
             </ul>
         </nav>
     </div>

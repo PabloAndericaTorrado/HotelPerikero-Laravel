@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\HabitacionController;
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\ReservaServicioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('usuarios', 'UsuarioController');
-Route::resource('habitaciones', 'HabitacionController');
-Route::resource('reservas', 'ReservaController');
-Route::resource('servicios', 'ServicioController');
-Route::resource('reserva-servicios', 'ReservaServicioController');
-
-
-use App\Http\Controllers\HabitacionController;
-
+Route::get('/habitaciones/contacto', [HabitacionController::class, 'contacto'])->name('habitaciones.contacto');
 Route::resource('habitaciones', HabitacionController::class);
+Route::resource('servicios', ServicioController::class);
+Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
+Route::resource('usuarios', UsuarioController::class);
+Route::resource('reservas', ReservaController::class);
+Route::resource('reserva-servicios', ReservaServicioController::class);
+

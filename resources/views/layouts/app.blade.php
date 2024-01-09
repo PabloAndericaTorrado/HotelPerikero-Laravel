@@ -1,138 +1,57 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+<html lang="es">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perikero Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Añadimos estilos adicionales para centrar el contenido */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+        main {
+            flex: 1;
+        }
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+        .container {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+        .header1 {
+            background: linear-gradient(to bottom, #272a2f, #282b30);
+        }
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        .section1 {
+            background: linear-gradient(to bottom, #282b30, #d1d1d1);
+        }
+    </style>
 </head>
-<body>
-<div id="app">
 
-
-
-
-
-    <nav class="navbar navbar-expand-md bg-light navbar-light bg-white shadow-sm"">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/about') }}">
-            {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-            <!-- Lado izquierdo Of Navbar -->
-
-
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle show" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-                        Administración
-                    </a>
-                    <ul class="dropdown-menu" data-bs-popper="static">
-                        <!-- Si añades .show a la clase dropdown-menu se abre al dibujarse -->
-                        @auth
-                            @if ((auth()->check()) && auth()->user()->hasRole('admin'))
-
-                                <li><a class="dropdown-item" href="{{ route('usuariostodos') }}">
-                                        {{ "Usuarios" }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{ url('/listagrupos') }}">
-                                        {{ "Grupos" }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endauth
-
-
-                    </ul>
-                </li>
-            </ul>
-
-
-
-            <!-- Lado derecho Of Navbar -->
-            <ul class="navbar-nav ms-auto">
-                <!-- Authentication Links -->
-                @guest
-                    @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                    @endif
-
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
-                @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
-
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                @endguest
-            </ul>
-
-
-
+<body class="font-sans">
+<header class="header1">
+    <div class="container mx-auto py-4 px-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+            <h1 class="text-2xl font-bold text-gray-800">Perikero Hotel</h1>
         </div>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a class="text-white hover:text-gray-800" href="{{ url('/') }}">Inicio</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('servicios.index') }}">Servicios</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('reservas.index') }}">Reservas</a></li>
+                <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+            </ul>
+        </nav>
     </div>
-    </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <main class="py-4">
-        @yield('content')
-    </main>
-
-
-    <footer class="mt-auto text-black-50">
-        <p>Aplicación creada por PABLO EL BICHO</p>
-    </footer>
-
-
-</div>
-</body>
-</html>
+</header>
+<main class="py-4">
+    @yield('content')
+</main>
