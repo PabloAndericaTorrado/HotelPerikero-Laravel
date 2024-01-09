@@ -1,241 +1,77 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al Hotel Elegance</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <!-- Agrega estilos personalizados aquí si es necesario -->
+    <title>Perikero Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
+        /* Añadimos estilos adicionales para centrar el contenido */
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .navbar {
-            background-color: #232e3b !important;
+        main {
+            flex: 1;
         }
 
-        .navbar-brand img {
-            width: 80px;
-            height: auto;
-        }
-
-        .navbar-nav .nav-link {
-            color: #ffffff !important;
-        }
-
-        .hero-section {
-            text-align: center;
-            padding: 100px 0;
-            background-color: #1F2C38;
-            color: #ffffff;
-        }
-
-        .hero-section h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
-
-        .hero-section p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-        }
-
-        .cta-section {
-            text-align: center;
-            padding: 80px 0;
-            background-color: #f8f9fa;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-        }
-
-        .cta-section p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            color: #495057;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            color: #ffffff;
-            background-color: #007bff;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .cta-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .feature-section {
-            padding: 100px 0;
-            background-color: #ffffff;
-        }
-
-        .feature {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .feature img {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .feature h3 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #007bff;
-        }
-
-        .feature p {
-            font-size: 1.2em;
-            color: #495057;
-        }
-
-        .contact-section {
-            text-align: center;
-            padding: 80px 0;
-            background-color: #f8f9fa;
-        }
-
-        .contact-section h2 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-        }
-
-        .contact-section p {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            color: #495057;
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            color: #ffffff;
-            background-color: #28a745;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .contact-btn:hover {
-            background-color: #218838;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 50px 0;
-            background-color: #343a40;
-            color: #ffffff;
-        }
-
-        .footer p {
-            margin: 0;
+        .container {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
-<body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-md navbar-dark">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Hotel Elegance">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('reservas.create') }}">Reservar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('servicios.index') }}">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('servicios.index') }}">Contacto</a>
-                </li>
+<body class="font-sans">
+<header class="bg-white shadow-md">
+    <div class="container mx-auto py-4 px-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="{{ asset('images/logo1.jpeg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+            <h1 class="text-2xl font-bold text-gray-800">Perikero Hotel</h1>
+        </div>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a href="#" class="text-gray-600 hover:text-gray-800">Inicio</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-800">Habitaciones</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-800">Servicios</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-800">Reservas</a></li>
+                <li><a href="#" class="text-gray-600 hover:text-gray-800">Contacto</a></li>
             </ul>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-8 text-gray-800 text-center">Bienvenido al Perikero Hotel</h2>
+            <p class="text-lg text-gray-700 mb-8 text-center">Descubre nuestras habitaciones lujosas y servicios exclusivos para una estadía inolvidable.</p>
+            <form action="#" class="max-w-md mx-auto">
+                <input type="text" placeholder="Buscar habitaciones, servicios, reservas"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mb-4">
+                <button type="submit"
+                        class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Buscar</button>
+            </form>
         </div>
-    </div>
-</nav>
+    </section>
 
-
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="container">
-        <h1>Bienvenido al Perikeros Hotel</h1>
-        <p>Tu destino de lujo para una estancia inolvidable</p>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section">
-    <div class="container">
-        <h2>Descubre la elegancia y el confort</h2>
-        <p>Planifica tu estancia ahora y experimenta el lujo en cada detalle.</p>
-        <a href="{{ route('reservas.create') }}" class="cta-btn">Reservar Ahora</a>
-    </div>
-</section>
-
-<!-- Feature Section -->
-<section class="feature-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="feature">
-                    <img src="{{ asset('images/feature1.jpg') }}" alt="Confort">
-                    <h3>Confort Inigualable</h3>
-                    <p>Experimenta la comodidad en nuestras habitaciones diseñadas para tu relajación.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature">
-                    <img src="{{ asset('images/feature2.jpg') }}" alt="Gastronomía">
-                    <h3>Gastronomía Exquisita</h3>
-                    <p>Disfruta de una variedad de platillos elaborados por nuestros chefs expertos.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature">
-                    <img src="{{ asset('images/feature3.jpg') }}" alt="Servicio de Calidad">
-                    <h3>Servicio de Calidad</h3>
-                    <p>Nuestro personal está dedicado a hacer que tu estancia sea inolvidable.</p>
-                </div>
-            </div>
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <!-- Contenido de habitaciones, servicios o reservas -->
+            <p class="text-center">Contenido de habitaciones, servicios o reservas podría ir aquí.</p>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 
-<!-- Contact Section -->
-<section class="contact-section">
-    <div class="container">
-        <h2>Contacto</h2>
-        <p>¿Tienes alguna pregunta o solicitud especial? ¡No dudes en contactarnos!</p>
-        <a href="{{ route('servicios.index') }}" class="contact-btn">Contacto</a>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container">
-        <p>&copy; {{ date('Y') }} Hotel Elegance. Todos los derechos reservados.</p>
+<footer class="bg-gray-800 text-white py-4">
+    <div class="container mx-auto text-center">
+        <p>Derechos reservados &copy; 2024 Perikero Hotel</p>
     </div>
 </footer>
-
-<script src="{{ asset('js/app.js') }}"></script>
-<!-- Agrega scripts personalizados aquí si es necesario -->
-
 </body>
+
 </html>
