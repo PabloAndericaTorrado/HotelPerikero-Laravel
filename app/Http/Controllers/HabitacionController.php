@@ -19,5 +19,12 @@ class HabitacionController extends Controller
     {
         return view('habitaciones.contacto');
     }
+    public function show($id)
+    {
+        // Lógica para mostrar los detalles de una habitación específica
+        $habitacion = Habitacion::findOrFail($id);
+
+        return view('habitaciones.show', compact('habitacion'));
+    }
 
 }

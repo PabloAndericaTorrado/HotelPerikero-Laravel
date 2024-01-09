@@ -14,4 +14,10 @@ class Habitacion extends Model
     {
         return $this->hasMany(Reserva::class, 'habitacion_id');
     }
+    // En el modelo Habitacion
+    public function tieneReserva()
+    {
+        return $this->reservas()->exists();
+    }
+
 }
