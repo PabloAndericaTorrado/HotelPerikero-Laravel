@@ -36,7 +36,7 @@
         <nav>
             <ul class="flex space-x-4">
                 <li><a href="#" class="text-gray-600 hover:text-gray-800">Inicio</a></li>
-                <li><a href="#" class="text-gray-600 hover:text-gray-800">Habitaciones</a></li>
+                <li><a class="text-gray-600 hover:text-gray-800" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
                 <li><a href="#" class="text-gray-600 hover:text-gray-800">Servicios</a></li>
                 <li><a href="#" class="text-gray-600 hover:text-gray-800">Reservas</a></li>
                 <li><a href="#" class="text-gray-600 hover:text-gray-800">Contacto</a></li>
