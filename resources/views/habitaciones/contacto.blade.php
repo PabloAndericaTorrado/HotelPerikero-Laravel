@@ -1,60 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Perikero Hotel</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <!-- Agrega cualquier estilo adicional aquí -->
-</head>
-<body>
+@extends('layouts.app')
 
-<!-- Navbar (copiado de tu código anterior) -->
-<nav class="navbar navbar-expand-md navbar-dark">
-    <div class="container d-flex justify-content-center">
-        <a class="navbar-brand mx-auto" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Perikero Hotel">
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li><a class="nav-link" href="{{ url('/') }}">Inicio</a></li>
-                <li><a class="nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
-                <li><a class="nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
-                <li><a class="nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
-                <li><a class="nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
-            </ul>
+@section('content')
+    <section class="container mx-auto my-8">
+        <h1 class="text-4xl font-bold text-center mb-8">Información de Contacto</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4">Nuestra Ubicación</h2>
+                <p class="text-gray-600 mb-4">Perikero Hotel</p>
+                <p class="text-gray-600 mb-4">Av. Santiago Ramón y Cajal 2 </p>
+                <p class="text-gray-600 mb-4">Badajoz</p>
+                <p class="text-gray-600 mb-4">CP: 06001</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4">Información de Contacto</h2>
+                <p class="text-gray-600 mb-4"><strong>Teléfono:</strong> +123 456 7890</p>
+                <p class="text-gray-600 mb-4"><strong>Correo Electrónico:</strong> info@perikerohotel.com</p>
+            </div>
         </div>
-    </div>
-</nav>
 
-<!-- Contenido de la página de contacto -->
-<div class="container mt-5">
-    <h1>Contacto</h1>
-    <p>¡Nos encantaría escucharte! Ponte en contacto con nosotros a través de los siguientes medios:</p>
+        <div class="mt-8">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3144.711392451587!2d-122.41941828463235!3d37.77492997975336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e0423a43e1d%3A0x4a501367f076adff!2sGolden%20Gate%20Bridge!5e0!3m2!1sen!2sus!4v1636035250579!5m2!1sen!2sus"
+                width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+@endsection
 
-    <div class="mb-3">
-        <h2>Dirección</h2>
-        <p>Perikero Hotel</p>
-        <p>Dirección de tu hotel</p>
-        <p>Ciudad, País</p>
-    </div>
-
-    <div class="mb-3">
-        <h2>Teléfono</h2>
-        <p>+XX XXXX XXXX</p>
-    </div>
-
-    <div class="mb-3">
-        <h2>Correo Electrónico</h2>
-        <p>info@perikerohotel.com</p>
-    </div>
-
-    <!-- Agrega cualquier otra información de contacto que desees mostrar -->
-
-</div>
-
-<script src="{{ asset('js/app.js') }}"></script>
-<!-- Agrega cualquier script adicional aquí -->
-
-</body>
-</html>
+@push('styles')
+    <!-- Agrega tus estilos adicionales aquí -->
+    <style>
+        /* Agrega estilos específicos para la página de contacto */
+    </style>
+@endpush
