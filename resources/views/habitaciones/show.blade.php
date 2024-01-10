@@ -32,7 +32,7 @@
                 <ul class="list-disc pl-6 text-gray-600">
                     @foreach($servicios as $servicio)
                         <li>
-                            {{ $servicio->nombre }},
+                            {{ $servicio->nombre }}
                         </li>
                     @endforeach
 
