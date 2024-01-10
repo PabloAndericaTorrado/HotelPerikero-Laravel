@@ -9,9 +9,12 @@
     <style>
         /* Añadimos estilos adicionales para centrar el contenido */
         body {
+            font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            background-color: #ffffff;
+            color: #272a2f;
         }
 
         main {
@@ -25,11 +28,8 @@
         }
 
         .header1 {
-            background: linear-gradient(to bottom, #272a2f, #282b30);
-        }
-
-        .section1 {
-            background: linear-gradient(to bottom, #282b30, #d1d1d1);
+            background-color: #272a2f;
+            color: #ffffff;
         }
     </style>
 </head>
@@ -39,7 +39,7 @@
     <div class="container mx-auto py-4 px-4 flex justify-between items-center">
         <div class="flex items-center">
             <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
-            <h1 class="text-2xl font-bold text-gray-800">Perikero Hotel</h1>
+            <h1 class="text-2xl font-bold text-white">Perikero Hotel</h1>
         </div>
         <nav>
             <ul class="flex space-x-4">
@@ -52,24 +52,18 @@
     </div>
 </header>
 
-<main class="section1">
+<main>
     <section class="py-16">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold mb-8 text-white text-center">Bienvenido al Perikero Hotel</h2>
+            <h2 class="text-4xl font-bold mb-8 text-gray-800 text-center">Bienvenido al Perikero Hotel</h2>
             <p class="text-lg text-gray-700 mb-8 text-center">Descubre nuestras habitaciones lujosas y servicios exclusivos para una estadía inolvidable.</p>
-            <form action="#" class="max-w-md mx-auto">
-                <input type="text" placeholder="Buscar habitaciones, servicios, reservas"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 mb-4">
-                <button type="submit"
-                        class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Buscar</button>
-            </form>
         </div>
     </section>
 
     <section class="py-16">
         <div class="container mx-auto px-4">
             <!-- Contenido de habitaciones, servicios o reservas -->
-            <p class="text-center">Contenido de habitaciones, servicios o reservas podría ir aquí.</p>
+            
         </div>
     </section>
 </main>
