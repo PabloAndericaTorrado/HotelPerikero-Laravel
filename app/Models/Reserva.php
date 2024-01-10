@@ -12,7 +12,7 @@ class Reserva extends Model
     // Relación con el modelo Usuario
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'usuario_id', 'id');
     }
 
     // Relación con el modelo Habitacion

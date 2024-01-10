@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HabitacionController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ReservaServicioController;
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
@@ -30,3 +32,7 @@ Route::resource('reservas', ReservaController::class);
 Route::resource('reserva-servicios', ReservaServicioController::class);
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
