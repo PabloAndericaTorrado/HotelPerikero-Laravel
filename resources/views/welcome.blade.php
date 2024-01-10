@@ -50,7 +50,7 @@
             </ul>
         </nav>
     </div>
-</header>cd
+</header>
 
 <main class="section1">
     <section class="py-16">
