@@ -26,16 +26,16 @@
                 <h2 class="text-xl font-semibold mt-8 mb-lg-1">Servicios Adicionales</h2>
                 <hr class="w-48 border-t-2 border-gray-300 my-2">
                 <ul class="list-disc pl-6 text-gray-600">
-                    <li>Servicio de limpieza diario</li>
-                    <li>Wifi de alta velocidad</li>
-                    <li>TV por cable</li>
-                    <li>Minibar surtido</li>
-                    <li>Servicio de habitaciones las 24 horas</li>
-                    <li>Gimnasio y spa de última generación</li>
-                    <li>Conserjería personalizada</li>
-                </ul>
+                    @foreach($servicios as $servicio)
+                        <li>
+                            {{ $servicio->nombre }},
+                        </li>
+                    @endforeach
 
-                @if($habitacion->disponibilidad === 1)
+                </ul>
+                <a class="text-white hover:text-gray-800" href="{{ route('servicios.index') }}">Ver Tarifas</a>
+
+            @if($habitacion->disponibilidad === 1)
                     <button class="bg-blue-500 text-white px-6 py-3 mt-6 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105">Reservar Ahora</button>
                 @else
                     <button class="bg-red-500 text-white px-6 py-3 mt-6 rounded-md cursor-not-allowed">No Disponible</button>
