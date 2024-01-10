@@ -46,7 +46,9 @@
 <header class="header1">
     <div class="container mx-auto py-4 px-4 flex justify-between items-center">
         <div class="flex items-center">
-            <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+            </a>
             <h1 class="text-3xl font-bold text-white">Perikero Hotel</h1>
         </div>
         <nav>
