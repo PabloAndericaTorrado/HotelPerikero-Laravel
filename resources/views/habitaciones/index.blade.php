@@ -17,7 +17,6 @@
                     <p class="text-gray-600 mb-4">{{ $habitacion->descripcion }}</p>
                     <ul class="text-sm text-gray-600">
                         <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
-                        <li><strong>Características:</strong> {{ $habitacion->caracteristicas }}</li>
                         <li><strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}</li>
                         <!-- Puedes agregar más detalles aquí -->
                     </ul>
