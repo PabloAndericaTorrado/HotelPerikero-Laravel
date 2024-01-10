@@ -11,11 +11,12 @@
                 </div>
                 <ul class="text-sm text-gray-600">
                     <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
-                    <li><strong>Características:</strong> {{ $habitacion->caracteristicas }}</li>
                     <li><strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}</li>
                     <li>
                         @if($habitacion->disponibilidad === 1)
+                            <a href="{{ url('reservas/create') }}">
                             <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">Reservar Ahora</button>
+                            </a>
                         @else
                             <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed self-start mt-4">No Disponible</button>
                         @endif
