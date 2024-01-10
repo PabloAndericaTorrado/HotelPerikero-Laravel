@@ -31,6 +31,14 @@
         .section1 {
             background: linear-gradient(to bottom, #282b30, #d1d1d1);
         }
+
+        .nav-link {
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #fca311;
+        }
     </style>
 </head>
 
@@ -39,15 +47,15 @@
     <div class="container mx-auto py-4 px-4 flex justify-between items-center">
         <div class="flex items-center">
             <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
-            <h1 class="text-2xl font-bold text-gray-800">Perikero Hotel</h1>
+            <h1 class="text-3xl font-bold text-white">Perikero Hotel</h1>
         </div>
         <nav>
             <ul class="flex space-x-4">
-                <li><a class="text-white hover:text-gray-800" href="{{ url('/') }}">Inicio</a></li>
-                <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
-                <li><a class="text-white hover:text-gray-800" href="{{ route('servicios.index') }}">Servicios</a></li>
-                <li><a class="text-white hover:text-gray-800" href="{{ route('reservas.index') }}">Reservas</a></li>
-                <li><a class="text-white hover:text-gray-800" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+                <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
+                <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
+                <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
+                <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
+                <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
             </ul>
         </nav>
     </div>
@@ -55,3 +63,6 @@
 <main class="py-4">
     @yield('content')
 </main>
+</body>
+
+</html>
