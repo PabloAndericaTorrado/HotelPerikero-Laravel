@@ -18,7 +18,6 @@
                     <ul class="text-sm text-gray-600">
                         <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
                         <li><strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}</li>
-                        <!-- Puedes agregar más detalles aquí -->
                     </ul>
                 </div>
             @endforeach
@@ -27,10 +26,8 @@
 @endsection
 
 @push('styles')
-    <!-- Agrega tus estilos de Tailwind CSS aquí -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
-        /* Agrega estilos adicionales aquí */
         .bg-primary {
             background-color: #3490dc;
         }
@@ -42,5 +39,5 @@
 @endpush
 
 @push('scripts')
-    <!-- Agrega tus scripts interactivos aquí -->
+
 @endpush
