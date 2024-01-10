@@ -5,7 +5,7 @@
         <h1 class="text-4xl font-bold text-center mb-8">{{ $habitacion->tipo }}</h1>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-md">
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col justify-between">
                 <div class="relative overflow-hidden mb-4">
                     <img src="{{ asset('habitacion_images/habitacion_' . $habitacion->id . '.jpg') }}" alt="{{ $habitacion->tipo }}" class="w-full h-64 object-cover rounded">
                 </div>
@@ -13,8 +13,12 @@
                     <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
                     <li><strong>Características:</strong> {{ $habitacion->caracteristicas }}</li>
                     <li><strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}</li>
-                    <!-- Puedes agregar más detalles aquí -->
                 </ul>
+                @if($habitacion->disponibilidad === 1)
+                    <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-end mt-4">Reservar Ahora</button>
+                @else
+                    <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed self-end mt-4">No Disponible</button>
+                @endif
             </div>
 
             <div class="col-span-2 bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
@@ -33,16 +37,7 @@
                     @endforeach
 
                 </ul>
-                <a class="text-white hover:text-gray-800" href="{{ route('servicios.index') }}">Ver Tarifas</a>
-
-            @if($habitacion->disponibilidad === 1)
-                    <button class="bg-blue-500 text-white px-6 py-3 mt-6 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105">Reservar Ahora</button>
-                @else
-                    <button class="bg-red-500 text-white px-6 py-3 mt-6 rounded-md cursor-not-allowed">No Disponible</button>
-                @endif
-            </div>
-
-
+                <a class="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-300" href="{{ route('servicios.index') }}">Ver Tarifas</a>
         </div>
     </div>
 @endsection
