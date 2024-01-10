@@ -17,11 +17,14 @@
                 </ul>
             </div>
 
-            <div class="col-span-2 bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">Descripción</h2>
+            <div class="col-span-2 bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
+                <h2 class="text-xl font-semibold mb-1">Descripción</h2>
+                <hr class="w-32 border-t-2 border-gray-300 my-lg-1">
                 <p class="text-gray-600">{{ $habitacion->descripcion }}</p>
 
-                <h2 class="text-xl font-semibold mt-8 mb-4">Servicios Adicionales</h2>
+
+                <h2 class="text-xl font-semibold mt-8 mb-lg-1">Servicios Adicionales</h2>
+                <hr class="w-48 border-t-2 border-gray-300 my-2">
                 <ul class="list-disc pl-6 text-gray-600">
                     <li>Servicio de limpieza diario</li>
                     <li>Wifi de alta velocidad</li>
@@ -30,24 +33,23 @@
                     <li>Servicio de habitaciones las 24 horas</li>
                     <li>Gimnasio y spa de última generación</li>
                     <li>Conserjería personalizada</li>
-                    <!-- Agrega más servicios aquí -->
                 </ul>
 
-                @if($habitacion->disponibilidad)
-                    <button class="bg-primary text-white px-6 py-3 mt-6 rounded-full">Reservar Ahora</button>
+                @if($habitacion->disponibilidad === 1)
+                    <button class="bg-blue-500 text-white px-6 py-3 mt-6 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105">Reservar Ahora</button>
                 @else
-                    <button class="bg-gray-400 text-white px-6 py-3 mt-6 rounded-full cursor-not-allowed" disabled>No Disponible</button>
+                    <button class="bg-red-500 text-white px-6 py-3 mt-6 rounded-md cursor-not-allowed">No Disponible</button>
                 @endif
             </div>
+
+
         </div>
     </div>
 @endsection
 
 @push('styles')
-    <!-- Agrega tus estilos de Tailwind CSS aquí -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
-        /* Agrega estilos adicionales aquí */
         .bg-primary {
             background-color: #3490dc;
         }
@@ -59,5 +61,5 @@
 @endpush
 
 @push('scripts')
-    <!-- Agrega tus scripts interactivos aquí -->
+
 @endpush
