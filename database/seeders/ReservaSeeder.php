@@ -19,7 +19,7 @@ class ReservaSeeder extends Seeder
         $faker = Faker::create();
 
         // Obtener IDs de registros existentes en las tablas relacionadas
-        $usuarioIds = DB::table('usuarios')->pluck('id')->toArray();
+        $usuarioIds = DB::table('users')->pluck('id')->toArray();
         $habitacionIds = DB::table('habitacions')->pluck('id')->toArray();
 
         for ($i = 0; $i < 5; $i++) {
@@ -29,7 +29,7 @@ class ReservaSeeder extends Seeder
             $checkOutDate->add(new DateInterval("P{$duration}D")); // Añadir días a la fecha de inicio
 
             DB::table('reservas')->insert([
-                'usuario_id' => $faker->randomElement($usuarioIds),
+                'users_id' => $faker->randomElement($usuarioIds),
                 'habitacion_id' => $faker->randomElement($habitacionIds),
                 'check_in' => $checkInDate->format('Y-m-d'),
                 'check_out' => $checkOutDate->format('Y-m-d'),
