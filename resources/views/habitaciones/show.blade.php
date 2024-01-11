@@ -26,7 +26,6 @@
                 <ul class="text-sm text-gray-600">
                     <li><strong>Tipo de habitación: </strong>{{ $habitacion->tipo }}</li>
                     <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
-                    <li><strong>Características:</strong> {{ $habitacion->caracteristicas }}</li>
                     <li>
                         <strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}
                     </li>
