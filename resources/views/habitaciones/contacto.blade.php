@@ -22,7 +22,7 @@
 
         <div class="mt-8">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3144.711392451587!2d-122.41941828463235!3d37.77492997975336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808f7e0423a43e1d%3A0x4a501367f076adff!2sGolden%20Gate%20Bridge!5e0!3m2!1sen!2sus!4v1636035250579!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3105.953942523349!2d-6.9804574885707025!3d38.879295571610086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd16e4396fc1b251%3A0x6ced23859c342508!2sAv.%20Santiago%20Ram%C3%B3n%20y%20Cajal%2C%202%2C%2006001%20Badajoz!5e0!3m2!1ses!2ses!4v1705045441066!5m2!1ses!2ses"
                 width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
