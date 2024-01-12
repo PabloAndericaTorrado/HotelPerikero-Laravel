@@ -58,7 +58,18 @@
                 <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
                 <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
-                <li><a class="text-white nav-link" href="{{route('login') }}">Iniciar Sesion</a></li>
+
+                @guest
+                    <li><a class="text-white nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
+                @else
+                    <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Cuenta</a></li>
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="text-white nav-link">Cerrar Sesión</button>
+                        </form>
+                    </li>
+                @endguest
             </ul>
         </nav>
     </div>
