@@ -58,6 +58,7 @@
                 <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
                 <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+                <li><a class="text-white nav-link" href="{{route('login') }}">Iniciar Sesion</a></li>
             </ul>
         </nav>
     </div>

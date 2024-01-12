@@ -27,7 +27,7 @@ Route::get('/habitaciones/contacto', [HabitacionController::class, 'contacto'])-
 Route::resource('habitaciones', HabitacionController::class);
 Route::resource('servicios', ServicioController::class);
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
-Route::resource('usuarios', UsuarioController::class);
+#Route::resource('usuarios', UsuarioController::class);
 Route::resource('reservas', ReservaController::class);
 Route::get('/reservas/create', [ReservaController::class, 'create'])->name('reservas.create');
 Route::resource('reserva-servicios', ReservaServicioController::class);
