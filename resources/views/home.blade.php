@@ -3,7 +3,7 @@
 @section('content')
     <div class="min-h-screen flex items-center justify-center bg-gray-100">
         <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-            <div class="text-3xl font-semibold mb-6 text-center">{{ __('Dashboard') }}</div>
+            <div class="text-3xl font-semibold mb-6 text-center">{{ auth()->user()->email }}</div>
 
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
@@ -11,7 +11,7 @@
                 </div>
             @endif
 
-            <p class="text-center">{{ __('You are logged in!') }}</p>
+            <p class="text-center">{{ __('Has Iniciado Sesión') }}</p>
 
             <form method="POST" action="{{ route('logout') }}" class="mt-6">
                 @csrf
