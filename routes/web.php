@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicioController;
@@ -23,14 +22,17 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/habitaciones/cuenta', [HabitacionController::class, 'cuenta'])->name('habitaciones.cuenta');
 Route::get('/habitaciones/contacto', [HabitacionController::class, 'contacto'])->name('habitaciones.contacto');
 Route::resource('habitaciones', HabitacionController::class);
 Route::resource('servicios', ServicioController::class);
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
-#Route::resource('usuarios', UsuarioController::class);
 Route::resource('reservas', ReservaController::class);
 Route::get('/reservas/create', [ReservaController::class, 'create'])->name('reservas.create');
 Route::resource('reserva-servicios', ReservaServicioController::class);
+
+
+
 
 
 

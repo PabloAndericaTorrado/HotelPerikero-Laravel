@@ -62,7 +62,7 @@
                 @guest
                     <li><a class="text-white nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
                 @else
-                    <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Cuenta</a></li>
+                    <li><a class="text-white nav-link" href="{{ route('habitaciones.cuenta') }}">{{ auth()->user()->email }}</a></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf

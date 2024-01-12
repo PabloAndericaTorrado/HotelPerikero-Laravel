@@ -27,4 +27,16 @@ class HabitacionController extends Controller
         return view('habitaciones.show', compact('habitacion', 'servicios'));
     }
 
+    public function cuenta()
+    {
+        $user = auth()->user(); // Obtener el usuario autenticado
+        return view('habitaciones.cuenta', compact('user'));
+    }
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
 }
