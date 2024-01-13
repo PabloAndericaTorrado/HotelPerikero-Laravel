@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Livewire\ImageLoader;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitacionController;
@@ -22,8 +24,10 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', [HomeController::class, 'welcome'])->name('welcome');
 Route::get('/habitaciones/cuenta', [HabitacionController::class, 'cuenta'])->name('habitaciones.cuenta');
 Route::get('/habitaciones/contacto', [HabitacionController::class, 'contacto'])->name('habitaciones.contacto');
+Route::get('/habitaciones/show', [HabitacionController::class, 'show'])->name('habitaciones.show');
 Route::resource('habitaciones', HabitacionController::class);
 Route::resource('servicios', ServicioController::class);
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
