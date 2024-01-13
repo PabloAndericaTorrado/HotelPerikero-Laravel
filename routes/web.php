@@ -32,10 +32,11 @@ Route::get('/reservas/create', [ReservaController::class, 'create'])->name('rese
 Route::resource('reserva-servicios', ReservaServicioController::class);
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/perfil', function () {
+        return view('perfil');
+    })->name('perfil');
+});
 
-
-
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

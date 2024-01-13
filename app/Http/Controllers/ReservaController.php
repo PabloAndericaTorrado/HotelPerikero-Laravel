@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
 
@@ -73,5 +74,15 @@ class ReservaController extends Controller
         $reserva->delete();
 
         return redirect()->route('reservas.index')->with('success', 'Reserva eliminada con éxito');
+    }
+
+    public function mostrarCuenta()
+    {
+        $user = User::with('reservas')->find(auth()->id());
+
+        // Mensajes de depuración
+        Log::info($user->reservas); // Verifica las fechas en los registros de reserva
+
+        return view('habitaciones.cuenta', compact('user'));
     }
 }
