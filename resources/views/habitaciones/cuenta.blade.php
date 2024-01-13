@@ -33,9 +33,9 @@
                                         <p><strong>Check-out:</strong> {{ $reserva->check_out }}</p>
                                     </div>
                                     <div>
+                                        <p><strong>Precio Noche:</strong> ${{ $reserva->habitacion->precio }}</p>
                                         <p><strong>Precio Total:</strong> ${{ number_format($reserva->calculateTotalPrice(), 2) }}</p>
-                                        <p><strong>Dias:</strong> {{ $reserva->calculateTotalDays() }}</p>
-
+                                        <p><strong>Noches:</strong> {{ $reserva->calculateTotalDays() }} Noches</p>
                                         <p><strong>Pagado:</strong> {{ $reserva->pagado ? 'Sí' : 'No' }}</p>
                                     </div>
                                 </div>
