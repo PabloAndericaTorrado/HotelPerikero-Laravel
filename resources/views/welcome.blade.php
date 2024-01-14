@@ -1,44 +1,43 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="es">
 
-@section('content')
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perikero Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Estilos Tailwind CSS */
-        .text-primary {
-            color: #3490dc;
-        }
-
-        .text-primary:hover {
-            color: #2779bd;
-        }
-
-        .text-primary-dark {
-            color: #1d68a7;
-        }
-
-        .bg-primary {
-            background-color: #3490dc;
-        }
-
-        .bg-primary-dark {
-            background-color: #1d68a7;
-        }
-
-        .border-primary {
-            border-color: #3490dc;
-        }
-
-        .border-primary-dark {
-            border-color: #1d68a7;
-        }
-
         body {
-            background-color: #fff; /* Color de fondo predeterminado para el resto de la página */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        .container {
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .header1 {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('welcome_images/background_index.jpg') }}') center/cover no-repeat fixed;
+            background-size: 100% 100%;
+        }
+
+        .nav-link {
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #fca311;
         }
 
         /* Sección principal */
         .main-section {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('welcome_images/background_index.jpg') }}') center/cover no-repeat fixed;
-            background-size: 100% 100%;  /* Ajuste para que la imagen cubra toda la página */
             color: #fff;
             padding: 10rem 0;
             text-align: center;
@@ -71,7 +70,7 @@
         }
 
         .room-card:last-child {
-            margin-right: 0; /* Eliminar margen derecho en la última tarjeta */
+            margin-right: 0;
         }
 
         .room-card:hover {
@@ -99,36 +98,10 @@
             color: #555;
         }
 
-        /* Estilos específicos para el carrusel de habitaciones */
-        .carousel-inner {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow: hidden;
-        }
-
         .room-card {
             flex: 0 0 33.3333%; /* Cambiado de 100% a 33.3333% para mostrar tres tarjetas en una fila */
             max-width: 33.3333%;
             transition: transform 0.3s ease-in-out;
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: auto;
-            color: #fff;
-            font-size: 2rem;
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-
-        .carousel-control-prev {
-            left: 0;
-        }
-
-        .carousel-control-next {
-            right: 0;
         }
 
         /* Sección de servicios */
@@ -152,7 +125,7 @@
 
         .service-card img {
             width: 100%;
-            height: 250px; /* Ajusta la altura según tu preferencia */
+            height: 250px;
             object-fit: cover;
             border-bottom: 1px solid #eee;
         }
@@ -171,15 +144,52 @@
             color: #555;
         }
     </style>
+</head>
 
-    <!-- Sección principal -->
-    <section class="main-section">
-        <div class="container mx-auto">
-            <h1 class="text-primary-dark">Bienvenido a Hotel Perikero</h1>
-            <p>Una experiencia única te espera en nuestro hotel de lujo en <Marbella></Marbella>.</p>
-            <a href="#" class="bg-primary text-white py-2 px-6 rounded-full hover:bg-primary-dark transition-colors duration-300">Reserva ahora</a>
+<body>
+    <!-- Barra de inicio -->
+    <header class="header1">
+        <div class="container mx-auto py-4 px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+                </a>
+                <h1 class="text-3xl font-bold text-white">Perikero Hotel</h1>
+            </div>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
+                    <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
+                    <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
+                    <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
+                    <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+
+                    @guest
+                        <li><a class="text-white nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
+                    @else
+                        <li><a class="text-white nav-link"
+                               href="{{ route('habitaciones.cuenta') }}">{{ auth()->user()->email }}</a></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="text-white nav-link">Cerrar Sesión</button>
+                            </form>
+                        </li>
+                    @endguest
+                </ul>
+            </nav>
         </div>
-    </section>
+        <!-- Sección principal -->
+        <section class="main-section">
+            <div class="container mx-auto">
+                <h1 class="text-primary-dark">Bienvenido a Hotel Perikero</h1>
+                <p>Una experiencia única te espera en nuestro hotel de lujo en Marbella.</p>
+                <a href="#"
+                   class="bg-primary text-white py-2 px-6 rounded-full hover:bg-primary-dark transition-colors duration-300">Reserva
+                    ahora</a>
+            </div>
+        </section>
+    </header>
 
     <!-- Sección de habitaciones -->
     <section class="rooms-section">
@@ -189,7 +199,8 @@
             <div class="flex">
                 <!-- Habitación 3 -->
                 <div class="room-card">
-                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion3->id . '.jpg') }}" alt="{{ $habitacion3->descripcion }}">
+                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion3->id . '.jpg') }}"
+                         alt="{{ $habitacion3->descripcion }}">
                     <div class="room-card-content">
                         <h2>Suite de lujo</h2>
                         <p><strong>Descripción: </strong>{{ $habitacion3->descripcion }}</p>
@@ -211,7 +222,8 @@
 
                 <!-- Habitación 7 -->
                 <div class="room-card">
-                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion7->id . '.jpg') }}" alt="{{ $habitacion7->descripcion }}">
+                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion7->id . '.jpg') }}"
+                         alt="{{ $habitacion7->descripcion }}">
                     <div class="room-card-content">
                         <h2>Suite Ejecutiva</h2>
                         <p>{{ $habitacion7->descripcion }}</p>
@@ -233,7 +245,8 @@
 
                 <!-- Habitación 8 -->
                 <div class="room-card">
-                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion8->id . '.jpg') }}" alt="{{ $habitacion8->descripcion }}">
+                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion8->id . '.jpg') }}"
+                         alt="{{ $habitacion8->descripcion }}">
                     <div class="room-card-content">
                         <h2>Habitación Familiar</h2>
                         <p>{{ $habitacion8->descripcion }}</p>
@@ -267,7 +280,8 @@
                     <img src="path/to/service1.jpg" alt="Servicio 1">
                     <div class="service-card-content">
                         <h2>Spa y Bienestar</h2>
-                        <p>Relájate y rejuvenece en nuestro spa de primera clase. Tratamientos exclusivos y atención personalizada.</p>
+                        <p>Relájate y rejuvenece en nuestro spa de primera clase. Tratamientos exclusivos y atención
+                            personalizada.</p>
                     </div>
                 </div>
 
@@ -276,7 +290,8 @@
                     <img src="path/to/service2.jpg" alt="Servicio 2">
                     <div class="service-card-content">
                         <h2>Gastronomía Exquisita</h2>
-                        <p>Descubre una variedad de opciones culinarias en nuestros restaurantes galardonados. Ingredientes frescos y sabores únicos.</p>
+                        <p>Descubre una variedad de opciones culinarias en nuestros restaurantes galardonados.
+                            Ingredientes frescos y sabores únicos.</p>
                     </div>
                 </div>
 
@@ -285,10 +300,12 @@
                     <img src="path/to/service3.jpg" alt="Servicio 3">
                     <div class="service-card-content">
                         <h2>Eventos y Conferencias</h2>
-                        <p>Organiza eventos inolvidables en nuestros espacios para conferencias y salones elegantes. Servicio de alta calidad.</p>
+                        <p>Organiza eventos inolvidables en nuestros espacios para conferencias y salones elegantes.
+                            Servicio de alta calidad.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-@endsection
+</body>
+
