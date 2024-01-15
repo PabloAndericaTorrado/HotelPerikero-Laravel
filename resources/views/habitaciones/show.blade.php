@@ -26,14 +26,16 @@
                 <ul class="text-sm text-gray-600">
                     <li><strong>Tipo de habitación: </strong>{{ $habitacion->tipo }}</li>
                     <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
+
                     <li>
                         <strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}
                     </li>
                     <li>
                         @if($habitacion->disponibilidad === 1)
-                            <button
-                                class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
-                                Reservar Ahora
+                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                <a href="{{ route('reservas.create', $habitacion->id) }}" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                    Reservar Ahora
+                                </a>
                             </button>
                         @else
                             <button

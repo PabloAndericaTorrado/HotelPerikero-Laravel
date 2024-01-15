@@ -12,13 +12,23 @@ class Reserva extends Model
     protected $table = 'reservas';
     protected $dates = ['check_in', 'check_out', 'created_at', 'updated_at']; // Agrega created_at y updated_at
 
-    // Relación con el modelo Usuario
+    use HasFactory;
+
+    protected $fillable = [
+        'users_id',
+        'habitacion_id',
+        'check_in',
+        'check_out',
+        'precio_total',
+        'pagado'
+    ];
+
+
     public function usuario()
     {
         return $this->belongsTo(User::class, 'usuario_id', 'id');
     }
 
-    // Relación con el modelo Habitacion
     public function habitacion()
     {
         return $this->belongsTo(Habitacion::class, 'habitacion_id');

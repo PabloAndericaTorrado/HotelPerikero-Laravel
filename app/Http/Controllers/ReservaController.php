@@ -4,9 +4,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Habitacion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
+use Illuminate\Support\Facades\Auth;
 
 class ReservaController extends Controller
 {
@@ -16,32 +18,33 @@ class ReservaController extends Controller
         return view('reservas.index', compact('reservas'));
     }
 
-    public function create()
+    public function create($id)
     {
-        // Lógica para mostrar el formulario de creación
-        return view('reservas.create');
+        $habitacion = Habitacion::findOrFail($id);
+        return view('reservas.create', compact('habitacion'));
     }
 
     public function store(Request $request)
     {
-        // Lógica para almacenar la reserva en la base de datos
-        // Asegúrate de validar los datos del formulario antes de almacenarlos
-
-        // Ejemplo:
-        Reserva::create([
-            'user_id' => $request->user_id,
+        $reserva = Reserva::create([
+            'users_id' => Auth::id(),
             'habitacion_id' => $request->habitacion_id,
-            'fecha_inicio' => $request->fecha_inicio,
-            'fecha_fin' => $request->fecha_fin,
-            // ... otras columnas de la tabla de reservas
+            'check_in' => $request->check_in,
+            'check_out' => $request->check_out,
+            'precio_total' => 0,
+            'pagado' => true
         ]);
 
-        return redirect()->route('reservas.index')->with('success', 'Reserva creada con éxito');
+        $reserva->precio_total = $reserva->calculateTotalPrice();
+        $reserva->save();
+
+        // Redirige a la vista de detalles de la reserva recién creada
+        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');
     }
+
 
     public function show(Reserva $reserva)
     {
-        // Lógica para mostrar los detalles de una reserva específica
         return view('reservas.show', compact('reserva'));
     }
 
@@ -85,4 +88,6 @@ class ReservaController extends Controller
 
         return view('habitaciones.cuenta', compact('user'));
     }
+
+
 }

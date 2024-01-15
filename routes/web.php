@@ -32,15 +32,14 @@ Route::resource('habitaciones', HabitacionController::class);
 Route::resource('servicios', ServicioController::class);
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 Route::resource('reservas', ReservaController::class);
-Route::get('/reservas/create', [ReservaController::class, 'create'])->name('reservas.create');
 Route::resource('reserva-servicios', ReservaServicioController::class);
-
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', function () {
         return view('perfil');
     })->name('perfil');
 });
-
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
+Route::get('/reservas/create/{id}', [ReservaController::class, 'create'])->name('reservas.create');
+Route::resource('reservas', ReservaController::class);
+

@@ -1,6 +1,5 @@
 <?php
 
-// app/Http/Controllers/HabitacionController.php
 
 namespace App\Http\Controllers;
 
