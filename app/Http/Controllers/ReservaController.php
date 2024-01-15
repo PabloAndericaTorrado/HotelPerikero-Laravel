@@ -9,6 +9,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
+
 
 class ReservaController extends Controller
 {
@@ -26,11 +29,20 @@ class ReservaController extends Controller
 
     public function store(Request $request)
     {
+
+        $habitacionId = $request->habitacion_id;
+        $checkIn = $request->check_in;
+        $checkOut = $request->check_out;
+
+        if (!$this->habitacionDisponible($habitacionId, $checkIn, $checkOut)) {
+            throw ValidationException::withMessages(['error' => 'La habitación no está disponible para las fechas seleccionadas.']);
+        }
+
         $reserva = Reserva::create([
             'users_id' => Auth::id(),
-            'habitacion_id' => $request->habitacion_id,
-            'check_in' => $request->check_in,
-            'check_out' => $request->check_out,
+            'habitacion_id' => $habitacionId,
+            'check_in' => $checkIn,
+            'check_out' => $checkOut,
             'precio_total' => 0,
             'pagado' => true
         ]);
@@ -38,8 +50,21 @@ class ReservaController extends Controller
         $reserva->precio_total = $reserva->calculateTotalPrice();
         $reserva->save();
 
-        // Redirige a la vista de detalles de la reserva recién creada
-        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');
+        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }
+
+// Función para verificar la disponibilidad de la habitación
+    protected function habitacionDisponible($habitacionId, $checkIn, $checkOut)
+    {
+        return Reserva::where('habitacion_id', $habitacionId)
+            ->where(function ($query) use ($checkIn, $checkOut) {
+                $query->whereBetween('check_in', [$checkIn, $checkOut])
+                    ->orWhereBetween('check_out', [$checkIn, $checkOut])
+                    ->orWhere(function ($query) use ($checkIn, $checkOut) {
+                        $query->where('check_in', '<=', $checkIn)
+                            ->where('check_out', '>=', $checkOut);
+                    });
+            })
+            ->doesntExist();
     }
 
 
@@ -47,7 +72,6 @@ class ReservaController extends Controller
     {
         return view('reservas.show', compact('reserva'));
     }
-
     public function edit(Reserva $reserva)
     {
         // Lógica para mostrar el formulario de edición

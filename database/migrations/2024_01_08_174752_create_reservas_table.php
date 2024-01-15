@@ -17,6 +17,7 @@ class CreateReservasTable extends Migration
             $table->decimal('precio_total', 8, 2);
             $table->boolean('pagado');
             $table->timestamps();
+            $table->unique(['habitacion_id', 'check_in', 'check_out']);
         });
     }
 

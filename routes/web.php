@@ -42,4 +42,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
 Route::get('/reservas/create/{id}', [ReservaController::class, 'create'])->name('reservas.create');
 Route::resource('reservas', ReservaController::class);
+Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
+
 

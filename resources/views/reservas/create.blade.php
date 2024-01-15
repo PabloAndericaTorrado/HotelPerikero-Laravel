@@ -6,6 +6,16 @@
             <h1 class="text-3xl font-semibold mb-6">Reservar Habitación</h1>
             <h2>Reservar Habitación: {{ $habitacion->tipo }}</h2>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('reservas.store') }}" method="post">
                 @csrf
                 <input type="hidden" name="habitacion_id" value="{{ $habitacion->id }}">
