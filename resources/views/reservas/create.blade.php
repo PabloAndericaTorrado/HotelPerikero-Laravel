@@ -22,12 +22,12 @@
 
                 <div class="mb-4">
                     <label for="check_in" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Check-in:</label>
-                    <input type="date" name="check_in" id="check_in" class="w-full border p-2 rounded">
+                    <input type="text" name="check_in" id="check_in" class="w-full border p-2 rounded" data-input>
                 </div>
 
                 <div class="mb-4">
                     <label for="check_out" class="block text-gray-700 text-sm font-bold mb-2">Fecha de Check-out:</label>
-                    <input type="date" name="check_out" id="check_out" class="w-full border p-2 rounded">
+                    <input type="text" name="check_out" id="check_out" class="w-full border p-2 rounded" data-input>
                 </div>
 
                 <div class="mt-6">
@@ -38,4 +38,43 @@
             </form>
         </div>
     </div>
+
+    <!-- Coloca el script aquí -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log(@json($fechasReservadas));
+
+            // Convertir $fechasReservadas a una colección si no lo es
+            const fechasReservadasCollection = @json($fechasReservadas);
+
+            // Crear un array de fechas deshabilitadas en formato correcto para flatpickr
+            const disableDates = fechasReservadasCollection.flatMap(function ($fechas) {
+                // Crear un rango de fechas entre "from" y "to"
+                const fechaInicio = new Date($fechas.from);
+                const fechaFin = new Date($fechas.to);
+                const fechasRango = [];
+                while (fechaInicio <= fechaFin) {
+                    fechasRango.push(fechaInicio.toISOString().split('T')[0]);
+                    fechaInicio.setDate(fechaInicio.getDate() + 1);
+                }
+                return fechasRango;
+            });
+
+            flatpickr("#check_in", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                altInput: true,
+                altFormat: "F j, Y",
+                disable: disableDates,
+            });
+
+            flatpickr("#check_out", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                altInput: true,
+                altFormat: "F j, Y",
+                disable: disableDates,
+            });
+        });
+    </script>
 @endsection

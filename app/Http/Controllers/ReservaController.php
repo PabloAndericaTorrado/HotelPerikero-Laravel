@@ -24,8 +24,31 @@ class ReservaController extends Controller
     public function create($id)
     {
         $habitacion = Habitacion::findOrFail($id);
-        return view('reservas.create', compact('habitacion'));
+
+        // Obtener las fechas reservadas para la habitación
+        $fechasReservadas = $this->getFechasReservadas($id);
+
+        return view('reservas.create', compact('habitacion', 'fechasReservadas'));
     }
+
+    // Método para obtener las fechas reservadas de una habitación
+    protected function getFechasReservadas($habitacionId)
+    {
+        $reservas = Reserva::where('habitacion_id', $habitacionId)->get();
+
+        $fechasReservadas = [];
+
+        foreach ($reservas as $reserva) {
+            $fechasReservadas[] = [
+                'from' => $reserva->check_in,
+                'to' => $reserva->check_out,
+            ];
+        }
+
+        return $fechasReservadas;
+    }
+
+
 
     public function store(Request $request)
     {
@@ -70,8 +93,10 @@ class ReservaController extends Controller
 
     public function show(Reserva $reserva)
     {
+        // Lógica para mostrar los detalles de una reserva específica
         return view('reservas.show', compact('reserva'));
     }
+
     public function edit(Reserva $reserva)
     {
         // Lógica para mostrar el formulario de edición
