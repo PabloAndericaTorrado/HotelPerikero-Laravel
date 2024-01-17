@@ -54,6 +54,14 @@
             margin-bottom: 4rem;
         }
 
+        .main-section a {
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .main-section a:hover {
+            color: #fca311;
+        }
+
         /* Sección de habitaciones */
         .rooms-section {
             padding: 6rem 0;
@@ -144,6 +152,42 @@
             color: #555;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+
+    <style>
+        #typed-text::after {
+            content: '_';
+            display: inline-block;
+            animation: blink-caret 0.55s infinite;
+        }
+
+        @keyframes blink-caret {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var text = "Una experiencia única te espera en nuestro hotel de lujo en Marbella";
+            var typedTextElement = document.getElementById('typed-text');
+            var typingSpeed = 30;
+
+            typeWriter(typedTextElement, text, 0, typingSpeed);
+        });
+
+        function typeWriter(element, text, index, speed) {
+            if (index <= text.length) {
+                element.innerHTML = text.substring(0, index);
+                index++;
+                setTimeout(function () {
+                    typeWriter(element, text, index, speed);
+                }, speed);
+            }
+        }
+    </script>
+
 </head>
 
 <body>
@@ -183,7 +227,7 @@
         <section class="main-section">
             <div class="container mx-auto">
                 <h1 class="text-primary-dark">Bienvenido a Hotel Perikero</h1>
-                <p>Una experiencia única te espera en nuestro hotel de lujo en Marbella.</p>
+                <p id="typed-text"></p>
                 <a href="#"
                    class="bg-primary text-white py-2 px-6 rounded-full hover:bg-primary-dark transition-colors duration-300">Reserva
                     ahora</a>
@@ -194,7 +238,7 @@
     <!-- Sección de habitaciones -->
     <section class="rooms-section">
         <div class="container mx-auto">
-            <h2 class="text-2xl font-bold mb-8">Nuestras mejores habitaciones</h2>
+            <h2 class="text-2xl font-bold mb-8">Nuestras habitaciones mejor valoradas</h2>
 
             <div class="flex">
                 <!-- Habitación 3 -->
@@ -272,40 +316,59 @@
     <!-- Sección de servicios -->
     <section class="services-section">
         <div class="container mx-auto">
-            <h2 class="text-2xl font-bold mb-8">Nuestros Servicios</h2>
+            <h2 class="text-2xl font-bold mb-8">Nuestros servicios mejor valorados</h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Servicio 1 -->
-                <div class="service-card">
-                    <img src="path/to/service1.jpg" alt="Servicio 1">
-                    <div class="service-card-content">
-                        <h2>Spa y Bienestar</h2>
-                        <p>Relájate y rejuvenece en nuestro spa de primera clase. Tratamientos exclusivos y atención
-                            personalizada.</p>
+            <div class="flex">
+                <!-- Servicio 9 -->
+                <div class="room-card service-card">
+                    <img src="{{ asset('servicio_index_images/servicio_index_images9.jpg') }}" alt="Servicio 9">
+                    <div class="room-card-content service-card-content">
+                        <h2>{{$servicio9->nombre}}</h2>
+                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
+                            Más información
+                        </button>
                     </div>
                 </div>
 
                 <!-- Servicio 2 -->
-                <div class="service-card">
-                    <img src="path/to/service2.jpg" alt="Servicio 2">
-                    <div class="service-card-content">
-                        <h2>Gastronomía Exquisita</h2>
-                        <p>Descubre una variedad de opciones culinarias en nuestros restaurantes galardonados.
-                            Ingredientes frescos y sabores únicos.</p>
+                <div class="room-card service-card">
+                    <img src="{{ asset('servicio_index_images/servicio_index_images2.jpg') }}" alt="Servicio 2">
+                    <div class="room-card-content service-card-content">
+                        <h2>{{$servicio2->nombre}}</h2>
+                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
+                            Más información
+                        </button>
                     </div>
                 </div>
 
-                <!-- Servicio 3 -->
-                <div class="service-card">
-                    <img src="path/to/service3.jpg" alt="Servicio 3">
-                    <div class="service-card-content">
-                        <h2>Eventos y Conferencias</h2>
-                        <p>Organiza eventos inolvidables en nuestros espacios para conferencias y salones elegantes.
-                            Servicio de alta calidad.</p>
+                <!-- Servicio 6 -->
+                <div class="room-card service-card">
+                    <img src="{{ asset('servicio_index_images/servicio_index_images6.jpg') }}" alt="Servicio 6">
+                    <div class="room-card-content service-card-content">
+                        <h2>{{$servicio5->nombre}}</h2>
+                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
+                            Más información
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <h3 class="text-2xl font-bold">Contacto</h3>
+                <p>Dirección: Tu dirección</p>
+                <p>Teléfono: +123 456 7890</p>
+                <p>Email: info@perikerohotel.com</p>
+            </div>
+            <div class="text-center">
+                <p>&copy; 2024 Perikero Hotel. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
 </body>
 

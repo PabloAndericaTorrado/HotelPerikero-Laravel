@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Habitacion;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -32,12 +33,17 @@ class HomeController extends Controller
         $habitacion3 = Habitacion::find(3);
         $habitacion7 = Habitacion::find(7);
         $habitacion8 = Habitacion::find(8);
+        $servicio9 = Servicio::find(9);
+        $servicio6 = Servicio::find(2);
+        $servicio5 = Servicio::find(5);
 
         return view('welcome', [
             'habitacion3' => $habitacion3,
             'habitacion7' => $habitacion7,
             'habitacion8' => $habitacion8,
+            'servicio9' => $servicio9,
+            'servicio2' => $servicio6,
+            'servicio5' => $servicio5
         ]);
     }
-
 }
