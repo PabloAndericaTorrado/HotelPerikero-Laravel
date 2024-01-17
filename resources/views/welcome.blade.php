@@ -228,7 +228,7 @@
             <div class="container mx-auto">
                 <h1 class="text-primary-dark">Bienvenido a Hotel Perikero</h1>
                 <p id="typed-text"></p>
-                <a href="#"
+                <a href="{{ route('habitaciones.index') }}"
                    class="bg-primary text-white py-2 px-6 rounded-full hover:bg-primary-dark transition-colors duration-300">Reserva
                     ahora</a>
             </div>
@@ -360,7 +360,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <div>
                 <h3 class="text-2xl font-bold">Contacto</h3>
-                <p>Dirección: Tu dirección</p>
+                <p>Dirección: C. Estébanez Calderón, 10 , Marbella</p>
                 <p>Teléfono: +123 456 7890</p>
                 <p>Email: info@perikerohotel.com</p>
             </div>
