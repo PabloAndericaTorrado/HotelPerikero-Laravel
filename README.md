@@ -1,4 +1,4 @@
-![image](https://github.com/PabloAndericaTorrado/HotelPerikero/assets/96045857/411f686b-c6e7-49b9-ac4f-2ab6105e936e)# Lista de Tareas Pendientes
+# Lista de Tareas Pendientes
 
 Este archivo README.md se utilizará para llevar un registro de las tareas pendientes en el proyecto de reservas de habitaciones.
 
