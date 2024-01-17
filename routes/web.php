@@ -43,5 +43,6 @@ Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.st
 Route::get('/reservas/create/{id}', [ReservaController::class, 'create'])->name('reservas.create');
 Route::resource('reservas', ReservaController::class);
 Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
+Route::get('/habitaciones/{habitacion}', 'HabitacionController@show')->name('habitaciones.show');
 
 

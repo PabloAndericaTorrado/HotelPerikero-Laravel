@@ -112,6 +112,10 @@
             transition: transform 0.3s ease-in-out;
         }
 
+        .button-container {
+            margin-top: 1.5rem; /* Ajusta este valor según tus necesidades */
+        }
+
         /* Sección de servicios */
         .services-section {
             background-color: #f8f8f8;
@@ -250,16 +254,19 @@
                         <p><strong>Descripción: </strong>{{ $habitacion3->descripcion }}</p>
                         @if($habitacion3->disponibilidad === 1)
                             <p><strong>Disponibilidad:</strong> Disponible</p>
-                            <button
-                                class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
-                                Más información
-                            </button>
+                            <div class="button-container mt-4">
+                                <a href="{{ route('habitaciones.show', $habitacion3->id) }}"
+                                   class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                    Más información
+                                </a>
+                            </div>
                         @else
                             <p><strong>Disponibilidad: </strong> No disponible</p>
-                            <button
-                                class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed self-start mt-4">No
-                                Disponible
-                            </button>
+                            <div class="button-container mt-4">
+                                <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
+                                    No Disponible
+                                </button>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -271,18 +278,21 @@
                     <div class="room-card-content">
                         <h2>Suite Ejecutiva</h2>
                         <p>{{ $habitacion7->descripcion }}</p>
-                        @if($habitacion3->disponibilidad === 1)
+                        @if($habitacion7->disponibilidad === 1)
                             <p><strong>Disponibilidad:</strong> Disponible</p>
-                            <button
-                                class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
-                                Más información
-                            </button>
+                            <div class="button-container mt-4">
+                                <a href="{{ route('habitaciones.show', $habitacion7->id) }}"
+                                   class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                    Más información
+                                </a>
+                            </div>
                         @else
                             <p><strong>Disponibilidad: </strong> No disponible</p>
-                            <button
-                                class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed self-start mt-4">No
-                                Disponible
-                            </button>
+                            <div class="button-container mt-4">
+                                <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
+                                    No Disponible
+                                </button>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -294,18 +304,21 @@
                     <div class="room-card-content">
                         <h2>Habitación Familiar</h2>
                         <p>{{ $habitacion8->descripcion }}</p>
-                        @if($habitacion3->disponibilidad === 1)
+                        @if($habitacion8->disponibilidad === 1)
                             <p><strong>Disponibilidad:</strong> Disponible</p>
-                            <button
-                                class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
-                                Más información
-                            </button>
+                            <div class="button-container mt-4">
+                                <a href="{{ route('habitaciones.show', $habitacion8->id) }}"
+                                   class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                    Más información
+                                </a>
+                            </div>
                         @else
                             <p><strong>Disponibilidad: </strong> No disponible</p>
-                            <button
-                                class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed self-start mt-4">No
-                                Disponible
-                            </button>
+                            <div class="button-container mt-4">
+                                <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
+                                    No Disponible
+                                </button>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -324,9 +337,11 @@
                     <img src="{{ asset('servicio_index_images/servicio_index_images9.jpg') }}" alt="Servicio 9">
                     <div class="room-card-content service-card-content">
                         <h2>{{$servicio9->nombre}}</h2>
-                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
-                            Más información
-                        </button>
+                        <div class="button-container mt-4">
+                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                Más información
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -335,9 +350,11 @@
                     <img src="{{ asset('servicio_index_images/servicio_index_images2.jpg') }}" alt="Servicio 2">
                     <div class="room-card-content service-card-content">
                         <h2>{{$servicio2->nombre}}</h2>
-                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
-                            Más información
-                        </button>
+                        <div class="button-container mt-4">
+                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                Más información
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -346,9 +363,11 @@
                     <img src="{{ asset('servicio_index_images/servicio_index_images6.jpg') }}" alt="Servicio 6">
                     <div class="room-card-content service-card-content">
                         <h2>{{$servicio5->nombre}}</h2>
-                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md self-start mt-4">
-                            Más información
-                        </button>
+                        <div class="button-container mt-4">
+                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                Más información
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
