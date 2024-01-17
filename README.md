@@ -4,19 +4,16 @@ Este archivo README.md se utilizará para llevar un registro de las tareas pendi
 
 ## Tareas Actuales
 
-1.  **Mostrar Una Vista Cuando No Se Puede Reservar:**
-
-    -   Implementar una vista bonita que indique que días no está disponible esa habitación.
-2.  **Mejorar Las Vistas En General Que Queden:**
+1.  **Mejorar Las Vistas En General Que Queden:**
 
     -   Esto que lo especifique vak
-3.  **Empezar El Proyecto Del Parking:**
+2.  **Empezar El Proyecto Del Parking:**
 
     -   Desde 0, Desde la BBDD hasta ekl controlador, modelos, vistas, seeders
-4.  **Funcionalidades del welcome**
+3.  **Funcionalidades del welcome**
 
     -  Botones que funcionen
-5. **Al entrar en la web que no te pida Iniciar sesión de una**
+4. **Al entrar en la web que no te pida Iniciar sesión de una**
    - manu chivato dale tu
 
 ## Nuevas Funcionalidades Propuestas
