@@ -16,6 +16,8 @@ Este archivo README.md se utilizará para llevar un registro de las tareas pendi
 4.  **Funcionalidades del welcome**
 
     -  Botones que funcionen
+5. **Al entrar en la web que no te pida Iniciar sesión de una**
+   - manu chivato dale tu
 
 ## Nuevas Funcionalidades Propuestas
 
