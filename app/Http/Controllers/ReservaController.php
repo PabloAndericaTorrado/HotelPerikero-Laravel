@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Reserva;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 
