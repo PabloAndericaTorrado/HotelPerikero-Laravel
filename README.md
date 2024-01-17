@@ -13,9 +13,9 @@ Este archivo README.md se utilizará para llevar un registro de las tareas pendi
 3.  **Empezar El Proyecto Del Parking:**
 
     -   Desde 0, Desde la BBDD hasta ekl controlador, modelos, vistas, seeders
-4.  **AÑADIR MÁS TAREAS**
+4.  **Funcionalidades del welcome**
 
-    -  DARLE DURO
+    -  Botones que funcionen
 
 ## Nuevas Funcionalidades Propuestas
 
