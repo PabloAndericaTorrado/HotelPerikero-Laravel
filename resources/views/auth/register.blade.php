@@ -20,6 +20,16 @@
                 </div>
 
                 <div class="mb-4">
+                    <label for="apellidos" class="block text-sm font-medium text-gray-600">{{ __('Apellidos') }}</label>
+                    <input id="apellidos" type="text" class="mt-1 p-2 w-full border rounded-md @error('apellidos') border-red-500 @enderror" name="apellidos" value="{{ old('apellidos') }}" required autocomplete="apellidos">
+                    @error('apellidos')
+                    <span class="text-red-500 text-sm mt-1" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-600">{{ __('Email Address') }}</label>
                     <input id="email" type="email" class="mt-1 p-2 w-full border rounded-md @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
@@ -44,6 +54,56 @@
                 <div class="mb-4">
                     <label for="password-confirm" class="block text-sm font-medium text-gray-600">{{ __('Confirm Password') }}</label>
                     <input id="password-confirm" type="password" class="mt-1 p-2 w-full border rounded-md" name="password_confirmation" required autocomplete="new-password">
+                </div>
+
+                <div class="mb-4">
+                    <label for="telefono" class="block text-sm font-medium text-gray-600">{{ __('Teléfono') }}</label>
+                    <input id="telefono" type="text" class="mt-1 p-2 w-full border rounded-md @error('telefono') border-red-500 @enderror" name="telefono" value="{{ old('telefono') }}" autocomplete="telefono">
+                    @error('telefono')
+                    <span class="text-red-500 text-sm mt-1" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="direccion" class="block text-sm font-medium text-gray-600">{{ __('Dirección') }}</label>
+                    <input id="direccion" type="text" class="mt-1 p-2 w-full border rounded-md @error('direccion') border-red-500 @enderror" name="direccion" value="{{ old('direccion') }}" autocomplete="direccion">
+                    @error('direccion')
+                    <span class="text-red-500 text-sm mt-1" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="país" class="block text-sm font-medium text-gray-600">{{ __('País') }}</label>
+                    <input id="país" type="text" class="mt-1 p-2 w-full border rounded-md @error('país') border-red-500 @enderror" name="país" value="{{ old('país') }}" autocomplete="país">
+                    @error('país')
+                    <span class="text-red-500 text-sm mt-1" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="ciudad" class="block text-sm font-medium text-gray-600">{{ __('Ciudad') }}</label>
+                    <input id="ciudad" type="text" class="mt-1 p-2 w-full border rounded-md @error('ciudad') border-red-500 @enderror" name="ciudad" value="{{ old('ciudad') }}" autocomplete="ciudad">
+                    @error('ciudad')
+                    <span class="text-red-500 text-sm mt-1" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="codigo_postal" class="block text-sm font-medium text-gray-600">{{ __('Código Postal') }}</label>
+                    <input id="codigo_postal" type="text" class="mt-1 p-2 w-full border rounded-md @error('codigo_postal') border-red-500 @enderror" name="codigo_postal" value="{{ old('codigo_postal') }}" autocomplete="codigo_postal">
+                    @error('codigo_postal')
+                    <span class="text-red-500 text-sm mt-1" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
