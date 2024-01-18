@@ -19,6 +19,10 @@ Este archivo README.md se utilizará para llevar un registro de las tareas pendi
 5. **Al hacer la reserva, te aparece la información sobre la reserva y su precio ANTES DE RESERVAR***
 ![image](https://github.com/PabloAndericaTorrado/HotelPerikero/assets/96045857/0231c278-309a-4a48-80a8-bb78622be668)
 
+6 **LAVADO DE CARA AL PERFIL**
+- Lado Izquierdo de la pantalla --> card con los datos personales editable. Un recuadro donde se pueda poner la foto de perfil.
+- Lado Derecho de la pantalla --> un contenedor de cards que almacenen las reservas realizadas con toda la información aparente.
+
 
 ## Nuevas Funcionalidades Propuestas
 
