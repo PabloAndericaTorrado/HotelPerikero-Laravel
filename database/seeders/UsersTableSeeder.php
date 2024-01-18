@@ -9,117 +9,78 @@ use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-
-        // Insertar usuarios de ejemplo
-        DB::table('users')->insert([
+        $users = [
             [
-                'name' => 'Usuario 1',
-                'email' => 'usuario1@example.com',
-                'email_verified_at' => now(),
+                'name' => 'John',
+                'apellidos' => 'Doe',
+                'email' => 'john.doe@example.com',
                 'password' => Hash::make('password1'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'telefono' => '1234567890',
+                'direccion' => '123 Main Street',
+                'país' => 'United States',
+                'ciudad' => 'San Francisco',
+                'codigo_postal' => '90210',
             ],
             [
-                'name' => 'Usuario 2',
-                'email' => 'usuario2@example.com',
-                'email_verified_at' => now(),
+                'name' => 'Jane',
+                'apellidos' => 'Smith',
+                'email' => 'jane.smith@example.com',
                 'password' => Hash::make('password2'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'telefono' => '9876543210',
+                'direccion' => '456 Oak Avenue',
+                'país' => 'United States',
+                'ciudad' => 'New York',
+                'codigo_postal' => '10001',
             ],
-
             [
-                'name' => 'Usuario 3',
-                'email' => 'usuario3@example.com',
-                'email_verified_at' => now(),
+                'name' => 'Alice',
+                'apellidos' => 'Johnson',
+                'email' => 'alice.johnson@example.com',
                 'password' => Hash::make('password3'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'telefono' => '5551234567',
+                'direccion' => '789 Pine Street',
+                'país' => 'United States',
+                'ciudad' => 'Dallas',
+                'codigo_postal' => '75001',
             ],
             [
-                'name' => 'Usuario 4',
-                'email' => 'usuario4@example.com',
-                'email_verified_at' => now(),
+                'name' => 'Bob',
+                'apellidos' => 'Williams',
+                'email' => 'bob.williams@example.com',
                 'password' => Hash::make('password4'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'telefono' => '3339876543',
+                'direccion' => '101 Maple Avenue',
+                'país' => 'United States',
+                'ciudad' => 'Miami',
+                'codigo_postal' => '33123',
             ],
             [
-                'name' => 'Usuario 5',
-                'email' => 'usuario5@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password3'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'name' => 'Eva',
+                'apellidos' => 'Davis',
+                'email' => 'eva.davis@example.com',
+                'password' => Hash::make('password5'),
+                'telefono' => '8885551234',
+                'direccion' => '246 Birch Lane',
+                'país' => 'United States',
+                'ciudad' => 'Alvurkerke',
+                'codigo_postal' => '60601',
             ],
             [
-                'name' => 'Usuario 6',
-                'email' => 'usuario6@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password4'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Usuario 7',
-                'email' => 'usuario7@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password3'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Usuario 8',
-                'email' => 'usuario8@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password4'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Usuario 9',
-                'email' => 'usuario9@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password3'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'Usuario 10',
-                'email' => 'usuario10@example.com',
-                'email_verified_at' => now(),
-                'password' => Hash::make('password4'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'name' => 'admin',
+                'name' => 'Pablo',
+                'apellidos' => 'Andérica Torrado',
                 'email' => 'admin@admin.com',
-                'email_verified_at' => now(),
                 'password' => Hash::make('admin'),
-                'remember_token' => Str::random(10),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'telefono' => '628657710',
+                'direccion' => 'C/ Vak Chivato',
+                'país' => 'ESPAÑA',
+                'ciudad' => 'Badajoz',
+                'codigo_postal' => '06011',
             ],
-            // Puedes agregar más usuarios según sea necesario
-        ]);
+        ];
+        foreach ($users as $user) {
+            DB::table('users')->insert($user);
+        }
     }
 }
