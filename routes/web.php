@@ -44,5 +44,11 @@ Route::get('/reservas/create/{id}', [ReservaController::class, 'create'])->name(
 Route::resource('reservas', ReservaController::class);
 Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
 Route::get('/habitaciones/{habitacion}', 'HabitacionController@show')->name('habitaciones.show');
+Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
+Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
+
+
+
+
 
 

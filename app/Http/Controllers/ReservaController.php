@@ -123,10 +123,9 @@ class ReservaController extends Controller
 
     public function destroy(Reserva $reserva)
     {
-        // Lógica para eliminar una reserva específica
         $reserva->delete();
 
-        return redirect()->route('reservas.index')->with('success', 'Reserva eliminada con éxito');
+        return redirect()->route('habitaciones.index')->with('success', 'Reserva eliminada con éxito');
     }
 
     public function mostrarCuenta()
@@ -134,10 +133,13 @@ class ReservaController extends Controller
         $user = User::with('reservas')->find(auth()->id());
 
         // Mensajes de depuración
-        Log::info($user->reservas); // Verifica las fechas en los registros de reserva
+        Log::info($user->reservas);
 
         return view('habitaciones.cuenta', compact('user'));
     }
-
+    public function showDeleteView(Reserva $reserva)
+    {
+        return view('reservas.delete', compact('reserva'));
+    }
 
 }
