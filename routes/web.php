@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Livewire\ImageLoader;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,10 @@ Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])->name('res
 Route::get('/habitaciones/{habitacion}', 'HabitacionController@show')->name('habitaciones.show');
 Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
 Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
+Route::post('/actualizar-usuario', [UserController::class, 'actualizar'])->name('actualizar-usuario');
+
+
+
 
 
 
