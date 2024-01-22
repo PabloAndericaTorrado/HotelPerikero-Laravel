@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Habitacion;
+use App\Models\Parking;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
@@ -72,6 +73,10 @@ class ReservaController extends Controller
         ]);
 
         $reserva->precio_total = $reserva->calculateTotalPrice();
+        $habitacion = $reserva->habitacion;
+        $plazaParking = new Parking();
+        $plazaParking->habitacion_id = $habitacion->id;
+        $plazaParking->usuario_id = $reserva->users_id;
         $reserva->save();
 
         return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }
