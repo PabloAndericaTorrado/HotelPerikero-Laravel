@@ -32,16 +32,18 @@
                     </li>
                     <li>
                         @if($habitacion->disponibilidad === 1)
-                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                            @auth
+                                <br />
                                 <a href="{{ route('reservas.create', $habitacion->id) }}" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
                                     Reservar Ahora
                                 </a>
-                            </button>
-                        @else
-                            <button
-                                class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed self-start mt-4">No
-                                Disponible
-                            </button>
+                            @else
+                                <form action="{{ route('login') }}" method="GET">
+                                    <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                        Inicia sesión para reservar
+                                    </button>
+                                </form>
+                            @endauth
                         @endif
                     </li>
                 </ul>
