@@ -16,6 +16,7 @@ class Parking extends Model
         'fecha_inicio',
         'fecha_fin',
         'disponibilidad',
+        'matricula',
     ];
 
     public function reserva()

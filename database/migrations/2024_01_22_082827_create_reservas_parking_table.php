@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('reserva_id')->constrained('reservas')->onDelete('cascade');
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
+            $table->string('matricula');
             $table->enum('disponibilidad', ['ocupada', 'no_disponible'])->default('ocupada');
             $table->timestamps();
         });
