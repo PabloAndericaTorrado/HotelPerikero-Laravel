@@ -73,13 +73,13 @@ class ReservaController extends Controller
         ]);
 
         $reserva->precio_total = $reserva->calculateTotalPrice();
-        $reservaParking = new Parking();
-        $reservaParking->reserva_id = $reserva->id;
-        $reservaParking->fecha_inicio = $reserva->check_in;
-        $reservaParking->fecha_fin = $reserva->check_out;
-        $reservaParking->disponibilidad = 'ocupada';
-        $reserva->save();
-
+        $parking = new Parking([
+            'matricula' => $request->input('matricula'),
+            'fecha_inicio' => now(),
+            'fecha_fin' => now(),
+            'disponibilidad' => true,
+        ]);
+        $reserva->parkingReserva()->save($parking);
         return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }
 
 // Función para verificar la disponibilidad de la habitación

@@ -30,11 +30,25 @@
                     <input type="text" name="check_out" id="check_out" class="w-full border p-2 rounded" data-input>
                 </div>
 
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">¿Desea reservar parking?</label>
+                    <div class="flex items-center">
+                        <input type="checkbox" name="reservar_parking" id="reservar_parking" class="mr-2">
+                        <label for="reservar_parking">Quiero parking</label>
+                    </div>
+                </div>
+
+                <div id="campoMatricula" class="mb-4 hidden">
+                    <label for="matricula" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
+                    <input type="text" name="matricula" id="matricula" class="w-full border p-2 rounded">
+                </div>
+
                 <div class="mt-6">
                     <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-700">
                         Reservar Ahora
                     </button>
                 </div>
+
             </form>
         </div>
     </div>
@@ -75,6 +89,13 @@
                 altFormat: "F j, Y",
                 disable: disableDates,
             });
+        });
+
+        const checkboxReservarParking = document.getElementById('reservar_parking');
+        const campoMatricula = document.getElementById('campoMatricula');
+
+        checkboxReservarParking.addEventListener('change', function () {
+            campoMatricula.classList.toggle('hidden', !checkboxReservarParking.checked);
         });
     </script>
 @endsection
