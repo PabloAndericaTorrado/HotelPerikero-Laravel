@@ -73,10 +73,11 @@ class ReservaController extends Controller
         ]);
 
         $reserva->precio_total = $reserva->calculateTotalPrice();
-        $habitacion = $reserva->habitacion;
-        $plazaParking = new Parking();
-        $plazaParking->habitacion_id = $habitacion->id;
-        $plazaParking->usuario_id = $reserva->users_id;
+        $reservaParking = new Parking();
+        $reservaParking->reserva_id = $reserva->id;
+        $reservaParking->fecha_inicio = $reserva->check_in;
+        $reservaParking->fecha_fin = $reserva->check_out;
+        $reservaParking->disponibilidad = 'ocupada';
         $reserva->save();
 
         return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }

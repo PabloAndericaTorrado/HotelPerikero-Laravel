@@ -18,10 +18,4 @@ class Habitacion extends Model
     {
         return $this->reservas()->exists();
     }
-
-    public function parking()
-{
-    return $this->hasOne(Parking::class, 'habitacion_id');
-}
-
 }

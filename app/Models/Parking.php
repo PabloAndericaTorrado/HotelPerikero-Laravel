@@ -9,21 +9,17 @@ class Parking extends Model
 {
     use HasFactory;
 
-    protected $table = 'parking';
+    protected $table = 'reservas_parking';
 
     protected $fillable = [
-        'habitacion_id',
-        'usuario_id',
-        'ocupado',
+        'reserva_id',
+        'fecha_inicio',
+        'fecha_fin',
+        'disponibilidad',
     ];
 
-    public function habitacion()
+    public function reserva()
     {
-        return $this->belongsTo(Habitacion::class, 'habitacion_id');
-    }
-
-    public function usuario()
-    {
-        return $this->belongsTo(User::class, 'usuario_id');
+        return $this->belongsTo(Reserva::class, 'reserva_id');
     }
 }
