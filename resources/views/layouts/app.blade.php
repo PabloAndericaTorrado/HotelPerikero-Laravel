@@ -10,8 +10,13 @@
     <!-- Incluye el archivo CSS de Flatpickr desde la CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.css">
 
-    <!-- Incluye el archivo JavaScript de Flatpickr desde la CDN -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <!-- Flatpickr -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.js"></script>
+
 
     <style>
         /* Añadimos estilos adicionales para centrar el contenido */

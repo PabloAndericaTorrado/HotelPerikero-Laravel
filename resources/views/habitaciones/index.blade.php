@@ -39,5 +39,14 @@
 @endpush
 
 @push('scripts')
-
+    <!-- Scripts específicos para la vista de habitaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 1000,
+                once: true,
+            });
+        });
+    </script>
 @endpush
