@@ -37,7 +37,9 @@ class Reserva extends Model
     // Relación con el modelo ReservaServicio
     public function servicios()
     {
-        return $this->hasMany(ReservaServicio::class, 'reserva_id');
+        return $this->belongsToMany(Servicio::class, 'reserva_servicios', 'reserva_id', 'servicio_id')
+            ->withPivot('cantidad')
+            ->withTimestamps();
     }
 
     public function calculateTotalPrice()
@@ -67,6 +69,8 @@ class Reserva extends Model
     {
         return $this->hasOne(Parking::class, 'reserva_id');
     }
+
+
 
 
 

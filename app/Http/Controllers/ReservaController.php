@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Habitacion;
 use App\Models\Parking;
+use App\Models\Servicio;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
@@ -29,8 +30,9 @@ class ReservaController extends Controller
 
         // Obtener las fechas reservadas para la habitación
         $fechasReservadas = $this->getFechasReservadas($id);
+        $servicios = Servicio::all();
 
-        return view('reservas.create', compact('habitacion', 'fechasReservadas'));
+        return view('reservas.create', compact('habitacion', 'fechasReservadas','servicios'));
     }
 
     // Método para obtener las fechas reservadas de una habitación
@@ -54,7 +56,6 @@ class ReservaController extends Controller
 
     public function store(Request $request)
     {
-
         $habitacionId = $request->habitacion_id;
         $checkIn = $request->check_in;
         $checkOut = $request->check_out;
@@ -63,24 +64,44 @@ class ReservaController extends Controller
             throw ValidationException::withMessages(['error' => 'La habitación no está disponible para las fechas seleccionadas.']);
         }
 
+// Crear la reserva
         $reserva = Reserva::create([
             'users_id' => Auth::id(),
             'habitacion_id' => $habitacionId,
             'check_in' => $checkIn,
             'check_out' => $checkOut,
             'precio_total' => 0,
-            'pagado' => true
+            'pagado' => true,
         ]);
 
+// Asociar servicios seleccionados (si se eligieron)
+        if ($request->has('servicios') && is_array($request->input('servicios'))) {
+            $servicios = [];
+            foreach ($request->input('servicios') as $servicioId) {
+                $servicios[$servicioId] = ['cantidad' => 5]; // Puedes ajustar la cantidad según tus necesidades
+            }
+            $reserva->servicios()->attach($servicios);
+        }
+
+// Calcular el precio total y actualizar la reserva
         $reserva->precio_total = $reserva->calculateTotalPrice();
-        $parking = new Parking([
-            'matricula' => $request->input('matricula'),
-            'fecha_inicio' => now(),
-            'fecha_fin' => now(),
-            'disponibilidad' => true,
-        ]);
-        $reserva->parkingReserva()->save($parking);
-        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }
+
+// Crear y asociar el registro de parking solo si la opción de parking está marcada
+        if ($request->has('reservar_parking') && $request->input('reservar_parking')) {
+            $parking = new Parking([
+                'matricula' => $request->input('matricula'),
+                'fecha_inicio' => now(),
+                'fecha_fin' => now(),
+                'disponibilidad' => true,
+            ]);
+            $reserva->parkingReserva()->save($parking);
+        }
+
+
+// Redirigir a la vista de detalles de la reserva
+        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');
+    }
+
 
 // Función para verificar la disponibilidad de la habitación
     protected function habitacionDisponible($habitacionId, $checkIn, $checkOut)
@@ -136,10 +157,7 @@ class ReservaController extends Controller
 
     public function mostrarCuenta()
     {
-        $user = User::with('reservas')->find(auth()->id());
-
-        // Mensajes de depuración
-        Log::info($user->reservas);
+        $user = User::with(['reservas', 'reservas.servicios'])->find(auth()->id());
 
         return view('habitaciones.cuenta', compact('user'));
     }

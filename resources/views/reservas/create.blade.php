@@ -43,6 +43,38 @@
                     <input type="text" name="matricula" id="matricula" class="w-full border p-2 rounded">
                 </div>
 
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">¿Desea reservar servicios extras?</label>
+                    <div class="flex items-center">
+                        <input type="checkbox" name="reservar_servicios" id="reservar_servicios" class="mr-2">
+                        <label for="reservar_servicios">Quiero reservar servicios</label>
+                    </div>
+                </div>
+
+                <div id="campoServicios" class="mb-4 hidden">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione los servicios:</label>
+                    @foreach ($servicios as $servicio)
+                        <div class="flex items-center">
+                            <input type="checkbox" name="servicios[]" value="{{ $servicio->id }}" class="mr-2">
+                            <label>{{ $servicio->nombre }} - ${{ $servicio->precio }}</label>
+                        </div>
+                    @endforeach
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $('#reservar_servicios').change(function () {
+                            if (this.checked) {
+                                $('#campoServicios').show();
+                            } else {
+                                $('#campoServicios').hide();
+                            }
+                        });
+                    });
+                </script>
+
+
+
                 <div class="mt-6">
                     <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-blue-700">
                         Reservar Ahora
@@ -53,10 +85,9 @@
         </div>
     </div>
 
-    <!-- Coloca el script aquí -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log(@json($fechasReservadas));
 
             // Convertir $fechasReservadas a una colección si no lo es
             const fechasReservadasCollection = @json($fechasReservadas);

@@ -13,7 +13,7 @@
                 <li><strong>Habitación:</strong> {{ $reserva->habitacion->tipo }}</li>
                 <li><strong>Fecha de Check-in:</strong> {{ $reserva->check_in}}</li>
                 <li><strong>Fecha de Check-out:</strong> {{ $reserva->check_out}}</li>
-                <li><strong>Precio Total:</strong> ${{ number_format($reserva->precio_total, 2) }}</li>
+                <li><strong>Precio Total:</strong> ${{ number_format($reserva->calculateTotalPrice(), 2) }}</li>
             </ul>
 
             <div class="mt-6">
