@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservas_parking', function (Blueprint $table) {
+        Schema::create('parking', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('reserva_id')->constrained('reservas')->onDelete('cascade');
-            $table->dateTime('fecha_inicio');
-            $table->dateTime('fecha_fin');
-            $table->string('matricula');
-            $table->enum('disponibilidad', ['ocupada', 'no_disponible'])->default('ocupada');
+            $table->boolean('disponible')->default(true);
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('reservas_parking');
+        Schema::dropIfExists('parking');
     }
 };

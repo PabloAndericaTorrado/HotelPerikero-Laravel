@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HabitacionSeeder::class);
         $this->call(ReservaSeeder::class);
         $this->call(ReservaServiciosSeeder::class);
+        $this->call(ParkingSeeder::class);
     }
 }

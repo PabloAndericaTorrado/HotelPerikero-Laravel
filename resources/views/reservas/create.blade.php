@@ -38,9 +38,9 @@
                     </div>
                 </div>
 
-                <div id="campoMatricula" class="mb-4 hidden">
-                    <label for="matricula" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
-                    <input type="text" name="matricula" id="matricula" class="w-full border p-2 rounded">
+                <div id="campoMatriculaParking" class="mb-4 hidden">
+                    <label for="matricula_parking" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
+                    <input type="text" name="matricula_parking" id="matricula_parking" class="w-full border p-2 rounded">
                 </div>
 
                 <div class="mb-4">
@@ -123,10 +123,10 @@
         });
 
         const checkboxReservarParking = document.getElementById('reservar_parking');
-        const campoMatricula = document.getElementById('campoMatricula');
+        const campoMatriculaParking = document.getElementById('campoMatriculaParking');
 
         checkboxReservarParking.addEventListener('change', function () {
-            campoMatricula.classList.toggle('hidden', !checkboxReservarParking.checked);
+            campoMatriculaParking.classList.toggle('hidden', !checkboxReservarParking.checked);
         });
     </script>
 @endsection

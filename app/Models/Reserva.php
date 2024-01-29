@@ -65,10 +65,11 @@ class Reserva extends Model
         }
         return 0;
     }
-    public function parkingReserva()
+    public function reserva_parking()
     {
-        return $this->hasOne(Parking::class, 'reserva_id');
+        return $this->hasOne(ReservaParking::class, 'reserva_habitacion_id');
     }
+
 
 
 
