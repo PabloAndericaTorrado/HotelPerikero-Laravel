@@ -57,6 +57,17 @@ class Reserva extends Model
         return 0;
     }
 
+    public function calculateTotalPriceWithServices()
+    {
+        $precioTotal = $this->calculateTotalPrice();
+        $precioServicios = $this->servicios->sum(function ($servicio) {
+            return $servicio->precio;
+        });
+        $precioTotal += $precioServicios;
+
+        return $precioTotal;
+    }
+
     public function calculateTotalDays()
     {
         if ($this->check_in instanceof Carbon && $this->check_out instanceof Carbon) {

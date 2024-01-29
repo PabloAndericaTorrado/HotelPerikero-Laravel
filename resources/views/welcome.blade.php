@@ -155,9 +155,10 @@
             font-size: 1rem;
             color: #555;
         }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
     <style>
         #typed-text::after {
             content: '_';
@@ -192,202 +193,214 @@
         }
     </script>
 
+
 </head>
 
 <body>
-    <!-- Barra de inicio -->
-    <header class="header1">
-        <div class="container mx-auto py-4 px-4 flex justify-between items-center">
-            <div class="flex items-center">
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
-                </a>
-                <h1 class="text-3xl font-bold text-white">Perikero Hotel</h1>
-            </div>
-            <nav>
-                <ul class="flex space-x-4">
-                    <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
-                    <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
-                    <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
-                    <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
-                    <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+<!-- Barra de inicio -->
+<header class="header1">
+    <div class="container mx-auto py-4 px-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <a href="{{ url('/') }}">
+                <img src="{{ asset('images/logoPH.jpg') }}" alt="Hotel Elegance" class="h-20 w-20 mr-2">
+            </a>
+            <h1 class="text-3xl font-bold text-white">Perikero Hotel</h1>
+        </div>
+        <nav>
+            <ul class="flex space-x-4">
+                <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
+                <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
+                <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
+                <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
+                <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
 
+                <div x-data="{ isOpen: false }" @click.away="isOpen = false" class="relative">
                     @guest
                         <li><a class="text-white nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
                     @else
-                        <li><a class="text-white nav-link"
-                               href="{{ route('habitaciones.cuenta') }}">{{ auth()->user()->email }}</a></li>
                         <li>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="text-white nav-link">Cerrar Sesión</button>
-                            </form>
+                            <a @click="isOpen = !isOpen" class="text-white nav-link cursor-pointer">
+                                {{ auth()->user()->email }}
+                            </a>
+                            <div x-show="isOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg"
+                                 style="display: none;">
+                                <a href="{{ route('habitaciones.cuenta') }}"
+                                   class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mi Cuenta</a>
+
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left">
+                                        Cerrar Sesión
+                                    </button>
+                                </form>
+                            </div>
                         </li>
                     @endguest
-                </ul>
-            </nav>
-        </div>
-        <!-- Sección principal -->
-        <section class="main-section">
-            <div class="container mx-auto">
-                <h1 class="text-primary-dark">Bienvenido a Hotel Perikero</h1>
-                <p id="typed-text"></p>
-                <a href="{{ route('habitaciones.index') }}"
-                   class="bg-primary text-white py-2 px-6 rounded-full hover:bg-primary-dark transition-colors duration-300">Reserva
-                    ahora</a>
-            </div>
-        </section>
-    </header>
-
-    <!-- Sección de habitaciones -->
-    <section class="rooms-section">
+                </div>
+            </ul>
+        </nav>
+    </div>
+    <!-- Sección principal -->
+    <section class="main-section">
         <div class="container mx-auto">
-            <h2 class="text-2xl font-bold mb-8">Nuestras habitaciones mejor valoradas</h2>
-
-            <div class="flex">
-                <!-- Habitación 3 -->
-                <div class="room-card">
-                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion3->id . '.jpg') }}"
-                         alt="{{ $habitacion3->descripcion }}">
-                    <div class="room-card-content">
-                        <h2>Suite de lujo</h2>
-                        <p><strong>Descripción: </strong>{{ $habitacion3->descripcion }}</p>
-                        @if($habitacion3->disponibilidad === 1)
-                            <p><strong>Disponibilidad:</strong> Disponible</p>
-                            <div class="button-container mt-4">
-                                <a href="{{ route('habitaciones.show', $habitacion3->id) }}"
-                                   class="bg-blue-500 text-white px-6 py-3 rounded-md">
-                                    Más información
-                                </a>
-                            </div>
-                        @else
-                            <p><strong>Disponibilidad: </strong> No disponible</p>
-                            <div class="button-container mt-4">
-                                <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
-                                    No Disponible
-                                </button>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Habitación 7 -->
-                <div class="room-card">
-                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion7->id . '.jpg') }}"
-                         alt="{{ $habitacion7->descripcion }}">
-                    <div class="room-card-content">
-                        <h2>Suite Ejecutiva</h2>
-                        <p>{{ $habitacion7->descripcion }}</p>
-                        @if($habitacion7->disponibilidad === 1)
-                            <p><strong>Disponibilidad:</strong> Disponible</p>
-                            <div class="button-container mt-4">
-                                <a href="{{ route('habitaciones.show', $habitacion7->id) }}"
-                                   class="bg-blue-500 text-white px-6 py-3 rounded-md">
-                                    Más información
-                                </a>
-                            </div>
-                        @else
-                            <p><strong>Disponibilidad: </strong> No disponible</p>
-                            <div class="button-container mt-4">
-                                <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
-                                    No Disponible
-                                </button>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Habitación 8 -->
-                <div class="room-card">
-                    <img src="{{ asset('habitacion_images/habitacion_' . $habitacion8->id . '.jpg') }}"
-                         alt="{{ $habitacion8->descripcion }}">
-                    <div class="room-card-content">
-                        <h2>Habitación Familiar</h2>
-                        <p>{{ $habitacion8->descripcion }}</p>
-                        @if($habitacion8->disponibilidad === 1)
-                            <p><strong>Disponibilidad:</strong> Disponible</p>
-                            <div class="button-container mt-4">
-                                <a href="{{ route('habitaciones.show', $habitacion8->id) }}"
-                                   class="bg-blue-500 text-white px-6 py-3 rounded-md">
-                                    Más información
-                                </a>
-                            </div>
-                        @else
-                            <p><strong>Disponibilidad: </strong> No disponible</p>
-                            <div class="button-container mt-4">
-                                <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
-                                    No Disponible
-                                </button>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
+            <h1 class="text-primary-dark">Bienvenido a Hotel Perikero</h1>
+            <p id="typed-text"></p>
+            <a href="{{ route('habitaciones.index') }}"
+               class="bg-primary text-white py-2 px-6 rounded-full hover:bg-primary-dark transition-colors duration-300">Reserva
+                ahora</a>
         </div>
     </section>
+</header>
 
-    <!-- Sección de servicios -->
-    <section class="services-section">
-        <div class="container mx-auto">
-            <h2 class="text-2xl font-bold mb-8">Nuestros servicios mejor valorados</h2>
+<!-- Sección de habitaciones -->
+<section class="rooms-section">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-8">Nuestras habitaciones mejor valoradas</h2>
 
-            <div class="flex">
-                <!-- Servicio 9 -->
-                <div class="room-card service-card">
-                    <img src="{{ asset('servicio_index_images/servicio_index_images9.jpg') }}" alt="Servicio 9">
-                    <div class="room-card-content service-card-content">
-                        <h2>{{$servicio9->nombre}}</h2>
+        <div class="flex">
+            <!-- Habitación 3 -->
+            <div class="room-card">
+                <img src="{{ asset('habitacion_images/habitacion_' . $habitacion3->id . '.jpg') }}"
+                     alt="{{ $habitacion3->descripcion }}">
+                <div class="room-card-content">
+                    <h2>Suite de lujo</h2>
+                    <p><strong>Descripción: </strong>{{ $habitacion3->descripcion }}</p>
+                    @if($habitacion3->disponibilidad === 1)
+                        <p><strong>Disponibilidad:</strong> Disponible</p>
                         <div class="button-container mt-4">
-                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                            <a href="{{ route('habitaciones.show', $habitacion3->id) }}"
+                               class="bg-blue-500 text-white px-6 py-3 rounded-md">
                                 Más información
+                            </a>
+                        </div>
+                    @else
+                        <p><strong>Disponibilidad: </strong> No disponible</p>
+                        <div class="button-container mt-4">
+                            <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
+                                No Disponible
                             </button>
                         </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Habitación 7 -->
+            <div class="room-card">
+                <img src="{{ asset('habitacion_images/habitacion_' . $habitacion7->id . '.jpg') }}"
+                     alt="{{ $habitacion7->descripcion }}">
+                <div class="room-card-content">
+                    <h2>Suite Ejecutiva</h2>
+                    <p>{{ $habitacion7->descripcion }}</p>
+                    @if($habitacion7->disponibilidad === 1)
+                        <p><strong>Disponibilidad:</strong> Disponible</p>
+                        <div class="button-container mt-4">
+                            <a href="{{ route('habitaciones.show', $habitacion7->id) }}"
+                               class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                Más información
+                            </a>
+                        </div>
+                    @else
+                        <p><strong>Disponibilidad: </strong> No disponible</p>
+                        <div class="button-container mt-4">
+                            <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
+                                No Disponible
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Habitación 8 -->
+            <div class="room-card">
+                <img src="{{ asset('habitacion_images/habitacion_' . $habitacion8->id . '.jpg') }}"
+                     alt="{{ $habitacion8->descripcion }}">
+                <div class="room-card-content">
+                    <h2>Habitación Familiar</h2>
+                    <p>{{ $habitacion8->descripcion }}</p>
+                    @if($habitacion8->disponibilidad === 1)
+                        <p><strong>Disponibilidad:</strong> Disponible</p>
+                        <div class="button-container mt-4">
+                            <a href="{{ route('habitaciones.show', $habitacion8->id) }}"
+                               class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                                Más información
+                            </a>
+                        </div>
+                    @else
+                        <p><strong>Disponibilidad: </strong> No disponible</p>
+                        <div class="button-container mt-4">
+                            <button class="bg-red-500 text-white px-6 py-3 rounded-md cursor-not-allowed" disabled>
+                                No Disponible
+                            </button>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección de servicios -->
+<section class="services-section">
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-bold mb-8">Nuestros servicios mejor valorados</h2>
+
+        <div class="flex">
+            <!-- Servicio 9 -->
+            <div class="room-card service-card">
+                <img src="{{ asset('servicio_index_images/servicio_index_images9.jpg') }}" alt="Servicio 9">
+                <div class="room-card-content service-card-content">
+                    <h2>{{$servicio9->nombre}}</h2>
+                    <div class="button-container mt-4">
+                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                            Más información
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Servicio 2 -->
-                <div class="room-card service-card">
-                    <img src="{{ asset('servicio_index_images/servicio_index_images2.jpg') }}" alt="Servicio 2">
-                    <div class="room-card-content service-card-content">
-                        <h2>{{$servicio2->nombre}}</h2>
-                        <div class="button-container mt-4">
-                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
-                                Más información
-                            </button>
-                        </div>
+            <!-- Servicio 2 -->
+            <div class="room-card service-card">
+                <img src="{{ asset('servicio_index_images/servicio_index_images2.jpg') }}" alt="Servicio 2">
+                <div class="room-card-content service-card-content">
+                    <h2>{{$servicio2->nombre}}</h2>
+                    <div class="button-container mt-4">
+                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                            Más información
+                        </button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Servicio 6 -->
-                <div class="room-card service-card">
-                    <img src="{{ asset('servicio_index_images/servicio_index_images6.jpg') }}" alt="Servicio 6">
-                    <div class="room-card-content service-card-content">
-                        <h2>{{$servicio5->nombre}}</h2>
-                        <div class="button-container mt-4">
-                            <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
-                                Más información
-                            </button>
-                        </div>
+            <!-- Servicio 6 -->
+            <div class="room-card service-card">
+                <img src="{{ asset('servicio_index_images/servicio_index_images6.jpg') }}" alt="Servicio 6">
+                <div class="room-card-content service-card-content">
+                    <h2>{{$servicio5->nombre}}</h2>
+                    <div class="button-container mt-4">
+                        <button class="bg-blue-500 text-white px-6 py-3 rounded-md">
+                            Más información
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto flex justify-between items-center">
-            <div>
-                <h3 class="text-2xl font-bold">Contacto</h3>
-                <p>Dirección: C. Estébanez Calderón, 10 , Marbella</p>
-                <p>Teléfono: +123 456 7890</p>
-                <p>Email: info@perikerohotel.com</p>
-            </div>
-            <div class="text-center">
-                <p>&copy; 2024 Perikero Hotel. Todos los derechos reservados.</p>
-            </div>
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto flex justify-between items-center">
+        <div>
+            <h3 class="text-2xl font-bold">Contacto</h3>
+            <p>Dirección: C. Estébanez Calderón, 10 , Marbella</p>
+            <p>Teléfono: +123 456 7890</p>
+            <p>Email: info@perikerohotel.com</p>
         </div>
-    </footer>
-
+        <div class="text-center">
+            <p>&copy; 2024 Perikero Hotel. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
 </body>
 

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container mx-auto mt-8">
-        <div class="max-w-4xl mx-auto bg-white p-8 rounded shadow-lg">
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded shadow-lg">
             <h1 class="text-4xl font-semibold mb-8">Mi Perfil</h1>
 
             <div class="mb-4">
@@ -101,21 +101,31 @@
 
 
                                     <div class="bg-gray-100 p-4 rounded w-full gap-4 mb-4">
-                                        <p><strong>Alojamiento:</strong></p>
-                                        <p><strong>Gastos de gestión:</strong> $0.00</p>
-                                        <p><strong>Precio por noche</strong> {{  $reserva->habitacion->precio  }}</p>
-                                        <p><strong>Estancia total:</strong> {{ $reserva -> calculateTotalDays() }} </p>
-                                        <p><strong>Pagado:</strong> {{ $reserva->pagado ? 'Sí' : 'No' }}</p>
-
-                                        <div class="my-3">
-                                            <hr class="border-t-2 border-gray-300">
+                                        <div class="flex flex-col space-y-4">
+                                            <div>
+                                                <p class="text-lg font-semibold mb-2 text-red-500">Detalles de la Reserva</p>
+                                                <p><strong>Gastos de gestión:</strong> $0.00</p>
+                                                <p><strong>Precio por noche:</strong> ${{ $reserva->habitacion->precio }}</p>
+                                                <p><strong>Estancia total:</strong> {{ $reserva->calculateTotalDays() }} noches</p>
+                                                <p><strong>Pagado:</strong> {{ $reserva->pagado ? 'Sí' : 'No' }}</p>
+                                            </div>
+                                            <hr class="border-t-2 border-gray-300 my-4">
+                                            <p class="text-lg font-semibold mb-2 text-red-500">Servicios Adicionales</p>
+                                            @if(count($reserva->servicios) > 0)
+                                                <ul>
+                                                    @foreach($reserva->servicios as $servicio)
+                                                        <li>{{ $servicio->nombre }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <p>No se han seleccionado servicios adicionales.</p>
+                                            @endif
+                                            <hr class="border-t-2 border-gray-300 my-4">
+                                            <div class="text-center">
+                                                <p class="text-lg font-semibold mb-2">Total: ${{ number_format((float)$reserva->calculateTotalPriceWithServices(), 2) }}</p>
+                                            </div>
                                         </div>
-
-                                        <p class="text-center"><strong>Total:</strong> ${{ number_format((float)$reserva->calculateTotalPrice(), 2) }}</p>
                                     </div>
-
-
-
                                     <div class="text-center">
                                         <form action="{{ route('reservas.delete.view', $reserva->id) }}" method="get"
                                               class="mt-4">
@@ -147,13 +157,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <style>
-        .linea-bottom {
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 8px;
-            margin-bottom: 8px;
-        }
-    </style>
     <script>
         function mostrarSeccion(seccionId) {
             document.getElementById('perfilContainer').style.display = 'none';
