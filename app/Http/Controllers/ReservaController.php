@@ -9,6 +9,7 @@ use App\Models\Parking;
 use App\Models\ReservaParking;
 use App\Models\Servicio;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Reserva;
 use Illuminate\Support\Facades\Auth;
@@ -173,6 +174,22 @@ class ReservaController extends Controller
     public function showDeleteView(Reserva $reserva)
     {
         return view('reservas.delete', compact('reserva'));
+    }
+
+    public function todayReservations()
+    {
+        $today = Carbon::now()->format('Y-m-d'); // Obtiene la fecha actual
+
+        // Obtén todas las reservas para el día actual
+        $reservasHoy = Reserva::whereDate('check_in', $today)->get();
+
+        return view('admins.today_reservations', compact('reservasHoy'));
+    }
+
+    public function cancelReservation(Reserva $reserva)
+    {
+        $this->destroy($reserva);
+        return redirect()->route('admins.today_reservations')->with('success', 'Reserva cancelada con éxito');
     }
 
 }

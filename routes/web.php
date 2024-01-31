@@ -60,6 +60,10 @@ Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDe
 Route::post('/actualizar-usuario', [UserController::class, 'actualizar'])->name('actualizar-usuario');
 
 // Rutas protegidas por middleware 'role:admin'
-Route::middleware(['role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/today-reservations', [AdminController::class, 'todayReservations'])->name('admins.today_reservations');
+    Route::get('/admin/create-reservation', [AdminController::class, 'createReservations'])->name('admins.create_reservation');
+    Route::get('/admin/today-reservations', [ReservaController::class, 'todayReservations'])->name('admins.today_reservations');
+    Route::patch('/admin/reservas/{reserva}/cancel', [ReservaController::class, 'cancelReservation'])->name('reservas.cancel');
 });
