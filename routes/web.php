@@ -43,10 +43,6 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
     Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
 });
-// Rutas protegidas por middleware 'role:admin'
-Route::middleware(['role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-});
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -57,3 +53,5 @@ Route::get('/habitaciones/{habitacion}', 'HabitacionController@show')->name('hab
 Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
 Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
 Route::post('/actualizar-usuario', [UserController::class, 'actualizar'])->name('actualizar-usuario');
+
+

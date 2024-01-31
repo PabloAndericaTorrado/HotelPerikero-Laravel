@@ -86,23 +86,25 @@ class ReservaController extends Controller
 
 // Calcular el precio total y actualizar la reserva
         $reserva->precio_total = $reserva->calculateTotalPrice();
+        if ($request->has('reservar_parking')) {
 
-        $plazaParking = Parking::where('disponible', true)->first();
+            $plazaParking = Parking::where('disponible', true)->first();
 
-// Verificar si se encontró una plaza de estacionamiento disponible
-        if ($plazaParking) {
-            // Crear la reserva de estacionamiento con la plaza disponible
-            $reservaParking = new ReservaParking([
-                'matricula' => $request->input('matricula_parking'),
-                'fecha_inicio' => now(),
-                'fecha_fin' => now(),  // Ajusta según tu lógica
-                'reserva_habitacion_id' => $reserva->id,  // Cambia a la relación de habitación si es necesario
-                'reserva_parking_id' => $plazaParking->id,
-            ]);
+            // Verificar si se encontró una plaza de estacionamiento disponible
+            if ($plazaParking) {
+                // Crear la reserva de estacionamiento con la plaza disponible
+                $reservaParking = new ReservaParking([
+                    'matricula' => $request->input('matricula_parking') ?? 'Sin matrícula',
+                    'fecha_inicio' => now(),
+                    'fecha_fin' => now(),  // Ajusta según tu lógica
+                    'reserva_habitacion_id' => $reserva->id,  // Cambia a la relación de habitación si es necesario
+                    'reserva_parking_id' => $plazaParking->id,
+                ]);
 
-            $reservaParking->save();
-        } else {
-            return redirect()->back()->with('error', 'Lo sentimos, no hay plazas de estacionamiento disponibles en este momento.');
+                $reservaParking->save();
+            } else {
+                return redirect()->back()->with('error', 'Lo sentimos, no hay plazas de estacionamiento disponibles en este momento.');
+            }
         }
         return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }
 
@@ -153,6 +155,10 @@ class ReservaController extends Controller
 
     public function destroy(Reserva $reserva)
     {
+        // Eliminar los registros relacionados en la tabla reserva_servicios
+        $reserva->servicios()->detach();
+
+        // Ahora puedes eliminar la reserva
         $reserva->delete();
 
         return redirect()->route('habitaciones.index')->with('success', 'Reserva eliminada con éxito');

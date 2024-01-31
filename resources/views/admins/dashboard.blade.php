@@ -1,21 +1,16 @@
-{{-- resources/views/admin/dashboard.blade.php --}}
+{{-- resources/views/recepcionista/dashboard.blade.php --}}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Panel de Recepcionista</div>
 
-@extends('layouts.app')
+                <div class="card-body">
+                    ¡Bienvenido al panel de recepcionista, {{ Auth::user()->name }}!
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Panel de Administrador</div>
-
-                    <div class="card-body">
-                        ¡Bienvenido al panel de administración, {{ Auth::user()->name }}!
-
-                        {{-- Aquí puedes agregar contenido específico para el dashboard del administrador --}}
-                    </div>
+                    {{-- Puedes agregar contenido específico para el dashboard del recepcionista --}}
                 </div>
             </div>
         </div>
     </div>
-@endsection
+</div>
