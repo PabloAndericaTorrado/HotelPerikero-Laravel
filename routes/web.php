@@ -54,4 +54,7 @@ Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'
 Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
 Route::post('/actualizar-usuario', [UserController::class, 'actualizar'])->name('actualizar-usuario');
 
-
+// Rutas protegidas por middleware 'role:admin'
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
