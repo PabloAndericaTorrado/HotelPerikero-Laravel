@@ -28,6 +28,7 @@ Auth::routes();
 
 
 
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', function () {
         return view('perfil');
@@ -42,6 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
     Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
     Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
+});
+
+Route::middleware(['role:parking'])->group(function () {
+    Route::get('/worker/parking', [AdminController::class, 'parking'])->name('worker.parking');
 });
 
 

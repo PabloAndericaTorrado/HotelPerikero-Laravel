@@ -10,4 +10,8 @@ class AdminController extends Controller
     {
         return view('admins.dashboard');
     }
+
+    public function parking(){
+        return view ('workers.parking');
+    }
 }

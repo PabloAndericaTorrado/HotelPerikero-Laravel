@@ -44,6 +44,10 @@ class LoginController extends Controller
             return '/admin/dashboard';
         }
 
-        return '/home'; // Cambia '/home' a la ruta que prefieras para usuarios no admin
+        if (Auth::check() && Auth::user()->rol === 'parking'){
+            return '/worker/parking';
+        }
+
+        return '/'; // Cambia '/home' a la ruta que prefieras para usuarios no admin
     }
 }

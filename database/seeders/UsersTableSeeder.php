@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
                 'país' => 'United States',
                 'ciudad' => 'New York',
                 'codigo_postal' => '10001',
-                'rol' => 'user',
+                'rol' => 'parking',
             ],
             // Otros usuarios...
             [

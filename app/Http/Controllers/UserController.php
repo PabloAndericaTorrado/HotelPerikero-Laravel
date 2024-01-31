@@ -16,5 +16,4 @@ class UserController extends Controller
 
         return response()->json(['mensaje' => 'Usuario actualizado correctamente']);
     }
-
 }
