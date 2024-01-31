@@ -8,6 +8,8 @@ use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\ReservaServicioController;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +23,10 @@ Route::resource('servicios', ServicioController::class);
 Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.index');
 
 Auth::routes();
+// web.php
+
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', function () {
@@ -37,6 +43,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
     Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
 });
+// Rutas protegidas por middleware 'role:admin'
+Route::middleware(['role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
@@ -46,7 +57,3 @@ Route::get('/habitaciones/{habitacion}', 'HabitacionController@show')->name('hab
 Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
 Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
 Route::post('/actualizar-usuario', [UserController::class, 'actualizar'])->name('actualizar-usuario');
-
-
-
-
