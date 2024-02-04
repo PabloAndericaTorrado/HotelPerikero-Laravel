@@ -17,6 +17,7 @@ class CreateReservasTable extends Migration
             $table->decimal('precio_total', 8, 2);
             $table->boolean('pagado');
             $table->boolean('confirmado')->default(false);
+            $table->string('dni')->nullable()->default(null);
             $table->timestamps();
             $table->unique(['habitacion_id', 'check_in', 'check_out']);
         });

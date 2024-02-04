@@ -93,9 +93,14 @@
                                     <div class="flex flex-col space-y-4">
                                         <div>
                                             <p class="text-lg font-semibold mb-2 text-blue-500">Detalles del Cliente</p>
+                                            @if ($reserva->usuario->email === 'admin@admin.com')
+                                            <p><strong>Reserva Hecha por Telefono:</strong></p>
+                                                <p><strong>DNI:</strong> {{ $reserva->dni }}</p>
+                                            @else
                                             <p><strong>Nombre:</strong> {{ $reserva->usuario->name }} {{ $reserva->usuario->apellidos }}</p>
                                             <p><strong>Email:</strong> {{ $reserva->usuario->email }}</p>
                                             <p><strong>Telefono:</strong> {{ $reserva->usuario->telefono}}</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

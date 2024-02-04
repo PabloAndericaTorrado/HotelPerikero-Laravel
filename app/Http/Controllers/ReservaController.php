@@ -204,5 +204,71 @@ class ReservaController extends Controller
             return redirect()->route('admins.today_reservations')->with('error', 'Ocurrió un error al confirmar la reserva');
         }
     }
+    public function createReservationForm()
+    {
+        $habitaciones = Habitacion::all();
+        $servicios = Servicio::all();
+        // Obtén las fechas reservadas para la primera habitación por defecto, ajusta según tu lógica
+        $fechasReservadas = $this->getFechasReservadas($habitaciones->first()->id);
+
+        return view('admins.create_reservation', compact('habitaciones', 'servicios', 'fechasReservadas'));
+    }
+
+    public function store2(Request $request)
+    {
+
+
+        $habitacionId = $request->habitacion_id;
+        $checkIn = $request->check_in;
+        $checkOut = $request->check_out;
+
+        if (!$this->habitacionDisponible($habitacionId, $checkIn, $checkOut)) {
+            throw ValidationException::withMessages(['error' => 'La habitación no está disponible para las fechas seleccionadas.']);
+        }
+
+        $reserva = Reserva::create([
+            'users_id' => Auth::id(),
+            'habitacion_id' => $habitacionId,
+            'check_in' => $checkIn,
+            'check_out' => $checkOut,
+            'precio_total' => 0,
+            'pagado' => true,
+            'dni' => $request->dni,
+
+        ]);
+
+// Asociar servicios seleccionados (si se eligieron)º
+        if ($request->has('servicios') && is_array($request->input('servicios'))) {
+            $servicios = [];
+            foreach ($request->input('servicios') as $servicioId) {
+                $servicios[$servicioId] = ['cantidad' => 5]; // Puedes ajustar la cantidad según tus necesidades
+            }
+            $reserva->servicios()->attach($servicios);
+        }
+
+// Calcular el precio total y actualizar la reserva
+        $reserva->precio_total = $reserva->calculateTotalPrice();
+        if ($request->has('reservar_parking')) {
+
+            $plazaParking = Parking::where('disponible', true)->first();
+
+            // Verificar si se encontró una plaza de estacionamiento disponible
+            if ($plazaParking) {
+                // Crear la reserva de estacionamiento con la plaza disponible
+                $reservaParking = new ReservaParking([
+                    'matricula' => $request->input('matricula_parking') ?? 'Sin matrícula',
+                    'fecha_inicio' => now(),
+                    'fecha_fin' => now(),  // Ajusta según tu lógica
+                    'reserva_habitacion_id' => $reserva->id,  // Cambia a la relación de habitación si es necesario
+                    'reserva_parking_id' => $plazaParking->id,
+                ]);
+
+                $reservaParking->save();
+            } else {
+                return redirect()->back()->with('error', 'Lo sentimos, no hay plazas de estacionamiento disponibles en este momento.');
+            }
+        }
+        return redirect()->route('admins.create_reservation')->with('success', 'Reserva creada con éxito');    }
+
 
 }

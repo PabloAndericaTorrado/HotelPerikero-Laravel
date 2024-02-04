@@ -21,7 +21,8 @@ class Reserva extends Model
         'check_out',
         'precio_total',
         'pagado',
-        'confirmado'
+        'confirmado',
+        'dni'
     ];
 
 

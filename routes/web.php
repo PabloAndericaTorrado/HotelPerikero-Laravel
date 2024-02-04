@@ -67,4 +67,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/today-reservations', [ReservaController::class, 'todayReservations'])->name('admins.today_reservations');
     Route::patch('/admin/reservas/{reserva}/cancel', [ReservaController::class, 'cancelReservation'])->name('reservas.cancel');
     Route::patch('/reservas/{reserva}/confirmar', [ReservaController::class, 'confirmarReserva'])->name('reservas.confirm');
+    Route::get('/admin/create-reservation', [ReservaController::class, 'createReservationForm'])->name('admins.create_reservation');
+    Route::post('/admin/create-reservation', [ReservaController::class, 'store2'])->name('reservas.store2');
+
+
 });

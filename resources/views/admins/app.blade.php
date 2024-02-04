@@ -65,16 +65,13 @@
         </div>
         <nav>
             <ul class="flex space-x-4">
-                <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
-                <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
-                <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
-                <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
-                <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+                <li><a class="text-white nav-link" href="{{ url('/admin/dashboard') }}">Inicio</a></li>
+                <li><a class="text-white nav-link" href="{{ route('admins.today_reservations') }}">Reservas De Hoy</a></li>
+                <li><a class="text-white nav-link" href="{{ route('admins.create_reservation') }}">Crear Reserva</a></li>
 
                 @guest
                     <li><a class="text-white nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
                 @else
-                    <li><a class="text-white nav-link" href="{{ route('habitaciones.cuenta') }}">{{ auth()->user()->email }}</a></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf

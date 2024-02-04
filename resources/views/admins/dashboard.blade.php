@@ -1,3 +1,5 @@
+@extends('admins.app')
+@section('content')
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,9 +17,10 @@
         <ul>
             <li><a href="{{ route('admins.today_reservations') }}">Reservas de hoy</a></li>
             <li><a href="{{ route('admins.create_reservation') }}">Crear Reserva</a></li>
-            <!-- Agrega más enlaces según tus necesidades -->
+
         </ul>
     </div>
 </div>
 </body>
 </html>
+@endsection
