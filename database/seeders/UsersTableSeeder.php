@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
                 'país' => 'United States',
                 'ciudad' => 'New York',
                 'codigo_postal' => '10001',
-                'rol' => 'parking',
+                'rol' => 'user',
             ],
             // Otros usuarios...
             [
@@ -48,6 +48,18 @@ class UsersTableSeeder extends Seeder
                 'ciudad' => 'Badajoz',
                 'codigo_postal' => '06011',
                 'rol' => 'admin',
+            ],
+            [
+                'name' => 'Parking',
+                'apellidos' => 'Parking',
+                'email' => 'parking@admin.com',
+                'password' => Hash::make('admin'),
+                'telefono' => '628657710',
+                'direccion' => 'C/ Vak Chivato',
+                'país' => 'ESPAÑA',
+                'ciudad' => 'Badajoz',
+                'codigo_postal' => '06011',
+                'rol' => 'parking',
             ],
         ];
         foreach ($users as $user) {

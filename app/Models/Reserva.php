@@ -20,7 +20,8 @@ class Reserva extends Model
         'check_in',
         'check_out',
         'precio_total',
-        'pagado'
+        'pagado',
+        'confirmado'
     ];
 
 

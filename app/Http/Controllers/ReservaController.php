@@ -192,4 +192,17 @@ class ReservaController extends Controller
         return redirect()->route('admins.today_reservations')->with('success', 'Reserva cancelada con éxito');
     }
 
+    public function confirmarReserva(Reserva $reserva)
+    {
+        try {
+            $reserva->update(['confirmado' => true]);
+
+            return redirect()->route('admins.today_reservations')->with('success', 'Reserva confirmada con éxito');
+        } catch (QueryException $e) {
+            Log::error('Error al confirmar reserva: ' . $e->getMessage());
+
+            return redirect()->route('admins.today_reservations')->with('error', 'Ocurrió un error al confirmar la reserva');
+        }
+    }
+
 }
