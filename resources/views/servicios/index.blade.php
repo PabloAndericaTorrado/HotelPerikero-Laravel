@@ -9,10 +9,10 @@
                 <div class="overflow-hidden rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300">
                     <img src="{{ asset('servicio_images/servicio_' . ($i + 1) . '.jpg') }}" class="w-full h-40 object-cover">
                     <div class="p-4">
-                        <h2 class="text-lg font-semibold mb-2 text-center">{{ $servicio->nombre }}</h2>
-                        <p class="text-gray-600 text-center text-justify" style="text-align-last: left;">{{ $servicio->descripcion }}</p>
+                        <h2 class="text-lg font-semibold mb-2">{{ $servicio->nombre }}</h2>
+                        <p class="text-gray-600 text-justify" style="text-align-last: left;">{{ $servicio->descripcion }}</p>
                         <br>
-                        <p class="text-black-600 text-center"><strong>Precio:</strong> ${{ $servicio->precio }}</p>
+                        <p class="text-black-600"><strong>Precio:</strong> ${{ $servicio->precio }}</p>
                     </div>
                 </div>
             @endforeach

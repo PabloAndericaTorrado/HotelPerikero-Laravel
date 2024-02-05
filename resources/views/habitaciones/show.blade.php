@@ -23,10 +23,9 @@
                     </button>
                 </div>
 
-                <ul class="text-sm text-gray-600">
+                <ul class="text-base text-gray-800">
                     <li><strong>Tipo de habitación: </strong>{{ $habitacion->tipo }}</li>
                     <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
-
                     <li>
                         <strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}
                     </li>
@@ -34,12 +33,12 @@
                         @if($habitacion->disponibilidad === 1)
                             @auth
                                 <br />
-                                <a href="{{ route('reservas.create', $habitacion->id) }}" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                <a href="{{ route('reservas.create', $habitacion->id) }}" class="bg-blue-500 text-white font-bold hover:text-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4 py-2 px-4 rounded-md">
                                     Reservar Ahora
                                 </a>
                             @else
                                 <form action="{{ route('login') }}" method="GET">
-                                    <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                    <button type="submit" class="bg-blue-500 text-white font-bold hover:text-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4 py-2 px-4 rounded-md">
                                         Inicia sesión para reservar
                                     </button>
                                 </form>
@@ -47,6 +46,8 @@
                         @endif
                     </li>
                 </ul>
+
+
             </div>
 
             <div class="col-span-2 bg-white p-6 rounded-lg shadow-md">
@@ -60,8 +61,9 @@
                     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 justify-center">
                         @foreach($servicios as $index => $servicio)
                             <div class="flex flex-col items-center">
-                                <img src="{{ asset('servicio_images/servicio_' . ($index + 1) . '.png') }}"
-                                     class="w-16 h-16 object-cover rounded mx-6 my-6">
+                                <img src="{{ asset('servicio_images/servicio_' . ($index + 1) . '.jpg') }}"
+                                     class="w-25 h-25 object-cover rounded mx-6 my-6">
+                                <p class="text-lg mb-2 text-center">{{ $servicio->nombre }}</p>
                             </div>
                         @endforeach
                     </div>
