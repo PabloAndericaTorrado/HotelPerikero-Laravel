@@ -18,8 +18,8 @@ class Servicio extends Model
     public function reservas()
     {
         return $this->belongsToMany(Reserva::class, 'reserva_servicios', 'servicio_id', 'reserva_id')
-            ->withPivot('cantidad') // Si es necesario, puedes incluir otros campos pivot
-            ->withTimestamps(); // Para gestionar automáticamente las marcas de tiempo de la tabla pivot
+            ->withPivot('cantidad')
+            ->withTimestamps();
     }
 
 }

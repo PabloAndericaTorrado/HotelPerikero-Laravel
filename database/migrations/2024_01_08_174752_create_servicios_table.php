@@ -12,6 +12,7 @@ class CreateServiciosTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->decimal('precio', 8, 2);
+            $table->text('descripcion');
             $table->timestamps();
         });
     }
