@@ -1,20 +1,12 @@
-{{-- resources/views/admin/dashboard.blade.php --}}
-
-@extends('layouts.app')
+@extends('workers.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Panel de parking</div>
-
-                    <div class="card-body">
-                        ¡Bienvenido al panel de parking, {{ Auth::user()->name }}!
-
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl font-bold mb-4">Reservas de Estacionamiento</h1>
+        <ul>
+            @foreach ($reservasParking as $reservaParking)
+                <li>{{ $reservaParking->id }}</li>
+            @endforeach
+        </ul>
     </div>
 @endsection

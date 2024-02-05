@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReservaParkingController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\ImageLoader;
 use Illuminate\Support\Facades\Auth;
@@ -72,3 +73,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 
 });
+Route::get('/worker/parking', [ReservaParkingController::class, 'index'])->name('parking');
