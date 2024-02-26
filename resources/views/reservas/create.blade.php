@@ -46,7 +46,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione su plaza de parking:</label>
                             <div class="grid grid-cols-5 gap-4">
                                 @foreach($plazasParking as $plaza)
-                                    <div class="border p-2 {{ $plaza->disponible ? 'bg-green-200' : 'bg-red-200' }} cursor-pointer">
+                                    <div class="border p-2 {{ $plaza->disponible ? 'bg-green-200' : 'bg-red-200' }} cursor-pointer plaza-parking" data-id="{{ $plaza->id }}">
                                         Plaza {{ $plaza->id }}
                                         @if($plaza->disponible)
                                             <input type="radio" name="plaza_parking_id" value="{{ $plaza->id }}" class="ml-2">
@@ -59,6 +59,7 @@
                         </div>
                     @endif
                 </div>
+
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">¿Desea reservar servicios extras?</label>
@@ -105,6 +106,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const checkInInput = document.getElementById('check_in');
+            const checkOutInput = document.getElementById('check_out');
+
+            // Agregar evento change a los inputs de check-in y check-out
+            checkInInput.addEventListener('change', updateParkingAvailability);
+            checkOutInput.addEventListener('change', updateParkingAvailability);
+
+            function updateParkingAvailability() {
+                const checkIn = checkInInput.value;
+                const checkOut = checkOutInput.value;
+
+                fetch('/get-parking-reservations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        check_in: checkIn,
+                        check_out: checkOut
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+
+                        const plazaParkingElements = document.querySelectorAll('.plaza-parking');
+                        plazaParkingElements.forEach(plazaParking => {
+                            const plazaId = plazaParking.dataset.id;
+                            if (data.includes(plazaId)) {
+                                plazaParking.classList.add('reservado');
+                            } else {
+                                plazaParking.classList.remove('reservado');
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error al obtener las plazas de parking reservadas:', error);
+                    });
+            }
 
             // Convertir $fechasReservadas a una colección si no lo es
             const fechasReservadasCollection = @json($fechasReservadas);
@@ -137,13 +177,14 @@
                 altFormat: "F j, Y",
                 disable: disableDates,
             });
+
+            const checkboxReservarParking = document.getElementById('reservar_parking');
+            const campoMatriculaParking = document.getElementById('campoMatriculaParking');
+
+            checkboxReservarParking.addEventListener('change', function () {
+                campoMatriculaParking.classList.toggle('hidden', !checkboxReservarParking.checked);
+            });
         });
 
-        const checkboxReservarParking = document.getElementById('reservar_parking');
-        const campoMatriculaParking = document.getElementById('campoMatriculaParking');
-
-        checkboxReservarParking.addEventListener('change', function () {
-            campoMatriculaParking.classList.toggle('hidden', !checkboxReservarParking.checked);
-        });
     </script>
 @endsection

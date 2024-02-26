@@ -74,3 +74,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 });
 Route::get('/worker/parking', [ReservaParkingController::class, 'index'])->name('parking');
+Route::post('/get-parking-reservations', [ReservaController::class, 'getParkingReservations']);

@@ -276,7 +276,24 @@ class ReservaController extends Controller
                 return redirect()->back()->with('error', 'Lo sentimos, no hay plazas de estacionamiento disponibles en este momento.');
             }
         }
-        return redirect()->route('admins.create_reservation')->with('success', 'Reserva creada con éxito');    }
+        return redirect()->route('admins.create_reservation')->with('success', 'Reserva creada con éxito');
+    }
 
+    public function getParkingReservations(Request $request)
+    {
+        $checkIn = $request->input('check_in');
+        $checkOut = $request->input('check_out');
+
+        // Busca las reservas de parking para las fechas especificadas
+        $reservasParking = ReservaParking::whereBetween('fecha_inicio', [$checkIn, $checkOut])
+            ->orWhereBetween('fecha_fin', [$checkIn, $checkOut])
+            ->orWhere(function ($query) use ($checkIn, $checkOut) {
+                $query->where('fecha_inicio', '<=', $checkIn)
+                    ->where('fecha_fin', '>=', $checkOut);
+            })
+            ->pluck('parking_id');
+
+        return response()->json($reservasParking);
+    }
 
 }
