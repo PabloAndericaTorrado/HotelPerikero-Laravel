@@ -156,10 +156,6 @@
             color: #555;
         }
 
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
-    <style>
         #typed-text::after {
             content: '_';
             display: inline-block;
@@ -171,29 +167,8 @@
                 opacity: 0;
             }
         }
+
     </style>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var text = "Una experiencia única te espera en nuestro hotel de lujo en Marbella";
-            var typedTextElement = document.getElementById('typed-text');
-            var typingSpeed = 30;
-
-            typeWriter(typedTextElement, text, 0, typingSpeed);
-        });
-
-        function typeWriter(element, text, index, speed) {
-            if (index <= text.length) {
-                element.innerHTML = text.substring(0, index);
-                index++;
-                setTimeout(function () {
-                    typeWriter(element, text, index, speed);
-                }, speed);
-            }
-        }
-    </script>
-
-
 </head>
 
 <body>
@@ -211,7 +186,6 @@
                 <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
                 <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
-                <li><a class="text-white nav-link" href="{{ route('reservas.index') }}">Reservas</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
 
                 <div x-data="{ isOpen: false }" @click.away="isOpen = false" class="relative">
@@ -403,4 +377,26 @@
     </div>
 </footer>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var text = "Una experiencia única te espera en nuestro hotel de lujo en Marbella";
+        var typedTextElement = document.getElementById('typed-text');
+        var typingSpeed = 30;
+
+        typeWriter(typedTextElement, text, 0, typingSpeed);
+    });
+
+    function typeWriter(element, text, index, speed) {
+        if (index <= text.length) {
+            element.innerHTML = text.substring(0, index);
+            index++;
+            setTimeout(function () {
+                typeWriter(element, text, index, speed);
+            }, speed);
+        }
+    }
+</script>
 

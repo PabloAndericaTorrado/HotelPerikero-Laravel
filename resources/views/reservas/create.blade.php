@@ -41,6 +41,23 @@
                 <div id="campoMatriculaParking" class="mb-4 hidden">
                     <label for="matricula_parking" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
                     <input type="text" name="matricula_parking" id="matricula_parking" class="w-full border p-2 rounded">
+                    @if($plazasParking->count() > 0)
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione su plaza de parking:</label>
+                            <div class="grid grid-cols-5 gap-4">
+                                @foreach($plazasParking as $plaza)
+                                    <div class="border p-2 {{ $plaza->disponible ? 'bg-green-200' : 'bg-red-200' }} cursor-pointer">
+                                        Plaza {{ $plaza->id }}
+                                        @if($plaza->disponible)
+                                            <input type="radio" name="plaza_parking_id" value="{{ $plaza->id }}" class="ml-2">
+                                        @else
+                                            <span class="text-sm">(No disponible)</span>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="mb-4">
