@@ -86,28 +86,40 @@ class ReservaController extends Controller
         }
 
 // Calcular el precio total y actualizar la reserva
-        $reserva->precio_total = $reserva->calculateTotalPrice();
+        $reserva->precio_total = $reserva->calculateTotalPrice(); // Asegúrate de que este método esté definido correctamente
+
         if ($request->has('reservar_parking')) {
+            // Encuentra una plaza de parking disponible que no esté reservada en las fechas seleccionadas
+            $plazaParking = Parking::whereDoesntHave('reservas', function ($query) use ($checkIn, $checkOut) {
+                $query->where(function ($query) use ($checkIn, $checkOut) {
+                    $query->whereBetween('fecha_inicio', [$checkIn, $checkOut])
+                        ->orWhereBetween('fecha_fin', [$checkIn, $checkOut])
+                        ->orWhere(function ($query) use ($checkIn, $checkOut) {
+                            $query->where('fecha_inicio', '<', $checkIn)
+                                ->where('fecha_fin', '>', $checkOut);
+                        });
+                });
+            })->where('disponible', true)->first();
 
-            $plazaParking = Parking::where('disponible', true)->first();
-
-            // Verificar si se encontró una plaza de estacionamiento disponible
             if ($plazaParking) {
-                // Crear la reserva de estacionamiento con la plaza disponible
-                $reservaParking = new ReservaParking([
-                    'matricula' => $request->input('matricula_parking') ?? 'Sin matrícula',
-                    'fecha_inicio' => now(),
-                    'fecha_fin' => now(),  // Ajusta según tu lógica
-                    'reserva_habitacion_id' => $reserva->id,  // Cambia a la relación de habitación si es necesario
-                    'reserva_parking_id' => $plazaParking->id,
+                ReservaParking::create([
+                    'matricula' => $request->input('matricula_parking', 'Sin matrícula'),
+                    'fecha_inicio' => $checkIn,
+                    'fecha_fin' => $checkOut,
+                    'reserva_habitacion_id' => $reserva->id,
+                    'parking_id' => $plazaParking->id,
                 ]);
 
-                $reservaParking->save();
+                // Marcar la plaza de parking como no disponible
+                $plazaParking->disponible = false;
+                $plazaParking->save();
             } else {
-                return redirect()->back()->with('error', 'Lo sentimos, no hay plazas de estacionamiento disponibles en este momento.');
+                return redirect()->back()->with('error', 'No hay plazas de estacionamiento disponibles.');
             }
         }
-        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito');    }
+
+        return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito.');
+    }
 
 // Función para verificar la disponibilidad de la habitación
     protected function habitacionDisponible($habitacionId, $checkIn, $checkOut)

@@ -11,10 +11,8 @@ class Parking extends Model
 
     protected $table = 'parking'; // Nombre correcto de la tabla para las plazas de estacionamiento
 
-    protected $fillable = [
-        'id',
-        'disponible',
-    ];
+    protected $fillable = ['disponible'];
+
 
     public function reservas()
     {
