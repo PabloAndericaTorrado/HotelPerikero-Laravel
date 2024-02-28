@@ -5,6 +5,7 @@
         <div class="max-w-2xl mx-auto bg-white p-8 rounded shadow">
             <h1 class="text-3xl font-semibold mb-6">Reservar Habitación</h1>
 
+            <!-- Mensajes de error -->
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -42,17 +43,32 @@
                     <input type="text" name="dni" id="dni" class="w-full border p-2 rounded" placeholder="Introduce el DNI">
                 </div>
 
+                <!-- Reserva de parking -->
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">¿Desea reservar parking?</label>
                     <div class="flex items-center">
-                        <input type="checkbox" name="reservar_parking" id="reservar_parking" class="mr-2">
-                        <label for="reservar_parking">Quiero parking</label>
+                        <input type="checkbox" name="reservar_parking" id="reservar_parking" class="form-checkbox">
+                        <label for="reservar_parking" class="ml-2">Quiero parking</label>
                     </div>
                 </div>
 
                 <div id="campoMatriculaParking" class="mb-4 hidden">
                     <label for="matricula_parking" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
                     <input type="text" name="matricula_parking" id="matricula_parking" class="w-full border p-2 rounded">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione su plaza de
+                            parking:</label>
+                        <div class="grid grid-cols-5 gap-4">
+                            @foreach($plazasParking as $plaza)
+                                <div class="border p-2 bg-green-200 cursor-pointer plaza-parking"
+                                     data-id="{{ $plaza->id }}">
+                                    Plaza {{ $plaza->id }}
+                                    <!-- Se quita la lógica de disponibilidad aquí ya que será manejada por JS -->
+                                    <input type="radio" name="plaza_parking_id" value="{{ $plaza->id }}" class="ml-2">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mb-4">
@@ -183,5 +199,105 @@
             </form>
         </div>
     </div>
+    <!-- Scripts para el manejo de la disponibilidad de parking y fechas -->
+    @push('scripts')
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const checkInInput = document.getElementById('check_in');
+                const checkOutInput = document.getElementById('check_out');
+
+                // Agregar evento change a los inputs de check-in y check-out
+                checkInInput.addEventListener('change', updateParkingAvailability);
+                checkOutInput.addEventListener('change', updateParkingAvailability);
+
+                function updateParkingAvailability() {
+                    const checkIn = checkInInput.value;
+                    const checkOut = checkOutInput.value;
+
+                    fetch('/get-parking-reservations', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            check_in: checkIn,
+                            check_out: checkOut
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            const plazaParkingElements = document.querySelectorAll('.plaza-parking');
+                            plazaParkingElements.forEach(plazaParking => {
+                                const plazaId = parseInt(plazaParking.dataset.id);
+                                if (data.includes(plazaId)) {
+                                    plazaParking.classList.remove('bg-green-200', 'hover:bg-green-300', 'shadow-lg');
+                                    plazaParking.classList.add('bg-red-500', 'hover:bg-red-600', 'opacity-75', 'cursor-not-allowed', 'shadow-inner');
+                                    plazaParking.getElementsByTagName('input')[0].disabled = true;
+                                } else {
+                                    plazaParking.classList.remove('bg-red-500', 'hover:bg-red-600', 'opacity-75', 'cursor-not-allowed', 'shadow-inner');
+                                    plazaParking.classList.add('bg-green-500', 'hover:bg-green-600', 'shadow-lg', 'cursor-pointer');
+                                    plazaParking.getElementsByTagName('input')[0].disabled = false;
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error al obtener las plazas de parking reservadas:', error);
+                        });
+                }
+
+                // Convertir $fechasReservadas a una colección si no lo es
+                const fechasReservadasCollection = @json($fechasReservadas);
+
+                // Crear un array de fechas deshabilitadas en formato correcto para flatpickr
+                const disableDates = fechasReservadasCollection.flatMap(function ($fechas) {
+                    // Crear un rango de fechas entre "from" y "to"
+                    const fechaInicio = new Date($fechas.from);
+                    const fechaFin = new Date($fechas.to);
+                    const fechasRango = [];
+                    while (fechaInicio <= fechaFin) {
+                        fechasRango.push(fechaInicio.toISOString().split('T')[0]);
+                        fechaInicio.setDate(fechaInicio.getDate() + 1);
+                    }
+                    return fechasRango;
+                });
+
+                flatpickr("#check_in", {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    disable: disableDates,
+                });
+
+                flatpickr("#check_out", {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    altInput: true,
+                    altFormat: "F j, Y",
+                    disable: disableDates,
+                });
+
+                const checkboxReservarParking = document.getElementById('reservar_parking');
+                const campoMatriculaParking = document.getElementById('campoMatriculaParking');
+
+                checkboxReservarParking.addEventListener('change', function () {
+                    campoMatriculaParking.classList.toggle('hidden', !checkboxReservarParking.checked);
+                });
+            });
+
+            $(document).ready(function () {
+                $('#reservar_servicios').change(function () {
+                    if (this.checked) {
+                        $('#campoServicios').show();
+                    } else {
+                        $('#campoServicios').hide();
+                    }
+                });
+            });
+        </script>
 
 @endsection

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Habitacion;
+use App\Models\Parking;
 use App\Models\Reserva;
+use App\Models\Servicio;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -27,8 +29,12 @@ class AdminController extends Controller
 
     public function createReservations()
     {
-        // Lógica para obtener y mostrar las reservas de hoy
-        return view('admins.create_reservation');
+        $habitaciones = Habitacion::all();
+        $servicios = Servicio::all();
+        $fechasReservadas = $this->getFechasReservadas($habitaciones->first()->id);
+        $plazasParking = Parking::all();
+
+        return view('admins.create_reservation', compact('habitaciones', 'servicios', 'fechasReservadas', 'plazasParking'));
     }
 
 }
