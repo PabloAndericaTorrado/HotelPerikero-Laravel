@@ -118,11 +118,23 @@
                                                     <p>No se han seleccionado servicios adicionales.</p>
                                                 @endif
                                                 <hr class="border-t-2 border-gray-300 my-4">
+                                                <p class="text-lg font-semibold mb-2 text-red-500">Parking</p>
+                                                @if($reserva->reservaParking)
+                                                    <div class="bg-gray-100 rounded mb-4">
+                                                        <strong>Plaza de parking:</strong> {{ $reserva->reservaParking->parking_id }} <br>
+                                                        <strong>Matrícula del coche:</strong> {{ $reserva->reservaParking->matricula }}
+                                                    </div>
+                                                @else
+                                                    <p>No se ha seleccionado servicio de parking.</p>
+                                                @endif
+                                                <hr class="border-t-2 border-gray-300 my-4">
                                                 <div class="text-center">
                                                     <p class="text-lg font-semibold mb-2">Total: ${{ number_format((float)$reserva->calculateTotalPriceWithServices(), 2) }}</p>
                                                 </div>
                                             </div>
                                         </div>
+
+
 
                                         <div class="text-center">
                                             <form action="{{ route('reservas.delete.view', $reserva->id) }}" method="get" class="mt-4">
