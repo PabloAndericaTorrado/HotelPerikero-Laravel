@@ -50,7 +50,7 @@ Route::middleware(['role:parking'])->group(function () {
     Route::get('/worker/parking', [AdminController::class, 'parking'])->name('worker.parking');
 });
 
-
+Route::post('/check-parking-availability', [ReservaParkingController::class, 'checkParkingAvailability']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
 Route::get('/reservas/create/{id}', [ReservaController::class, 'create'])->name('reservas.create');

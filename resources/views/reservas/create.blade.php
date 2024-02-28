@@ -41,23 +41,18 @@
                 <div id="campoMatriculaParking" class="mb-4 hidden">
                     <label for="matricula_parking" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
                     <input type="text" name="matricula_parking" id="matricula_parking" class="w-full border p-2 rounded">
-                    @if($plazasParking->count() > 0)
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione su plaza de parking:</label>
-                            <div class="grid grid-cols-5 gap-4">
-                                @foreach($plazasParking as $plaza)
-                                    <div class="border p-2 {{ $plaza->disponible ? 'bg-green-200' : 'bg-red-200' }} cursor-pointer plaza-parking" data-id="{{ $plaza->id }}">
-                                        Plaza {{ $plaza->id }}
-                                        @if($plaza->disponible)
-                                            <input type="radio" name="plaza_parking_id" value="{{ $plaza->id }}" class="ml-2">
-                                        @else
-                                            <span class="text-sm">(No disponible)</span>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione su plaza de parking:</label>
+                        <div class="grid grid-cols-5 gap-4">
+                            @foreach($plazasParking as $plaza)
+                                <div class="border p-2 bg-green-200 cursor-pointer plaza-parking" data-id="{{ $plaza->id }}">
+                                    Plaza {{ $plaza->id }}
+                                    <!-- Se quita la lógica de disponibilidad aquí ya que será manejada por JS -->
+                                    <input type="radio" name="plaza_parking_id" value="{{ $plaza->id }}" class="ml-2">
+                                </div>
+                            @endforeach
                         </div>
-                    @endif
+                    </div>
                 </div>
 
 
@@ -103,7 +98,7 @@
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkInInput = document.getElementById('check_in');
@@ -130,14 +125,18 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-
                         const plazaParkingElements = document.querySelectorAll('.plaza-parking');
                         plazaParkingElements.forEach(plazaParking => {
-                            const plazaId = plazaParking.dataset.id;
+                            const plazaId = parseInt(plazaParking.dataset.id);
+                            // Modificamos la comprobación para asegurarnos de que los IDs se comparen como números
                             if (data.includes(plazaId)) {
-                                plazaParking.classList.add('reservado');
+                                plazaParking.classList.remove('bg-green-200');
+                                plazaParking.classList.add('bg-red-200', 'reservado');
+                                plazaParking.getElementsByTagName('input')[0].disabled = true;
                             } else {
-                                plazaParking.classList.remove('reservado');
+                                plazaParking.classList.remove('bg-red-200', 'reservado');
+                                plazaParking.classList.add('bg-green-200');
+                                plazaParking.getElementsByTagName('input')[0].disabled = false;
                             }
                         });
                     })
