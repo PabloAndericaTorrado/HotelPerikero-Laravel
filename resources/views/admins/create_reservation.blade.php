@@ -53,6 +53,17 @@
                 <div id="campoMatriculaParking" class="mb-4 hidden">
                     <label for="matricula_parking" class="block text-gray-700 text-sm font-bold mb-2">Matrícula del coche:</label>
                     <input type="text" name="matricula_parking" id="matricula_parking" class="w-full border p-2 rounded">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione su plaza de parking:</label>
+                        <div class="grid grid-cols-5 gap-4">
+                            @foreach($plazasParking as $plaza)
+                                <div class="border p-2 bg-green-200 cursor-pointer plaza-parking" data-id="{{ $plaza->id }}">
+                                    Plaza {{ $plaza->id }}
+                                    <input type="radio" name="plaza_parking_id" value="{{ $plaza->id }}" class="ml-2">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mb-4">
@@ -98,6 +109,8 @@
                         const checkInInput = document.getElementById('check_in');
                         const checkOutInput = document.getElementById('check_out');
                         const habitacionSelect = document.getElementById('habitacion_id');
+
+
 
                         const fp = flatpickr(checkInInput, {
                             dateFormat: "Y-m-d",
@@ -161,12 +174,48 @@
                         });
 
                         function getFechasReservadas(habitacionId) {
-                            // Lógica para obtener las fechas reservadas para la habitación seleccionada
-                            // Puedes llamar a tu controlador o hacer una petición AJAX según tu implementación
                             return [];
                         }
 
                         const checkboxReservarParking = document.getElementById('reservar_parking');
+                        checkInInput.addEventListener('change', updateParkingAvailability);
+                        checkOutInput.addEventListener('change', updateParkingAvailability);
+
+                        function updateParkingAvailability() {
+                            const checkIn = checkInInput.value;
+                            const checkOut = checkOutInput.value;
+
+                            fetch('/get-parking-reservations', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                },
+                                body: JSON.stringify({
+                                    check_in: checkIn,
+                                    check_out: checkOut
+                                })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const plazaParkingElements = document.querySelectorAll('.plaza-parking');
+                                    plazaParkingElements.forEach(plazaParking => {
+                                        const plazaId = parseInt(plazaParking.dataset.id);
+                                        if (data.includes(plazaId)) {
+                                            plazaParking.classList.remove('bg-green-200');
+                                            plazaParking.classList.add('bg-red-200', 'reservado');
+                                            plazaParking.getElementsByTagName('input')[0].disabled = true;
+                                        } else {
+                                            plazaParking.classList.remove('bg-red-200', 'reservado');
+                                            plazaParking.classList.add('bg-green-200');
+                                            plazaParking.getElementsByTagName('input')[0].disabled = false;
+                                        }
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error al obtener las plazas de parking reservadas:', error);
+                                });
+                        }
                         const campoMatriculaParking = document.getElementById('campoMatriculaParking');
 
                         checkboxReservarParking.addEventListener('change', function () {

@@ -21,8 +21,11 @@
         <nav>
             <ul class="flex space-x-4">
                 <li><a class="text-white nav-link">Comprobar Matrícula</a></li>
-                <li><a class="text-white nav-link">Ver Parking</a></li>
-                <li><a class="text-white nav-link" href="{{ route('logout') }}">Cerrar Sesión</a></li>
+                <li><a class="text-white nav-link" href="{{ route('parking_day') }}">Ver Parking</a></li>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="text-white nav-link">Cerrar Sesión</button>
+                </form>
             </ul>
         </nav>
     </div>

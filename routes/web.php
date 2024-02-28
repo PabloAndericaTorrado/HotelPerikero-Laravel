@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\ReservaParkingController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\ImageLoader;
@@ -75,3 +76,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 Route::get('/worker/parking', [ReservaParkingController::class, 'index'])->name('parking');
 Route::post('/get-parking-reservations', [ReservaController::class, 'getParkingReservations']);
+Route::get('/parking-day', [ParkingController::class, 'showParkingDay'])->name('parking_day');
+
