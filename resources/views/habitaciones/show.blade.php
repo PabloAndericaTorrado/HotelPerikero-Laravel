@@ -1,117 +1,107 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mx-auto mt-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col relative">
-                <div class="relative overflow-hidden mb-4">
-                    <img id="mainImage" src="{{ asset('habitacion_images/habitacion_' . $habitacion->id . '.jpg') }}"
-                         alt="{{ $habitacion->tipo }}" class="w-full h-64 object-cover rounded">
-                    <button onclick="changeImage('left')"
-                            class="absolute inset-y-1/2 left-0 bg-gray-200 opacity-50 hover:opacity-75 px-2 focus:outline-none rounded-md text-gray-700 transform -translate-y-1/2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             class="h-6 w-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                        </svg>
-                    </button>
-                    <button onclick="changeImage('right')"
-                            class="absolute inset-y-1/2 right-0 bg-gray-200 opacity-50 hover:opacity-75 px-2 focus:outline-none rounded-md text-gray-700 transform -translate-y-1/2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             class="h-6 w-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </button>
+    <div class="container mx-auto px-6 py-12">
+        <div class="flex flex-col lg:flex-row lg:items-stretch">
+            <div class="flex-1">
+                <div class="bg-transparent shadow-lg rounded-lg overflow-hidden">
+                    <img id="mainImage" src="{{ asset('habitacion_images/habitacion_' . $habitacion->id . '.jpg') }}" alt="{{ $habitacion->tipo }}" class="w-full h-full object-cover transition duration-500 hover:scale-105">
                 </div>
-
-                <ul class="text-base text-gray-800">
-                    <li><strong>Tipo de habitación: </strong>{{ $habitacion->tipo }}</li>
-                    <li><strong>Precio:</strong> ${{ $habitacion->precio }}/Noche</li>
-                    <li>
-                        <strong>Disponibilidad:</strong> {{ $habitacion->disponibilidad ? 'Disponible' : 'No Disponible' }}
-                    </li>
-                    <li>
-                        @if($habitacion->disponibilidad === 1)
-                            @auth
-                                <br />
-                                <a href="{{ route('reservas.create', $habitacion->id) }}" class="bg-blue-500 text-white font-bold hover:text-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4 py-2 px-4 rounded-md">
-                                    Reservar Ahora
-                                </a>
-                            @else
-                                <form action="{{ route('login') }}" method="GET">
-                                    <button type="submit" class="bg-blue-500 text-white font-bold hover:text-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4 py-2 px-4 rounded-md">
-                                        Inicia sesión para reservar
-                                    </button>
-                                </form>
-                            @endauth
-                        @endif
-                    </li>
-                </ul>
-
-
             </div>
 
-            <div class="col-span-2 bg-white p-6 rounded-lg shadow-md">
-                <div class="flex flex-col justify-center items-center"> <!-- Div para centrar el contenido -->
-                    <h2 class="text-xl font-semibold mb-1">Descripción</h2>
-                    <hr class="w-48 border-t-2 border-gray-300 my-2 mx-auto">
-                    <p class="text-gray-600">{{ $habitacion->descripcion }}</p>
+            <!-- Contenedor de detalles de la habitación con ajustes para igualar la altura -->
+            <div class="flex-1 mt-6 lg:mt-0 lg:ml-6">
+                <div class="bg-white shadow-lg rounded-lg p-6 h-full">
+                    <h2 class="text-2xl font-semibold mb-4">Detalles de la Habitación</h2>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">{{ $habitacion->tipo }}</h3>
+                    <p class="text-gray-600 mb-4">{{ $habitacion->descripcion }}</p>
+                    <div class="text-lg mb-4"><strong>Precio por noche:</strong> ${{ $habitacion->precio }}</div>
+                    @if($habitacion->disponibilidad)
+                        <div class="mb-4">
+                            <span class="inline-block bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Disponible</span>
+                        </div>
+                        <a href="{{ route('reservas.create', $habitacion->id) }}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out">Reservar Ahora</a>
+                    @else
+                        <div class="mb-4">
+                            <span class="inline-block bg-red-200 text-red-800 px-3 py-1 rounded-full text-sm font-medium">No Disponible</span>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
 
-                    <h2 class="text-xl font-semibold mt-8 mb-lg-1">Servicios Adicionales</h2>
-                    <hr class="w-48 border-t-2 border-gray-300 my-2 mx-auto">
-                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4 justify-center">
-                        @foreach($servicios as $index => $servicio)
-                            <div class="flex flex-col items-center">
-                                <img src="{{ asset('servicio_images/servicio_' . ($index + 1) . '.jpg') }}"
-                                     class="w-25 h-25 object-cover rounded mx-6 my-6">
-                                <p class="text-lg mb-2 text-center">{{ $servicio->nombre }}</p>
-                            </div>
-                        @endforeach
+        <!-- Servicios adicionales-->
+        <div class="mt-12 relative overflow-hidden">
+            <h2 class="text-3xl font-semibold mb-6">Servicios Adicionales</h2>
+            <div class="services-carousel">
+                @foreach($servicios as $servicio)
+                    <div class="service-card bg-white rounded-lg shadow-lg p-6 transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+                        <h3 class="text-lg font-semibold mb-2">{{ $servicio->nombre }}</h3>
+                        <img src="{{ asset('servicio_images/servicio_' . $servicio->id . '.jpg') }}" alt="{{ $servicio->nombre }}" class="w-full h-48 object-cover rounded-lg mb-4">
                     </div>
-
-                    <a class="text-blue-500 hover:text-blue-700 font-semibold transition-colors duration-300"
-                       href="{{ route('servicios.index') }}">Ver Tarifas</a>
-                </div>
+                @endforeach
             </div>
-
-
+            <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-2 focus:outline-none">
+                🡨
+            </button>
+            <button id="scrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-2 focus:outline-none">
+                🡪
+            </button>
         </div>
     </div>
-@endsection
 
-@push('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
-        .bg-primary {
-            background-color: #3490dc;
+        .services-carousel {
+            display: flex;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
         }
 
-        .bg-primary:hover {
-            background-color: #2779bd;
-        }
-
-        /* Ajustes de estilos para las miniaturas */
-        #miniaturesContainer {
-            transition-duration: 0.5s;
-            transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+        .service-card {
+            flex: 0 0 auto;
+            width: calc(100% / 3 - 10px);
+            margin-right: 20px;
+            scroll-snap-align: start;
         }
     </style>
-@endpush
 
-@push('scripts')
     <script>
-        let currentImageIndex = 1;
-        const totalImages = 4;
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeInElements = document.querySelectorAll('[style*="animation: fadeIn"]');
+            fadeInElements.forEach(element => {
+                element.style.opacity = '1';
+            });
 
-        function changeImage(direction) {
-            const habitacionID = '{{ $habitacion->id }}';
-            if (direction === 'left') {
-                currentImageIndex = currentImageIndex === 1 ? totalImages : currentImageIndex - 1;
-            } else if (direction === 'right') {
-                currentImageIndex = currentImageIndex === totalImages ? 1 : currentImageIndex + 1;
-            }
+            const servicesCarousel = document.querySelector('.services-carousel');
+            const serviceCards = document.querySelectorAll('.service-card');
+            const cardWidth = serviceCards[0].offsetWidth + 20; // Ancho de la tarjeta más el margen
 
-            const imageName = currentImageIndex === 1 ? `habitacion_${habitacionID}.jpg` : `habitacion_${habitacionID}_${currentImageIndex - 1}.jpg`;
-            document.getElementById('mainImage').src = `{{ asset('habitacion_images/') }}/${imageName}`;
-        }
+            let scrollPosition = 0;
+
+            servicesCarousel.scrollLeft = scrollPosition;
+
+            servicesCarousel.addEventListener('scroll', () => {
+                scrollPosition = servicesCarousel.scrollLeft;
+            });
+
+            const scrollRight = () => {
+                scrollPosition += cardWidth;
+                servicesCarousel.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+            };
+            const scrollLeft = () => {
+                scrollPosition -= cardWidth;
+                servicesCarousel.scrollTo({
+                    left: scrollPosition,
+                    behavior: 'smooth'
+                });
+            };
+            document.getElementById('scrollLeft').addEventListener('click', scrollLeft);
+            document.getElementById('scrollRight').addEventListener('click', scrollRight);
+        });
     </script>
-@endpush
+@endsection

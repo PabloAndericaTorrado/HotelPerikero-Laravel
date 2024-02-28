@@ -88,6 +88,20 @@
 <main class="py-4">
     @yield('content')
 </main>
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto flex justify-between items-center">
+        <div>
+            <h3 class="text-2xl font-bold">Contacto</h3>
+            <p>Dirección: C. Estébanez Calderón, 10 , Marbella</p>
+            <p>Teléfono: +123 456 7890</p>
+            <p>Email: info@perikerohotel.com</p>
+        </div>
+        <div class="text-center">
+            <p>&copy; 2024 Perikero Hotel. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</footer>
 </body>
 
 </html>
