@@ -1,32 +1,63 @@
-# Lista de Tareas Pendientes
 
-Este archivo README.md se utilizará para llevar un registro de las tareas pendientes en el proyecto de reservas de habitaciones.
+# Documentación del Proyecto de Reserva de Hotel con Parking
 
-## Tareas Actuales
+## Índice
 
-1.  **Mejorar Las Vistas En General Que Queden:**
+- [Introducción](#introducción)
+- [Requisitos del sistema](#requisitos-del-sistema)
+- [Configuración inicial](#configuración-inicial)
+- [Funcionalidades](#funcionalidades)
+  - [Reservas de Habitación](#reservas-de-habitación)
+  - [Gestión de Parking](#gestión-de-parking)
+  - [Panel de Recepcionista](#panel-de-recepcionista) 
+  - [Panel de Gestor de Parking](#panel-de-gestor-de-parking)
 
-    -   Esto que lo especifique vak
-2.  **Empezar El Proyecto Del Parking:**
+## Introducción
 
-    -   Desde 0, Desde la BBDD hasta ekl controlador, modelos, vistas, seeders
-3.  **Editar las reservas ya hechas**
+Este documento proporciona una visión general de un sistema de reserva de habitaciones de hotel con la funcionalidad adicional de reservar plazas de parking. El sistema permite a los usuarios seleccionar una habitación y, opcionalmente, una plaza de parking durante su estancia.
 
-    -  ESITARLAS PARA CAMBIAR FECHA O HABITACION
-4. **Al entrar en la web que no te pida Iniciar sesión de una**
-   - manu chivato dale tu
-  
-5. **Al hacer la reserva, te aparece la información sobre la reserva y su precio ANTES DE RESERVAR***
-![image](https://github.com/PabloAndericaTorrado/HotelPerikero/assets/96045857/0231c278-309a-4a48-80a8-bb78622be668)
+## Requisitos del sistema
 
-6 **LAVADO DE CARA AL PERFIL**
-- Lado Izquierdo de la pantalla --> card con los datos personales editable. Un recuadro donde se pueda poner la foto de perfil.
-- Lado Derecho de la pantalla --> un contenedor de cards que almacenen las reservas realizadas con toda la información aparente.
+- PHP >= 7.3
+- Composer
+- MySQL
 
+## Configuración inicial
 
-## Nuevas Funcionalidades Propuestas
+1. Clona el repositorio del proyecto.
+2. Ejecuta `composer install` para instalar dependencias.
+3. Configura tu archivo `.env` con las credenciales de la base de datos.
+4. Ejecuta `php artisan migrate` para configurar la base de datos.
+5. Ejecuta `php artisan db:seed` para rellenar la base de datos.
+6. Inicia el servidor de desarrollo con ` php artisan serve --host=192.168.33.20`.
+7. Compila y desarrolla los assets del frontend como JavaScript y CSS con `npm run dev`.
 
-1.  **AQUI PONEMOS LAS IDEAS QUE SE NOS OCURRAN PARA DEBATIR SU IMPLANTACION**
+## Funcionalidades
 
-    -   SUUUUUUUUUUUUUUUUUUUU
-Este archivo se actualizará a medida que se completen tareas y se añadan nuevas funcionalidades propuestas. ¡Mantente al tanto de los avances en el proyecto!
+### Reservas de Habitación
+
+- **Crear Reserva**: Los usuarios pueden reservar una habitación seleccionando las fechas de check-in y check-out.
+- - **Verificar Disponibilidad**: El sistema verifica la disponibilidad de las habitaciones para las fechas seleccionadas.
+- **Ver Reserva**: Los usuarios pueden ver los detalles de sus reservas.
+- **Modificar Reserva**: Los usuarios pueden modificar sus reservas existentes.
+- **Cancelar Reserva**: Los usuarios pueden cancelar sus reservas.
+
+### Gestión de Parking
+
+- **Reservar Parking**: Durante la reserva de una habitación, los usuarios pueden optar por reservar una plaza de parking.
+- **Verificar Disponibilidad**: El sistema verifica la disponibilidad de las plazas de parking para las fechas seleccionadas.
+- **Asignación de Parking**: Una plaza de parking disponible se asigna automáticamente a la reserva.
+- **Liberar Parking**: Cuando una reserva se cancela, la plaza de parking correspondiente se libera.
+
+### Panel de Recepcionista
+
+- **Crear Reservas Telefónicas**: El recepcionista puede introducir reservas en el sistema que se han recibido por teléfono.
+- **Confirmar Reserva**: El recepcionista puede confirmar las reservas realizadas, asegurando la asignación de habitaciones y parking si es necesario.
+- **Cancelar Reserva**: El recepcionista tiene la capacidad de cancelar reservas según sea necesario.
+- **Ver Reservas Diarias**: Hay una funcionalidad para que el recepcionista vea todas las reservas para el día actual, facilitando la gestión diaria del hotel.
+
+### Panel de Gestor de Parking
+
+- **Visualización de Espacios**: El gestor de parking puede ver el estado actual de las plazas de parking.
+- **Asignación de Plazas de Parking**: Puede asignar plazas de parking a las reservas que lo requieran.
+- **Liberación de Plazas de Parking**: Cuando una reserva se cancela o termina, el gestor de parking puede marcar la plaza como disponible nuevamente.
