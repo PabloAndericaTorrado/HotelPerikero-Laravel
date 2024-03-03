@@ -32,6 +32,10 @@ Este documento proporciona una visión general de un sistema de reserva de habit
 6. Inicia el servidor de desarrollo con ` php artisan serve --host=192.168.33.20`.
 7. Compila y desarrolla los assets del frontend como JavaScript y CSS con `npm run dev`.
 
+## Información de Inicio de Sesión
+1. **ADMIN:** admin@admin.com / admin
+2. **USER**  john.doe@example.com / password1
+
 ## Funcionalidades
 
 ### Reservas de Habitación
