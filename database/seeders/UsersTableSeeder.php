@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -60,6 +59,18 @@ class UsersTableSeeder extends Seeder
                 'ciudad' => 'Badajoz',
                 'codigo_postal' => '06011',
                 'rol' => 'parking',
+            ],
+            [
+                'name' => 'Pablo',
+                'apellidos' => 'Anderica Torrado',
+                'email' => 'pablolapa18@gmail.com',
+                'password' => Hash::make('admin'),
+                'telefono' => '628657710',
+                'direccion' => 'C/ Vak Chivato',
+                'país' => 'ESPAÑA',
+                'ciudad' => 'Badajoz',
+                'codigo_postal' => '06011',
+                'rol' => 'user',
             ],
         ];
         foreach ($users as $user) {
