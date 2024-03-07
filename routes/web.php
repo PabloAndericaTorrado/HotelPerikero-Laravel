@@ -1,16 +1,18 @@
 <?php
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmailController;
+use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ReservaParkingController;
+use App\Http\Controllers\ReservaServicioController;
+use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\ImageLoader;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HabitacionController;
-use App\Http\Controllers\ReservaController;
-use App\Http\Controllers\ServicioController;
-use App\Http\Controllers\ReservaServicioController;
-use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -45,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservas/{reserva}', [ReservaController::class, 'show'])->name('reservas.show');
     Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
     Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
+    Route::get('/send-welcome-email', [EmailController::class, 'sendWelcomeEmail']);
+
+
 });
 
 Route::middleware(['role:parking'])->group(function () {

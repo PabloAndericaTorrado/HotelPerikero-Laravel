@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ReservationConfirmed;
 use App\Models\Habitacion;
 use App\Models\Parking;
 use App\Models\Reserva;
@@ -15,16 +16,13 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 
 class ReservaController extends Controller
 {
-    public function index()
-    {
-        $reservas = Reserva::all();
-        return view('reservas.index', compact('reservas'));
-    }
+
 
     public function create($id)
     {
@@ -90,6 +88,7 @@ class ReservaController extends Controller
         // Asegúrate de que el método calculateTotalPrice esté definido y calcule correctamente el precio
         $reserva->precio_total = $reserva->calculateTotalPrice();
         $reserva->save();
+        Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
 
         if ($request->has('plaza_parking_id') && $request->input('plaza_parking_id') != '') {
             $plazaParkingId = $request->input('plaza_parking_id');
