@@ -87,8 +87,9 @@ class ReservaController extends Controller
         // Calcular el precio total y actualizar la reserva
         // Asegúrate de que el método calculateTotalPrice esté definido y calcule correctamente el precio
         $reserva->precio_total = $reserva->calculateTotalPrice();
+
         $reserva->save();
-        Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
+        // Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
 
         if ($request->has('plaza_parking_id') && $request->input('plaza_parking_id') != '') {
             $plazaParkingId = $request->input('plaza_parking_id');
@@ -111,7 +112,8 @@ class ReservaController extends Controller
                 return redirect()->back()->with('error', 'La plaza de parking seleccionada ya no está disponible.');
             }
         }
-
+        $reservaConParking = Reserva::with('reservaParking')->find($reserva->id);
+        Mail::to($reservaConParking->usuario->email)->send(new ReservationConfirmed($reservaConParking));
         return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito.');
     }
 

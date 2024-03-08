@@ -12,27 +12,35 @@ class ReservationConfirmed extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
+
     public function __construct($reservation)
     {
         $this->reservation = $reservation;
+
+
     }
 
     public function build()
     {
+        // Asumiendo que ya has cargado la relación 'reservaParking' como se muestra en los puntos anteriores.
+        $serviciosListados = $this->reservation->servicios->pluck('nombre')->toArray();
+
+
+        // Usa la reserva que ya tiene la relación cargada.
         return $this->markdown('emails.reservation.confirmed')
             ->with([
                 'cliente' => $this->reservation->usuario->name,
                 'habitacion' => $this->reservation->habitacion->tipo,
                 'check_in' => $this->reservation->check_in,
                 'check_out' => $this->reservation->check_out,
-                'precio' => $this->reservation->precio_total, 2,
-                'imagen' => 'habitacion_images/habitacion_' . $this->reservation->habitacion->id . '.jpg',
+                'precio' => number_format($this->reservation->precio_total, 2),
                 'id' => $this->reservation->id,
+                'serviciosListados' => $serviciosListados,
+                'parking_id' => $this->reservation->reservaParking ? $this->reservation->reservaParking->parking_id : null,
+                'matricula' => $this->reservation->reservaParking ? $this->reservation->reservaParking->matricula : null,
             ]);
     }
+
 
     /**
      * Get the message envelope.
