@@ -24,9 +24,13 @@
     @endcomponent
     --------------------------------------
     @component('mail::table')
-        **Parking**
-        <br>  Plaza: {{$parking_id}}
-        <br>  Matricula: {{$matricula}}
+        **Parking** <br>
+        @if($parking_id)
+            - Plaza: {{ $parking_id }}
+            - Matricula: {{ $matricula }}
+        @else
+            - No hay información de parking.
+        @endif
     @endcomponent
 
     Para cualquier pregunta o cambio en tu reserva, estamos a tu disposición.
