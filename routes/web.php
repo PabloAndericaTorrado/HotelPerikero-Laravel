@@ -48,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/reservas/{reserva}/delete', [ReservaController::class, 'destroy'])->name('reservas.delete');
     Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
     Route::get('/send-welcome-email', [EmailController::class, 'sendWelcomeEmail']);
+    Route::get('/reserva/{id}/pdf', [ReservaController::class, 'generatePDF'])->name('reserva.pdf');
+
 
 
 });

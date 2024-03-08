@@ -11,6 +11,7 @@ use App\Models\Reserva;
 use App\Models\ReservaParking;
 use App\Models\Servicio;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -305,5 +306,17 @@ class ReservaController extends Controller
 
         return response()->json($reservasParking);
     }
+
+
+    public function generatePDF($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+        // Asumiendo que tu vista se llama 'pdf.detalles' y que pasas los datos de reserva
+        $pdf = PDF::loadView('pdf.detalles', compact('reserva'));
+
+        // Descargar el PDF con el nombre 'reserva-detalle.pdf'
+        return $pdf->download('reserva-detalle.pdf');
+    }
+
 
 }

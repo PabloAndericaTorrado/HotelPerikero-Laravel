@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 
 class Reserva extends Model
@@ -82,6 +82,18 @@ class Reserva extends Model
     public function reservaParking()
     {
         return $this->hasOne(ReservaParking::class, 'reserva_habitacion_id');
+    }
+
+    public function getNumeroNochesAttribute()
+    {
+
+        $checkIn = Carbon::parse($this->check_in);
+        $checkOut = Carbon::parse($this->check_out);
+
+        // Calcula la diferencia en días.
+        $numeroNoches = $checkIn->diffInDays($checkOut);
+
+        return $numeroNoches;
     }
 
 
