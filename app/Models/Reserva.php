@@ -97,6 +97,10 @@ class Reserva extends Model
     }
 
 
+    public function resenia()
+    {
+        return $this->hasMany(Resenia::class, 'reserva_id');
+    }
 
 
 

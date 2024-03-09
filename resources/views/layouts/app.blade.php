@@ -69,6 +69,7 @@
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
                 <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
+                <li><a class="text-white nav-link" href="{{ route('resenias.index') }}">Reseñas</a></li>
 
                 @guest
                     <li><a class="text-white nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
@@ -102,6 +103,7 @@
         </div>
     </div>
 </footer>
+@stack('scripts')
 </body>
 
 </html>

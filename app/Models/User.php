@@ -47,4 +47,10 @@ class User extends Authenticatable
         return $this->hasMany(Reserva::class, 'users_id');
     }
 
+    public function resenias()
+    {
+        return $this->hasMany(Resenia::class, 'usuario_id');
+    }
+
+
 }

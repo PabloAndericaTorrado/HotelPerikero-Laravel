@@ -2,39 +2,49 @@
 
 namespace Database\Seeders;
 
-use DateInterval;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Faker\Factory as Faker;
-
 
 class ReservaSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        $faker = Faker::create();
+        // Detalles específicos de las 3 reservas a crear
+        $reservas = [
+            [
+                "users_id" => 1, // Asegúrate de que este ID de usuario exista en tu tabla de usuarios
+                "habitacion_id" => 1, // Asegúrate de que este ID de habitación exista en tu tabla de habitaciones
+                "check_in" => "2023-03-10",
+                "check_out" => "2023-03-15",
+                "precio_total" => 300.00,
+                "pagado" => true,
+            ],
+            [
+                "users_id" => 2, // Asegúrate de que este ID de usuario exista
+                "habitacion_id" => 2, // Asegúrate de que este ID de habitación exista
+                "check_in" => "2023-03-20",
+                "check_out" => "2023-03-25",
+                "precio_total" => 350.00,
+                "pagado" => false,
+            ],
+            [
+                "users_id" => 5, // Asegúrate de que este ID de usuario exista
+                "habitacion_id" => 3, // Asegúrate de que este ID de habitación exista
+                "check_in" => "2023-04-01",
+                "check_out" => "2023-04-05",
+                "precio_total" => 400.00,
+                "pagado" => true,
+            ],
+        ];
 
-        // Obtener IDs de registros existentes en las tablas relacionadas
-        $usuarioIds = DB::table('users')->pluck('id')->toArray();
-        $habitacionIds = DB::table('habitacions')->pluck('id')->toArray();
-
-        for ($i = 0; $i < 5; $i++) {
-            $checkInDate = $faker->dateTimeBetween('-1 month', '+1 month');
-            $duration = $faker->numberBetween(1, 14); // Duración de la reserva en días
-            $checkOutDate = clone $checkInDate;
-            $checkOutDate->add(new DateInterval("P{$duration}D")); // Añadir días a la fecha de inicio
-
+        foreach ($reservas as $reserva) {
             DB::table('reservas')->insert([
-                'users_id' => $faker->randomElement($usuarioIds),
-                'habitacion_id' => $faker->randomElement($habitacionIds),
-                'check_in' => $checkInDate->format('Y-m-d'),
-                'check_out' => $checkOutDate->format('Y-m-d'),
-                'precio_total' => $faker->randomFloat(2, 100, 500),
-                'pagado' => $faker->boolean,
+                'users_id' => $reserva['users_id'],
+                'habitacion_id' => $reserva['habitacion_id'],
+                'check_in' => $reserva['check_in'],
+                'check_out' => $reserva['check_out'],
+                'precio_total' => $reserva['precio_total'],
+                'pagado' => $reserva['pagado'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

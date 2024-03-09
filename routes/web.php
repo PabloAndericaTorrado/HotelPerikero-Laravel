@@ -5,6 +5,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParkingController;
+use App\Http\Controllers\ReseniaController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ReservaParkingController;
 use App\Http\Controllers\ReservaServicioController;
@@ -49,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reservas/{reserva}/delete-view', [ReservaController::class, 'showDeleteView'])->name('reservas.delete.view');
     Route::get('/send-welcome-email', [EmailController::class, 'sendWelcomeEmail']);
     Route::get('/reserva/{id}/pdf', [ReservaController::class, 'generatePDF'])->name('reserva.pdf');
+    Route::get('/reservas/{reserva}/resenias/crear', [ReseniaController::class, 'create'])->name('resenias.create');
+    Route::post('/reservas/{reserva}/resenias', [ReseniaController::class, 'store'])->name('resenias.store');
+    Route::get('/resenias', [ReseniaController::class, 'index'])->name('resenias.index');
+    Route::get('/reservas/{reserva}/resenias', [ReseniaController::class, 'show'])->name('resenias.show');
 
 
 
