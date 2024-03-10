@@ -26,11 +26,13 @@ Este documento proporciona una visión general de un sistema de reserva de habit
 
 1. Clona el repositorio del proyecto.
 2. Ejecuta `composer install` para instalar dependencias.
-3. Configura tu archivo `.env` con las credenciales de la base de datos.
-4. Ejecuta `php artisan migrate` para configurar la base de datos.
-5. Ejecuta `php artisan db:seed` para rellenar la base de datos.
-6. Inicia el servidor de desarrollo con ` php artisan serve --host=192.168.33.20`.
-7. Compila y desarrolla los assets del frontend como JavaScript y CSS con `npm run dev`.
+3. Ejecuta composer require pusher/pusher-php-server
+4. Ejecuta npm install --save laravel-echo pusher-js
+5. Configura tu archivo `.env` con las credenciales de la base de datos.
+6. Ejecuta `php artisan migrate` para configurar la base de datos.
+7. Ejecuta `php artisan db:seed` para rellenar la base de datos.
+8. Inicia el servidor de desarrollo con ` php artisan serve --host=192.168.33.20`.
+9. Compila y desarrolla los assets del frontend como JavaScript y CSS con `npm run dev`.
 
 ## Información de Inicio de Sesión
 1. **ADMIN:** admin@admin.com / admin
