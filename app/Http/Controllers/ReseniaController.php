@@ -29,6 +29,10 @@ class ReseniaController extends Controller
             'comentario' => 'nullable|string',
         ]);
 
+        if ($reserva->resenia()->exists()) {
+            return redirect()->route('reservas.show', $reserva->id)->with('error', 'Ya existe una reseña para esta reserva.');
+        }
+
         $reserva->resenia()->create([
             'usuario_id' => auth()->id(),
             'calificacion' => $request->calificacion,

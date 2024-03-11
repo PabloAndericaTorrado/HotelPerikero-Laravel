@@ -147,12 +147,17 @@
                                                 </button>
                                             </form>
                                         </div>
-                                        <div class="text-center mt-4">
-                                            <a href="{{ route('resenias.create', $reserva->id) }}"
-                                               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                                Añadir Reseña
-                                            </a>
-                                        </div>
+                                        @php
+                                            $checkOutDate = \Carbon\Carbon::parse($reserva->check_out);
+                                        @endphp
+                                        @if($checkOutDate->isPast() && is_null($reserva->resenia))
+                                            <div class="text-center mt-4">
+                                                <a href="{{ route('resenias.create', $reserva->id) }}"
+                                                   class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                                    Añadir Reseña
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -218,7 +223,7 @@
             const diferenciaTiempo = fechaCheckOut.getTime() - fechaCheckIn.getTime();
             const diferenciaDias = diferenciaTiempo / (1000 * 3600 * 24);
 
-            return Math.floor(diferenciaDias);
+            return Math.floor(diferenciaDias + 1);
         }
 
         document.addEventListener("DOMContentLoaded", function() {

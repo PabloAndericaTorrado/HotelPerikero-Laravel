@@ -35,6 +35,14 @@ class ReservaSeeder extends Seeder
                 "precio_total" => 400.00,
                 "pagado" => true,
             ],
+            [
+                "users_id" => 5, // Asegúrate de que este ID de usuario exista
+                "habitacion_id" => 10, // Asegúrate de que este ID de habitación exista
+                "check_in" => "2023-03-01",
+                "check_out" => "2023-03-05",
+                "precio_total" => 400.00,
+                "pagado" => true,
+            ],
         ];
 
         foreach ($reservas as $reserva) {
