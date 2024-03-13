@@ -12,13 +12,9 @@ class ReservaEvento extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id',
-        'espacio_id',
-        'check_in',
-        'check_out',
-        'precio_total',
-        'pagado',
+        'users_id', 'espacio_id', 'check_in', 'check_out', 'precio_total', 'pagado', 'cantidad_personas',
     ];
+
 
     public function usuario()
     {

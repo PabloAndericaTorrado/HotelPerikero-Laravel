@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->foreignId('espacio_id')->constrained('espacios');
             $table->dateTime('check_in');
             $table->dateTime('check_out');
+            $table->integer('cantidad_personas');
             $table->decimal('precio_total', 8, 2);
             $table->boolean('pagado');
             $table->timestamps();

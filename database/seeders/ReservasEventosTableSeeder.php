@@ -11,10 +11,11 @@ class ReservasEventosTableSeeder extends Seeder
     {
         $reservasEventos = [
             [
-                'users_id' => 1, // Asegúrate de que este ID exista en tu tabla de usuarios
-                'espacio_id' => 1, // Asegúrate de que este ID exista en tu tabla de espacios
+                'users_id' => 5,
+                'espacio_id' => 1,
                 "check_in" => "2023-03-20",
                 "check_out" => "2023-03-25",
+                "cantidad_personas" => 75,
                 'precio_total' => 2000,
                 'pagado' => true,
             ],

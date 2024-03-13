@@ -205,6 +205,7 @@
                                             <p><strong>Precio:</strong>
                                                 ${{ number_format($reservaEvento->espacio->precio, 2) }}/Hora</p>
                                             <p><strong>Pagado:</strong> {{ $reservaEvento->pagado ? 'Sí' : 'No' }}</p>
+                                            <p><strong>Personas:</strong> {{ $reservaEvento->cantidad_personas}}</p>
                                             <hr class="border-t-2 border-gray-300 my-4">
                                             <p class="text-lg font-semibold mb-2 text-red-500">Servicios Adicionales</p>
                                             @if($reservaEvento->servicios->count() > 0)

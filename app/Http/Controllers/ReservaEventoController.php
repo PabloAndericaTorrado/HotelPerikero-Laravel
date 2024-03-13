@@ -48,6 +48,7 @@ class ReservaEventoController extends Controller
             'espacio_id' => 'required|exists:espacios,id',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date|after:fecha_inicio',
+            'cantidad_personas' => 'required|integer|min:1',
             'servicios' => 'nullable|array',
             'servicios.*' => 'exists:servicio_eventos,id',
         ]);
@@ -63,13 +64,15 @@ class ReservaEventoController extends Controller
         $serviciosSeleccionados = $request->input('servicios', []);
         $precioTotal = $this->calcularPrecioTotal($espacioId, $serviciosSeleccionados, $checkIn, $checkOut);
 
-        $reserva = new ReservaEvento();
-        $reserva->users_id = Auth::id();
-        $reserva->espacio_id = $espacioId;
-        $reserva->check_in = $checkIn;
-        $reserva->check_out = $checkOut;
-        $reserva->precio_total = $precioTotal;
-        $reserva->pagado = true;
+        $reserva = new ReservaEvento([
+            'users_id' => Auth::id(),
+            'espacio_id' => $espacioId,
+            'check_in' => $checkIn,
+            'check_out' => $checkOut,
+            'precio_total' => $precioTotal,
+            'pagado' => true,
+            'cantidad_personas' => $request->input('cantidad_personas'),
+        ]);
         $reserva->save();
 
         foreach ($serviciosSeleccionados as $servicioId) {
@@ -79,8 +82,9 @@ class ReservaEventoController extends Controller
             }
         }
 
-        return redirect()->route('habitaciones.cuenta')->with('success', 'Reserva creada con éxito.');
+        return redirect()->route('reserva_eventos.index')->with('success', 'Reserva creada con éxito.');
     }
+
 
     protected function calcularPrecioTotal($espacioId, $serviciosSeleccionados, $fechaInicio, $fechaFin)
     {

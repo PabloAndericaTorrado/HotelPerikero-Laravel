@@ -37,7 +37,13 @@
                                class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
                     </div>
                 </div>
-
+                <div class="mb-4">
+                    <label for="cantidad_personas" class="block text-gray-700 font-semibold mb-2">Cantidad de
+                        Personas:</label>
+                    <input type="number" name="cantidad_personas" id="cantidad_personas"
+                           class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500"
+                           value="{{ old('cantidad_personas', $reserva->cantidad_personas ?? '') }}">
+                </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione los servicios para el
                         evento:</label>
