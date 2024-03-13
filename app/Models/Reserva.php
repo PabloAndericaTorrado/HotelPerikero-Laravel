@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reserva extends Model
 {
     protected $table = 'reservas';
-    protected $dates = ['check_in', 'check_out', 'created_at', 'updated_at']; // Agrega created_at y updated_at
+    protected $dates = ['check_in', 'check_out', 'created_at', 'updated_at'];
 
     use HasFactory;
 

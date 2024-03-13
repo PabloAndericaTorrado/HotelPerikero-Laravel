@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\EspacioController;
 use App\Http\Controllers\HabitacionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\ReseniaController;
 use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\ReservaEventoController;
 use App\Http\Controllers\ReservaParkingController;
 use App\Http\Controllers\ReservaServicioController;
 use App\Http\Controllers\ServicioController;
@@ -54,6 +56,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/reservas/{reserva}/resenias', [ReseniaController::class, 'store'])->name('resenias.store');
     Route::get('/resenias', [ReseniaController::class, 'index'])->name('resenias.index');
     Route::get('/reservas/{reserva}/resenias', [ReseniaController::class, 'show'])->name('resenias.show');
+    Route::get('/reserva-eventos', [ReservaEventoController::class, 'index'])->name('reserva_eventos.index');
+    Route::get('/espacios', [EspacioController::class, 'index'])->name('espacios.index');
+    Route::get('/espacios/{id}', [EspacioController::class, 'show'])->name('espacios.show');
+    Route::get('/reserva_eventos/create/{espacio}', [ReservaEventoController::class, 'create'])->name('reserva_eventos.create');
+    Route::post('/reserva_eventos', [ReservaEventoController::class, 'store'])->name('reserva_eventos.store');
+    Route::delete('/reserva_eventos/{reserva_evento}', [ReservaEventoController::class, 'destroy'])->name('reserva_eventos.delete');
 
 
 

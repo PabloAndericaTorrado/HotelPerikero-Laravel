@@ -67,6 +67,7 @@
             <ul class="flex space-x-4">
                 <li><a class="text-white nav-link" href="{{ url('/') }}">Inicio</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.index') }}">Habitaciones</a></li>
+                <li><a class="text-white nav-link" href="{{ route('espacios.index') }}">Eventos</a></li>
                 <li><a class="text-white nav-link" href="{{ route('servicios.index') }}">Servicios</a></li>
                 <li><a class="text-white nav-link" href="{{ route('habitaciones.contacto') }}">Contacto</a></li>
                 <li><a class="text-white nav-link" href="{{ route('resenias.index') }}">Reseñas</a></li>

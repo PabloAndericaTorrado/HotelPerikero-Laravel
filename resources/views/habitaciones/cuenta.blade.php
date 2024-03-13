@@ -7,7 +7,12 @@
 
             <div class="mb-4">
                 <button onclick="mostrarSeccion('perfilContainer')" class="mr-2 text-blue-500">Perfil</button>
-                <button onclick="mostrarSeccion('reservasContainer')" class="text-blue-500">Reservas</button>
+                |
+                <button onclick="mostrarSeccion('reservasContainer')" class="text-blue-500">Reservas de Habitaciones
+                </button>
+                |
+                <button onclick="mostrarSeccion('reservasEventosContainer')" class="text-blue-500">Reservas de Eventos
+                </button>
             </div>
 
             <!-- Contenedor del perfil -->
@@ -168,6 +173,84 @@
                 </div>
             </div>
 
+            <!-- Contenedor de reservas de eventos -->
+            <div id="reservasEventosContainer" style="display:none;">
+                <div class="col-span-2">
+                    <!-- Estructura de reservas de eventos -->
+                    <h2 class="text-2xl font-semibold mb-4">Reservas de Eventos</h2>
+                    @if(count(auth()->user()->reservaEventos) > 0)
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            @foreach(auth()->user()->reservaEventos as $reservaEvento)
+                                <div class="max-w-md mx-auto mb-6">
+                                    <div class="border p-4 rounded-lg shadow-md bg-white">
+                                        <h3 class="text-lg font-semibold mb-2">{{ $reservaEvento->espacio->nombre }}</h3>
+                                        @php
+                                            $imagenPath = 'espacio_images/espacio_' . $reservaEvento->espacio->id . '.jpg';
+                                        @endphp
+                                        @if(file_exists(public_path($imagenPath)))
+                                            <img src="{{ asset($imagenPath) }}" alt="Imagen de la habitación"
+                                                 class="w-full h-auto rounded-lg mb-4">
+                                        @else
+                                            <p class="text-gray-600 text-center p-4">No hay imagen disponible para esta
+                                                habitación.</p>
+                                        @endif
+                                        <div class="mb-4">
+                                            <p><strong>Inicio:</strong> {{ $reservaEvento->check_in}}</p>
+                                            <p><strong>Fin:</strong> {{ $reservaEvento->check_out}}</p>
+                                        </div>
+
+                                        <div class="bg-gray-100 p-4 rounded mb-4">
+                                            <p class="text-lg font-semibold mb-2 text-red-500">Detalles de la Reserva de
+                                                Evento</p>
+                                            <p><strong>Precio:</strong>
+                                                ${{ number_format($reservaEvento->espacio->precio, 2) }}/Hora</p>
+                                            <p><strong>Pagado:</strong> {{ $reservaEvento->pagado ? 'Sí' : 'No' }}</p>
+                                            <hr class="border-t-2 border-gray-300 my-4">
+                                            <p class="text-lg font-semibold mb-2 text-red-500">Servicios Adicionales</p>
+                                            @if($reservaEvento->servicios->count() > 0)
+                                                <ul>
+                                                    @foreach($reservaEvento->servicios as $servicio)
+                                                        <li>{{ $servicio->nombre }} -
+                                                            ${{ number_format($servicio->precio, 2) }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @else
+                                                <p>No se han seleccionado servicios adicionales.</p>
+                                            @endif
+                                        </div>
+                                        <hr class="border-t-2 border-gray-300 my-4">
+                                        <div class="text-center">
+                                            <p class="text-lg font-semibold mb-2">Total:
+                                                ${{ number_format((float)$reservaEvento->precio_total) }}</p>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <form action="{{ route('reserva_eventos.delete', $reservaEvento->id) }}"
+                                                  method="POST" class="mt-4">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                        class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full inline-flex items-center transition-all duration-300">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                         viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 mr-2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                              stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                    </svg>
+                                                    Cancelar Evento
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-gray-600">No tienes reservas de eventos.</p>
+                    @endif
+                </div>
+            </div>
+
+
         </div>
     </div>
 
@@ -178,6 +261,7 @@
         function mostrarSeccion(seccionId) {
             document.getElementById('perfilContainer').style.display = 'none';
             document.getElementById('reservasContainer').style.display = 'none';
+            document.getElementById('reservasEventosContainer').style.display = 'none';
 
             document.getElementById(seccionId).style.display = 'block';
         }

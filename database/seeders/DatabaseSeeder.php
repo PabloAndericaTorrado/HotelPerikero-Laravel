@@ -19,7 +19,10 @@ class DatabaseSeeder extends Seeder
             ReservaSeeder::class,
             ReservaServiciosSeeder::class,
             ParkingSeeder::class,
-            ReseniasSeeder::class, // Make sure this line is here
+            ReseniasSeeder::class,
+            EspaciosTableSeeder::class,
+            ReservasEventosTableSeeder::class,
+            ServiciosEventosTableSeeder::class,
         ]);
 
     }
