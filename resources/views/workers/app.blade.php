@@ -20,7 +20,7 @@
         </div>
         <nav>
             <ul class="flex space-x-4">
-                <li><a class="text-white nav-link">Comprobar Matrícula</a></li>
+                <li><a class="text-white nav-link" href="{{route('movimientos')}}">Movimientos</a></li>
                 <li><a class="text-white nav-link" href="{{ route('parking_day') }}">Ver Parking</a></li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

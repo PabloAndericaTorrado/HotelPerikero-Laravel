@@ -55,4 +55,24 @@ class ReservaParkingController extends Controller
         // Pasar los datos a la vista
         return view('workers.parking_day', compact('fechaActual', 'plazasParking', 'reservasData'));
     }
+
+    public function showMovimientos()
+    {
+        return view('workers.movimientos');
+
+    }
+
+    public function registrarMovimiento(Request $request)
+    {
+        $accion = $request->input('accion');
+
+        if ($accion === 'entrada') {
+            // Lógica para registrar la entrada de un coche
+        } elseif ($accion === 'salida') {
+            // Lógica para registrar la salida de un coche
+        }
+
+        // Redirigir de vuelta a la vista de movimientos
+        return redirect()->route('movimientos');
+    }
 }
