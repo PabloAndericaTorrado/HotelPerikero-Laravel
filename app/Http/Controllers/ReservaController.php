@@ -92,6 +92,9 @@ class ReservaController extends Controller
         $reserva->save();
         // Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
 
+        $request->validate([
+            'matricula_parking' => 'required|string|max:255',
+        ]);
         if ($request->has('plaza_parking_id') && $request->input('plaza_parking_id') != '') {
             $plazaParkingId = $request->input('plaza_parking_id');
             $plazaParking = Parking::findOrFail($plazaParkingId);
@@ -274,6 +277,7 @@ class ReservaController extends Controller
                         'fecha_fin' => $checkOut,
                         'reserva_habitacion_id' => $reserva->id,
                         'parking_id' => $plazaParkingId,
+                        'salida_registrada' => false,
                     ]);
 
                     // Marcar la plaza de parking como no disponible
