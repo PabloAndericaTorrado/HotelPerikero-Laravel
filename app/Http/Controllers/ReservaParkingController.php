@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Habitacion;
+use App\Models\Parking;
 use App\Models\ReservaParking;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReservaParkingController extends Controller
@@ -33,4 +35,19 @@ class ReservaParkingController extends Controller
         return response()->json($plazasOcupadas);
     }
 
+    public function showParkingDay(){
+        $fechaActual = Carbon::now()->toDateString();
+
+        // Obtener todas las reservas para el día actual
+        $reservas = ReservaParking::whereDate('fecha_inicio', '<=', $fechaActual)
+            ->whereDate('fecha_fin', '>=', $fechaActual)
+            ->pluck('parking_id')
+            ->toArray();
+
+        // Obtener todas las plazas de parking
+        $plazasParking = Parking::all();
+
+        // Pasar los datos a la vista
+        return view('workers.parking_day', compact('fechaActual', 'plazasParking', 'reservas'));
+    }
 }

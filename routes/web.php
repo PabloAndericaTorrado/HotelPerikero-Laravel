@@ -96,5 +96,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 Route::get('/worker/parking', [ReservaParkingController::class, 'index'])->name('parking');
 Route::post('/get-parking-reservations', [ReservaController::class, 'getParkingReservations']);
-Route::get('/parking-day', [ParkingController::class, 'showParkingDay'])->name('parking_day');
+Route::get('/parking-day', [ReservaParkingController::class, 'showParkingDay'])->name('parking_day');
 
