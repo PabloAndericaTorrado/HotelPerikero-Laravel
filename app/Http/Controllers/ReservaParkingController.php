@@ -67,10 +67,26 @@ class ReservaParkingController extends Controller
         $accion = $request->input('accion');
 
         if ($accion === 'entrada') {
-            // Lógica para registrar la entrada de un coche
+
         } elseif ($accion === 'salida') {
-            // Lógica para registrar la salida de un coche
-        }
+            $request->validate([
+                'matricula' => 'required|string|max:255',
+            ]);
+
+            $matricula = $request->input('matricula');
+
+            $reserva = ReservaParking::where('matricula', $matricula)->first();
+
+            if ($reserva) {
+                // Aquí puedes realizar cualquier acción adicional que necesites, como marcar la plaza como disponible
+                // y registrar la salida del coche en tu sistema
+
+                // Redirigir de vuelta a la vista de movimientos con un mensaje de éxito
+                return redirect()->route('movimientos')->with('success', 'El coche ha salido exitosamente del parking.');
+            } else {
+                // Si la matrícula no coincide con ninguna reserva, mostrar un mensaje de error
+                return redirect()->route('movimientos')->with('error', 'La matrícula proporcionada no corresponde a ninguna reserva.');
+            }        }
 
         // Redirigir de vuelta a la vista de movimientos
         return redirect()->route('movimientos');

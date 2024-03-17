@@ -104,12 +104,12 @@ class ReservaController extends Controller
                     'fecha_fin' => $checkOut,
                     'reserva_habitacion_id' => $reserva->id,
                     'parking_id' => $plazaParkingId,
+                    'salida_registrada' => false,
                 ]);
 
-                // Marcar la plaza de parking como no disponible
+
                 $plazaParking->save();
             } else {
-                // Opcional: Manejar el caso en que la plaza seleccionada ya no esté disponible
                 return redirect()->back()->with('error', 'La plaza de parking seleccionada ya no está disponible.');
             }
         }

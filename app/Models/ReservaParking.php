@@ -11,7 +11,7 @@ class ReservaParking extends Model
 
     protected $table = 'reservas_parking';
 
-    protected $fillable = ['reserva_habitacion_id', 'parking_id', 'fecha_inicio', 'fecha_fin', 'matricula'];
+    protected $fillable = ['reserva_habitacion_id', 'parking_id', 'fecha_inicio', 'fecha_fin', 'matricula', 'salida_registrada'];
 
 
     public function habitacion()

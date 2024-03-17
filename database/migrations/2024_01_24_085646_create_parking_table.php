@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('fecha_inicio');
             $table->dateTime('fecha_fin');
             $table->string('matricula');
+            $table->boolean('salida_registrada')->default(false);
             $table->timestamps();
         });
     }
