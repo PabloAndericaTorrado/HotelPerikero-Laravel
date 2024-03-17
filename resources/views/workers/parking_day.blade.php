@@ -4,9 +4,13 @@
     <div class="grid grid-cols-5 gap-4">
         @foreach($plazasParking as $plaza)
             <div class="border rounded-lg overflow-hidden cursor-pointer"
-                 onclick="mostrarDetalles({{ $plaza->id }}, '{{ $plaza->nombre }}', '{{ $reservasData[$plaza->id] ?? '' }}')"
+                 onclick="mostrarDetalles({{ $plaza->id }}, '{{ $plaza->nombre }}', '{{ $reservasData[$plaza->id]['matricula'] ?? '' }}', {{ $reservasData[$plaza->id]['salida_registrada'] ?? false }})"
                  @if(array_key_exists($plaza->id, $reservasData))
+                     @if($reservasData[$plaza->id]['salida_registrada'])
+                         style="background-color: #3B82F6; color: white"
+                 @else
                      style="background-color: #EF4444; color: white"
+                 @endif
                  @else
                      style="background-color: #34D399"
                 @endif
@@ -30,16 +34,18 @@
     </div>
 
     <script>
-        function mostrarDetalles(plazaId, plazaNombre, matriculaCoche) {
+        function mostrarDetalles(plazaId, plazaNombre, matriculaCoche, salidaRegistrada) {
             const modalPlazaNombre = document.getElementById('modalPlazaNombre');
             const modalContenido = document.getElementById('modalContenido');
 
             modalPlazaNombre.textContent = 'Plaza ' + plazaNombre;
 
             if (matriculaCoche) {
+                let estado = salidaRegistrada ? 'Fuera del parking' : 'Estacionado';
                 modalContenido.innerHTML = `
                     <div><strong>Estado:</strong> Ocupada</div>
                     <div><strong>Matrícula del coche:</strong> ${matriculaCoche}</div>
+                    <div><strong>Estado del coche:</strong> ${estado}</div>
                 `;
             } else {
                 modalContenido.innerHTML = '<div><strong>Estado:</strong> Disponible</div>';
