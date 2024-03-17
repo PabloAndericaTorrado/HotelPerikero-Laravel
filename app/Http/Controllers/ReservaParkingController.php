@@ -41,13 +41,18 @@ class ReservaParkingController extends Controller
         // Obtener todas las reservas para el día actual
         $reservas = ReservaParking::whereDate('fecha_inicio', '<=', $fechaActual)
             ->whereDate('fecha_fin', '>=', $fechaActual)
-            ->pluck('parking_id')
-            ->toArray();
+            ->select('parking_id', 'matricula')
+            ->get();
+
+        $reservasData = [];
+        foreach ($reservas as $reserva) {
+            $reservasData[$reserva->parking_id] = $reserva->matricula;
+        }
 
         // Obtener todas las plazas de parking
         $plazasParking = Parking::all();
 
         // Pasar los datos a la vista
-        return view('workers.parking_day', compact('fechaActual', 'plazasParking', 'reservas'));
+        return view('workers.parking_day', compact('fechaActual', 'plazasParking', 'reservasData'));
     }
 }
