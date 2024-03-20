@@ -90,7 +90,7 @@ class ReservaController extends Controller
         $reserva->precio_total = $reserva->calculateTotalPrice();
 
         $reserva->save();
-        // Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
+        Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
 
         $request->validate([
             'matricula_parking' => 'required|string|max:255',
