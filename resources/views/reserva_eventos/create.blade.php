@@ -5,6 +5,7 @@
         <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
             <h1 class="text-4xl font-semibold mb-4 text-center text-blue-600">Reservar Espacio para Eventos</h1>
             <h2 class="text-2xl mb-6 text-center text-gray-700">Reservar: {{ $espacio->nombre }}</h2>
+            <!-- <h2 class="text-2xl mb-6 text-center text-gray-700">Máximo de Personas: {{ $espacio->capacidad_maxima }}</h2> <-->
 
             @if ($errors->any())
                 <div class="mb-4">
@@ -42,7 +43,9 @@
                         Personas:</label>
                     <input type="number" name="cantidad_personas" id="cantidad_personas"
                            class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500"
-                           value="{{ old('cantidad_personas', $reserva->cantidad_personas ?? '') }}">
+                           value="{{ old('cantidad_personas') }}"
+                           max="{{ $espacio->capacidad_maxima }}"
+                           required>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">Seleccione los servicios para el
