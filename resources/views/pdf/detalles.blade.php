@@ -2,53 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles de la Reserva</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #edf2f7;
+            color: #1a202c;
             margin: 0;
             padding: 20px;
         }
-
         .container {
             background-color: #fff;
             margin: auto;
             padding: 20px;
             max-width: 800px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-
-        .header, .footer {
+        .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
         }
-
         h1, h2 {
-            color: #444;
+            color: #2d3748;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
-
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            padding: 0.5rem;
             text-align: left;
+            border-bottom: 1px solid #e2e8f0;
         }
-
         th {
-            background-color: #f2f2f2;
+            background-color: #f7fafc;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.875rem;
+        }
+        .footer a {
+            color: #3182ce;
+            text-decoration: none;
         }
 
         .logo {
-            max-width: 100px;
+            max-width: 80px;
             margin-bottom: 20px;
         }
     </style>
