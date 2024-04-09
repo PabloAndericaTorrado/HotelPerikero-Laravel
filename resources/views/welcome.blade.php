@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perikero Hotel</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    @livewireStyles
     <style>
         body {
             display: flex;
@@ -378,6 +379,8 @@
         </div>
     </div>
 </footer>
+
+<livewire:chat-box />
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
@@ -402,3 +405,4 @@
     }
 </script>
 
+@livewireScripts

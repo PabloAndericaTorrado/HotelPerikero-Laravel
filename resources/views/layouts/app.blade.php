@@ -52,6 +52,7 @@
             color: #fca311;
         }
     </style>
+
 </head>
 
 <body class="font-sans">
@@ -105,6 +106,9 @@
     </div>
 </footer>
 @stack('scripts')
+
+@livewireScripts
 </body>
 
 </html>
+
