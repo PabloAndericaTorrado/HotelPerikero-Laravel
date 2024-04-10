@@ -9,6 +9,7 @@ use App\Models\Habitacion;
 use App\Models\Parking;
 use App\Models\Reserva;
 use App\Models\ReservaParking;
+use App\Models\ReservaParkingAnonimo;
 use App\Models\Servicio;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -58,6 +59,7 @@ class ReservaController extends Controller
 
     public function store(Request $request)
     {
+
         $habitacionId = $request->habitacion_id;
         $checkIn = $request->check_in;
         $checkOut = $request->check_out;
@@ -92,13 +94,12 @@ class ReservaController extends Controller
         $reserva->save();
         Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
 
-        $request->validate([
-            'matricula_parking' => 'required|string|max:255',
-        ]);
         if ($request->has('plaza_parking_id') && $request->input('plaza_parking_id') != '') {
             $plazaParkingId = $request->input('plaza_parking_id');
             $plazaParking = Parking::findOrFail($plazaParkingId);
-
+            $request->validate([
+                'matricula_parking' => 'required|string|max:255',
+            ]);
             // Verifica que la plaza de parking esté disponible
             if ($plazaParking->disponible) {
                 ReservaParking::create([
@@ -107,7 +108,7 @@ class ReservaController extends Controller
                     'fecha_fin' => $checkOut,
                     'reserva_habitacion_id' => $reserva->id,
                     'parking_id' => $plazaParkingId,
-                    'salida_registrada' => false,
+                    'salida_registrada' => true,
                 ]);
 
 
@@ -308,7 +309,13 @@ class ReservaController extends Controller
             })
             ->pluck('parking_id');
 
-        return response()->json($reservasParking);
+        $reservasAnonimas = ReservaParkingAnonimo::whereDate('fecha_hora_entrada', now()->toDateString())
+            ->where('salida_registrada', false)
+            ->pluck('parking_id');
+
+        $reservasTotales = $reservasParking->merge($reservasAnonimas)->unique();
+
+        return response()->json($reservasTotales);
     }
 
 
