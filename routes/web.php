@@ -9,6 +9,7 @@ use App\Http\Controllers\ParkingController;
 use App\Http\Controllers\ReseniaController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ReservaEventoController;
+use App\Http\Controllers\ReservaParkingAnonimoController;
 use App\Http\Controllers\ReservaParkingController;
 use App\Http\Controllers\ReservaServicioController;
 use App\Http\Controllers\ServicioController;
@@ -99,5 +100,8 @@ Route::post('/get-parking-reservations', [ReservaController::class, 'getParkingR
 Route::get('/parking-day', [ReservaParkingController::class, 'showParkingDay'])->name('parking_day');
 Route::get('/movimientos', [ReservaParkingController::class, 'showMovimientos'])->name('movimientos');
 Route::post('/movimientos/registrar', [ReservaParkingController::class, 'registrarMovimiento'])->name('movimientos.registrar');
+Route::get('/factura/{reservaAnonima}', [ReservaParkingAnonimoController::class, 'mostrarFactura'])->name('factura.mostrar');
+Route::post('/factura/{reservaAnonima}/pagar', [ReservaParkingAnonimoController::class, 'marcarComoPagada'])->name('factura.pagar');
+
 
 

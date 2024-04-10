@@ -31,5 +31,4 @@ class ServicioEventoController extends Controller
         return redirect()->route('serviciosEventos.index')->with('success', 'Servicio para reserva_eventos creado con éxito.');
     }
 
-    // Agrega los métodos edit, update y destroy según tus necesidades
 }

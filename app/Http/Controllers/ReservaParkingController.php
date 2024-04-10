@@ -77,8 +77,19 @@ class ReservaParkingController extends Controller
 
     public function showMovimientos()
     {
-        return view('workers.movimientos');
+        $reservas = ReservaParking::where('salida_registrada', false)->get();
 
+        $reservasAnonimas = ReservaParkingAnonimo::where('salida_registrada', false)->get();
+
+        $matriculas = [];
+        foreach ($reservas as $reserva) {
+            $matriculas[] = $reserva->matricula;
+        }
+        foreach ($reservasAnonimas as $reservaAnonima) {
+            $matriculas[] = $reservaAnonima->matricula;
+        }
+
+        return view('workers.movimientos', compact('matriculas'));
     }
 
     public function registrarMovimiento(Request $request)
@@ -135,7 +146,9 @@ class ReservaParkingController extends Controller
                 if ($reservaAnonima) {
                     $factura = ReservaParkingAnonimoController::calcularFactura($reservaAnonima);
 
-                    $reservaAnonima->update(['salida_registrada' => true]);
+                    return view('workers.parking_factura', compact('factura', 'reservaAnonima'));
+
+
 
                 } else {
                     return redirect()->route('movimientos')->with('error', 'La matrícula proporcionada no corresponde a ninguna reserva.');

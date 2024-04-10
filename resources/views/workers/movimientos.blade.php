@@ -14,15 +14,22 @@
         </form>
 
         <div id="formulario-salida" class="hidden mt-8">
-            <form action="{{ route('movimientos.registrar') }}" method="POST">
+            <form action="{{ route('movimientos.registrar') }}" method="POST" id="form-salida">
                 @csrf
-                <label for="matricula" class="block mb-2">Matrícula del coche:</label>
-                <input type="text" id="matricula" name="matricula" class="border rounded-md px-3 py-2 w-full">
+                <label for="matricula" class="block mb-2">Selecciona la matrícula del coche:</label>
+                <ul class="border rounded-md px-3 py-2 w-full" id="matriculas-list">
+                    @foreach ($matriculas as $matricula)
+                        <li class="cursor-pointer hover:bg-gray-200 py-1 px-2"
+                            onclick="seleccionarMatricula('{{ $matricula }}')">{{ $matricula }}</li>
+                    @endforeach
+                </ul>
+                <input type="hidden" id="matricula" name="matricula" value="">
                 <button type="submit" name="accion" value="salida" class="mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full">
                     Confirmar Salida
                 </button>
             </form>
         </div>
+
 
         <div id="formulario-entrada" class="hidden mt-8">
             <form action="{{ route('movimientos.registrar') }}" method="POST">
@@ -37,16 +44,23 @@
     </div>
 
     <script>
+
+        function seleccionarMatricula(matricula) {
+            document.getElementById('matricula').value = matricula;
+
+            var matriculasList = document.getElementById('matriculas-list').getElementsByTagName('li');
+            for (var i = 0; i < matriculasList.length; i++) {
+                matriculasList[i].classList.remove('bg-green-200');
+            }
+            event.target.classList.add('bg-green-200');
+        }
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('registrar-salida').addEventListener('click', function () {
-                // Mostrar el formulario de salida y ocultar el formulario de entrada
                 document.getElementById('formulario-salida').classList.remove('hidden');
                 document.getElementById('formulario-entrada').classList.add('hidden');
             });
 
-            // Agregar evento para mostrar el formulario de entrada cuando se hace clic en "Registrar Entrada"
             document.getElementById('registrar-entrada').addEventListener('click', function () {
-                // Mostrar el formulario de entrada y ocultar el formulario de salida
                 document.getElementById('formulario-entrada').classList.remove('hidden');
                 document.getElementById('formulario-salida').classList.add('hidden');
             });
