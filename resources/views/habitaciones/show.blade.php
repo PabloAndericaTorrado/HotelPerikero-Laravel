@@ -17,14 +17,21 @@
                     <p class="text-gray-600 mb-4">{{ $habitacion->descripcion }}</p>
                     <div class="text-lg mb-4"><strong>Precio por noche:</strong> ${{ $habitacion->precio }}</div>
                     @if($habitacion->disponibilidad)
-                        <div class="mb-4">
-                            <span class="inline-block bg-green-200 text-green-800 px-3 py-1 rounded-full text-sm font-medium">Disponible</span>
-                        </div>
-                        <a href="{{ route('reservas.create', $habitacion->id) }}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 ease-in-out">Reservar Ahora</a>
-                    @else
-                        <div class="mb-4">
-                            <span class="inline-block bg-red-200 text-red-800 px-3 py-1 rounded-full text-sm font-medium">No Disponible</span>
-                        </div>
+                        @auth
+                            <br/>
+                            <a href="{{ route('reservas.create', $habitacion->id) }}"
+                               class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                Reservar Ahora
+                            </a>
+
+                        @else
+                            <form action="{{ route('login') }}" method="GET">
+                                <button type="submit"
+                                        class="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-primary-dark transform transition duration-300 ease-in-out hover:scale-105 self-start mt-4">
+                                    Inicia sesión para reservar
+                                </button>
+                            </form>
+                        @endauth
                     @endif
                 </div>
             </div>
