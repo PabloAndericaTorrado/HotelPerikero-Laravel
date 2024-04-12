@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FacturaParking;
 use App\Models\ReservaParkingAnonimo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -31,6 +32,15 @@ class ReservaParkingAnonimoController extends Controller
 
     public function marcarComoPagada(Request $request, ReservaParkingAnonimo $reservaAnonima)
     {
+        $montoFactura = ReservaParkingAnonimoController::calcularFactura($reservaAnonima);
+
+        $factura = new FacturaParking();
+        $factura->matricula = $reservaAnonima->matricula;
+        $factura->fecha_hora_entrada = $reservaAnonima->fecha_hora_entrada;
+        $factura->fecha_hora_salida = now();
+        $factura->monto = $montoFactura;
+        $factura->save();
+
         $reservaAnonima->update(['salida_registrada' => true]);
         return redirect()->route('movimientos')->with('success', 'El coche ha salido exitosamente del parking.');
     }
