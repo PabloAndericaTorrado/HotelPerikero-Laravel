@@ -5,6 +5,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ReservationConfirmed;
+use App\Models\FacturaHabitacion;
 use App\Models\Habitacion;
 use App\Models\Parking;
 use App\Models\Reserva;
@@ -35,7 +36,7 @@ class ReservaController extends Controller
         $servicios = Servicio::all();
         $plazasParking = Parking::all();
 
-        return view('reservas.create', compact('habitacion', 'fechasReservadas','servicios', 'plazasParking'));
+        return view('reservas.create', compact('habitacion', 'fechasReservadas', 'servicios', 'plazasParking'));
     }
 
     // Método para obtener las fechas reservadas de una habitación
@@ -53,8 +54,6 @@ class ReservaController extends Controller
 
         return $fechasReservadas;
     }
-
-
 
 
     public function store(Request $request)
@@ -89,7 +88,7 @@ class ReservaController extends Controller
 
         // Calcular el precio total y actualizar la reserva
         // Asegúrate de que el método calculateTotalPrice esté definido y calcule correctamente el precio
-        $reserva->precio_total = $reserva->calculateTotalPrice();
+        $reserva->precio_total = $reserva->calculateTotalPriceWithServices();
 
         $reserva->save();
         Mail::to($reserva->usuario->email)->send(new ReservationConfirmed($reserva));
@@ -119,6 +118,17 @@ class ReservaController extends Controller
         }
         $reservaConParking = Reserva::with('reservaParking')->find($reserva->id);
         Mail::to($reservaConParking->usuario->email)->send(new ReservationConfirmed($reservaConParking));
+
+        $usuario = User::findOrFail($reserva->users_id);
+        $factura = new FacturaHabitacion();
+        $factura->reserva_id = $reserva->id;
+        $factura->fecha_expedicion = now();
+        $factura->correo_huesped = $usuario->email;
+        $factura->fecha_check_in = $reserva->check_in;
+        $factura->fecha_check_out = $reserva->check_out;
+        $factura->monto = $reserva->precio_total;
+
+        $factura->save();
         return redirect()->route('reservas.show', $reserva->id)->with('success', 'Reserva creada con éxito.');
     }
 
@@ -136,7 +146,6 @@ class ReservaController extends Controller
                     });
             })->exists();
     }
-
 
 
     public function show(Reserva $reserva)
@@ -185,6 +194,7 @@ class ReservaController extends Controller
 
         return view('habitaciones.cuenta', compact('user'));
     }
+
     public function showDeleteView(Reserva $reserva)
     {
         return view('reservas.delete', compact('reserva'));
@@ -218,6 +228,7 @@ class ReservaController extends Controller
             return redirect()->route('admins.today_reservations')->with('error', 'Ocurrió un error al confirmar la reserva');
         }
     }
+
     public function createReservationForm()
     {
         $habitaciones = Habitacion::all();
@@ -259,7 +270,6 @@ class ReservaController extends Controller
         }
 
         // Calcular el precio total y actualizar la reserva
-        // Asegúrate de que el método calculateTotalPrice esté definido y calcule correctamente el precio
         $reserva->precio_total = $reserva->calculateTotalPrice();
         $reserva->save();
 

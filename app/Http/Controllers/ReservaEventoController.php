@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Espacio;
+use App\Models\FacturaEventos;
 use App\Models\ReservaEvento;
 use App\Models\ServicioEvento;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,6 +25,8 @@ class ReservaEventoController extends Controller
         $espacio = Espacio::findOrFail($id);
         $servicios = ServicioEvento::all();
         $fechasReservadas = $this->getFechasReservadas($id);
+
+
         return view('reserva_eventos.create', compact('espacio', 'servicios', 'fechasReservadas'));
     }
 
@@ -74,6 +79,17 @@ class ReservaEventoController extends Controller
             'cantidad_personas' => $request->input('cantidad_personas'),
         ]);
         $reserva->save();
+        $usuario = User::findOrFail($reserva->users_id);
+        $espacio = Espacio::findOrFail($reserva->espacio_id);
+
+        $factura = new FacturaEventos();
+        $factura->nombre_espacio = $espacio->nombre;
+        $factura->fecha_expedicion = Carbon::now();
+        $factura->correo_cliente = $usuario->email;
+        $factura->fecha_check_in = $checkIn;
+        $factura->fecha_check_out = $checkOut;
+        $factura->monto = $precioTotal;
+        $factura->save();
 
         foreach ($serviciosSeleccionados as $servicioId) {
             $servicio = ServicioEvento::find($servicioId);
