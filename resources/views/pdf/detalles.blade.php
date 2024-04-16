@@ -2,69 +2,88 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles de la Reserva</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #edf2f7;
-            color: #1a202c;
+            font-family: Arial, sans-serif;
+            background-color: #f0f5f9;
+            color: #333;
             margin: 0;
             padding: 20px;
         }
+
         .container {
             background-color: #fff;
             margin: auto;
             padding: 20px;
             max-width: 800px;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .header {
+
+        .header, .footer {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 5px;
         }
+
         h1, h2 {
-            color: #2d3748;
+            color: #336699;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
+
         th, td {
-            padding: 0.5rem;
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
-            border-bottom: 1px solid #e2e8f0;
         }
+
         th {
-            background-color: #f7fafc;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.875rem;
-        }
-        .footer a {
-            color: #3182ce;
-            text-decoration: none;
+            background-color: #f2f2f2;
         }
 
         .logo {
             max-width: 80px;
             margin-bottom: 20px;
         }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #74b9ff 0%, #55a0fc 100%);
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .accent-color {
+            color: #3498db;
+        }
+
+        .footer {
+            background-color: #336699;
+            color: #fff;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .footer a {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="header">
+    <div class="header gradient-bg">
         <img src="{{ public_path('images/logoPH.jpg') }}" alt="Logo" class="logo">
-        <h1>Detalles de la Reserva</h1>
+        <h1 class="accent-color">Detalles de la Reserva</h1>
     </div>
 
-    <h2>Información del Cliente</h2>
+    <h2 class="accent-color">Información del Cliente</h2>
     <table>
         <tr>
             <th>Nombre</th>
@@ -80,7 +99,7 @@
         </tr>
     </table>
 
-    <h2>Detalles de la Estancia</h2>
+    <h2 class="accent-color">Detalles de la Estancia</h2>
     <table>
         <tr>
             <th>Check-in</th>
@@ -105,7 +124,7 @@
     </table>
 
     @if($reserva->servicios->count() > 0)
-        <h2>Servicios Adicionales</h2>
+        <h2 class="accent-color">Servicios Adicionales</h2>
         <table>
             @foreach($reserva->servicios as $servicio)
                 <tr>
@@ -117,7 +136,7 @@
     @endif
 
     @if($reserva->reservaParking)
-        <h2>Detalles del Parking</h2>
+        <h2 class="accent-color">Detalles del Parking</h2>
         <table>
             <tr>
                 <th>Plaza de Parking</th>
@@ -129,12 +148,12 @@
             </tr>
         </table>
     @endif
+</div>
 
-    <div class="footer">
-        <p>Para cualquier consulta, no dude en contactarnos en <a href="mailto:info@hotelperikero.com">info@hotelperikero.com</a>.
-        </p>
-        <p>¡Esperamos que disfrute su estancia!</p>
-    </div>
+<div class="footer">
+    <p>Para cualquier consulta, no dude en contactarnos en <a href="mailto:info@hotelperikero.com">info@hotelperikero.com</a>.
+    </p>
+    <p>¡Esperamos que disfrute su estancia!</p>
 </div>
 </body>
 </html>

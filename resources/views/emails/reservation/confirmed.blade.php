@@ -12,8 +12,7 @@
         | **Tipo de habitación** | {{ $habitacion }} |
         | **Fecha de Entrada** | {{ $check_in }} |
         | **Fecha de Salida** | {{ $check_out }} |
-        | **Precio Total** | {{ number_format($precio, 2) }}€ |
-
+        | **Precio Total** | {{ number_format(floatval($precio)) }}€ |
     @endcomponent
     --------------------------------------
     @component('mail::table')
