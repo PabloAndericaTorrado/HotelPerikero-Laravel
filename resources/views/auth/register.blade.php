@@ -1,109 +1,51 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="min-h-screen flex items-center justify-center">
-        <div class="bg-white shadow-md rounded-lg p-6 w-full sm:w-3/4 md:w-1/2 lg:w-1/3">
-            <div class="text-2xl font-semibold mb-6">{{ __('Register') }}</div>
-
-            <form method="POST" action="{{ route('register') }}">
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center ">
+        <div class="max-w-4xl w-full bg-gradient-to-r from-blue-50 to-blue-100 shadow-md rounded-lg p-10 sm:w-3/4 md:w-2/3 lg:w-3/4 xl:w-2/3 p-10">
+            <div class="text-center">
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                    {{ __('Registrarse') }}
+                </h2>
+                <p class="mt-2 text-sm text-gray-600">
+                    {{ __('Rellena los campos del formulario de registro.') }}
+                </p>
+            </div>
+            <form method="POST" action="{{ route('register') }}" class="mt-8 space-y-6">
                 @csrf
-
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-600">{{ __('Name') }}</label>
-                    <input id="name" type="text" class="mt-1 p-2 w-full border rounded-md @error('name') border-red-500 @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                    @error('name')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="apellidos" class="block text-sm font-medium text-gray-600">{{ __('Apellidos') }}</label>
-                    <input id="apellidos" type="text" class="mt-1 p-2 w-full border rounded-md @error('apellidos') border-red-500 @enderror" name="apellidos" value="{{ old('apellidos') }}" required autocomplete="apellidos">
-                    @error('apellidos')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-600">{{ __('Email Address') }}</label>
-                    <input id="email" type="email" class="mt-1 p-2 w-full border rounded-md @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                    @error('email')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-600">{{ __('Password') }}</label>
-                    <input id="password" type="password" class="mt-1 p-2 w-full border rounded-md @error('password') border-red-500 @enderror" name="password" required autocomplete="new-password">
-
-                    @error('password')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password-confirm" class="block text-sm font-medium text-gray-600">{{ __('Confirm Password') }}</label>
-                    <input id="password-confirm" type="password" class="mt-1 p-2 w-full border rounded-md" name="password_confirmation" required autocomplete="new-password">
-                </div>
-
-                <div class="mb-4">
-                    <label for="telefono" class="block text-sm font-medium text-gray-600">{{ __('Teléfono') }}</label>
-                    <input id="telefono" type="text" class="mt-1 p-2 w-full border rounded-md @error('telefono') border-red-500 @enderror" name="telefono" value="{{ old('telefono') }}" autocomplete="telefono">
-                    @error('telefono')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="direccion" class="block text-sm font-medium text-gray-600">{{ __('Dirección') }}</label>
-                    <input id="direccion" type="text" class="mt-1 p-2 w-full border rounded-md @error('direccion') border-red-500 @enderror" name="direccion" value="{{ old('direccion') }}" autocomplete="direccion">
-                    @error('direccion')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="país" class="block text-sm font-medium text-gray-600">{{ __('País') }}</label>
-                    <input id="país" type="text" class="mt-1 p-2 w-full border rounded-md @error('país') border-red-500 @enderror" name="país" value="{{ old('país') }}" autocomplete="país">
-                    @error('país')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="ciudad" class="block text-sm font-medium text-gray-600">{{ __('Ciudad') }}</label>
-                    <input id="ciudad" type="text" class="mt-1 p-2 w-full border rounded-md @error('ciudad') border-red-500 @enderror" name="ciudad" value="{{ old('ciudad') }}" autocomplete="ciudad">
-                    @error('ciudad')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="codigo_postal" class="block text-sm font-medium text-gray-600">{{ __('Código Postal') }}</label>
-                    <input id="codigo_postal" type="text" class="mt-1 p-2 w-full border rounded-md @error('codigo_postal') border-red-500 @enderror" name="codigo_postal" value="{{ old('codigo_postal') }}" autocomplete="codigo_postal">
-                    @error('codigo_postal')
-                    <span class="text-red-500 text-sm mt-1" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    @php
+                        $fields = [
+                            ['name' => 'name', 'label' => __('Name'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/1077/1077063.png'],
+                            ['name' => 'apellidos', 'label' => __('Apellidos'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'],
+                            ['name' => 'email', 'label' => __('Email Address'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/561/561127.png'],
+                            ['name' => 'password', 'label' => __('Password'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/3064/3064197.png'],
+                            ['name' => 'password_confirmation', 'label' => __('Confirm Password'), 'icon' => ''],
+                            ['name' => 'telefono', 'label' => __('Teléfono'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/15/15874.png'],
+                            ['name' => 'direccion', 'label' => __('Dirección'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/1239/1239525.png'],
+                            ['name' => 'país', 'label' => __('País'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/197/197374.png'],
+                            ['name' => 'ciudad', 'label' => __('Ciudad'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/684/684908.png'],
+                            ['name' => 'codigo_postal', 'label' => __('Código Postal'), 'icon' => 'https://cdn-icons-png.flaticon.com/512/684/684809.png']
+                        ];
+                    @endphp
+                    @foreach ($fields as $field)
+                        <div>
+                            <label for="{{ $field['name'] }}" class="block text-sm font-medium text-gray-700">{{ $field['label'] }}</label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                @if ($field['icon'])
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <img src="{{ $field['icon'] }}" alt="" class="h-5 w-5 text-gray-500">
+                                    </div>
+                                    <input id="{{ $field['name'] }}" name="{{ $field['name'] }}" type="{{ $field['name'] == 'password' || $field['name'] == 'password_confirmation' ? 'password' : 'text' }}" required class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pt-3 pb-3 rounded-xl bg-white border focus:outline-none" value="{{ old($field['name']) }}">
+                                @else
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3064/3064197.png" alt="" class="h-5 w-5 text-gray-500">
+                                    </div>
+                                    <input id="{{ $field['name'] }}" name="{{ $field['name'] }}" type="password" required class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pt-3 pb-3 border-gray-300 rounded-lg bg-white border focus:outline-none">
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div class="flex items-center justify-between mb-4">
