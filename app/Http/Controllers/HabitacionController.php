@@ -13,6 +13,12 @@ class HabitacionController extends Controller
         $habitaciones = Habitacion::all();
         return view('habitaciones.index', compact('habitaciones'));
     }
+    public function filtrar(Request $request)
+    {
+        $capacidad = $request->input('capacidad');
+        $habitacionesFiltradas = Habitacion::where('capacidad', $capacidad)->get();
+        return view('habitaciones.filtradas', compact('habitacionesFiltradas'));
+    }
 
     public function contacto()
     {
@@ -25,7 +31,6 @@ class HabitacionController extends Controller
 
         return view('habitaciones.show', compact('habitacion', 'servicios'));
     }
-
     public function cuenta()
     {
         $user = auth()->user(); // Obtener el usuario autenticado
