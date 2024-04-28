@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Habitacion;
 use App\Models\Servicio;
+use Illuminate\Support\Facades\Log;
+
 class HabitacionController extends Controller
 {
     public function index()
@@ -16,8 +18,8 @@ class HabitacionController extends Controller
     public function filtrar(Request $request)
     {
         $capacidad = $request->input('capacidad');
-        $habitacionesFiltradas = Habitacion::where('capacidad', $capacidad)->get();
-        return view('habitaciones.filtradas', compact('habitacionesFiltradas'));
+        $habitaciones = Habitacion::where('capacidad', '>=', $capacidad)->get();
+        return view('habitaciones.index', compact('habitaciones'));
     }
 
     public function contacto()
@@ -41,6 +43,8 @@ class HabitacionController extends Controller
     {
         $this->middleware('auth');
     }
+
+
 
 
 }

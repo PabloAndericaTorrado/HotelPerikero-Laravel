@@ -9,17 +9,23 @@
         </div>
 
         <div id="filtersContainer" class="hidden mb-8">
-            <form action="{{ route('habitaciones.filtrar') }}" method="GET" class="mb-8">
+            <form action="{{ route('habitaciones.filtrar') }}" method="POST" class="mb-8">
+                @csrf <!-- Agrega el token CSRF para protección contra falsificación de solicitudes entre sitios -->
                 <label for="capacidad" class="block mb-2">Selecciona la capacidad:</label>
-                    <select name="capacidad" id="capacidad" class="border border-gray-300 rounded-md p-2">
-                        <option value="1">1 Persona</option>
-                        <option value="2">2 Personas</option>
-                        <option value="3">3 Personas</option>
-                        <option value="4">4 Personas</option>
-                    </select>
+                <select name="capacidad" id="capacidad" class="border border-gray-300 rounded-md p-2">
+                    <option value="1">Selección</option>
+                    <option value="1">1 Persona</option>
+                    <option value="2">2 Personas</option>
+                    <option value="3">3 Personas</option>
+                    <option value="4">4 Personas</option>
+                </select>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md ml-4">Filtrar</button>
             </form>
+            <button id="removeFilters" class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-300">Quitar Filtros</button>
+
+
         </div>
+
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             @foreach($habitaciones as $habitacion)
@@ -54,9 +60,15 @@
 
             const toggleFiltersButton = document.getElementById('toggleFilters');
             const filtersContainer = document.getElementById('filtersContainer');
+            const removeFiltersButton = document.getElementById('removeFilters');
+
 
             toggleFiltersButton.addEventListener('click', function() {
                 filtersContainer.classList.toggle('hidden');
+            });
+
+            removeFiltersButton.addEventListener('click', function() {
+                window.location.href = "{{ route('habitaciones.index') }}";
             });
         });
     </script>

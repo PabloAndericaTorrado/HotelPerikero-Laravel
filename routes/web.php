@@ -45,8 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('reservas', ReservaController::class);
     Route::resource('reserva-servicios', ReservaServicioController::class);
     Route::get('/habitaciones/show', [HabitacionController::class, 'show'])->name('habitaciones.show');
-    Route::get('/habitaciones/filtrar', [HabitacionController::class, 'filtrar'])->name('habitaciones.filtrar');
-
+    Route::post('/habitaciones/filtrar', [HabitacionController::class, 'filtrar'])->name('habitaciones.filtrar');
 
     Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
     Route::get('/reservas/create/{id}', [ReservaController::class, 'create'])->name('reservas.create');
