@@ -18,6 +18,7 @@ class CreateReservasTable extends Migration
             $table->boolean('pagado');
             $table->boolean('confirmado')->default(false);
             $table->string('dni')->nullable()->default(null);
+            $table->integer('numero_personas')->default(1);
             $table->timestamps();
             $table->unique(['habitacion_id', 'check_in', 'check_out']);
         });

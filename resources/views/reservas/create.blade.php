@@ -33,6 +33,14 @@
                         <input type="text" name="check_out" id="check_out" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500" data-input>
                     </div>
                 </div>
+                <div>
+                    <label for="numero_personas" class="block text-gray-700 font-semibold mb-2">Número de Personas:</label>
+                    <select name="numero_personas" id="numero_personas" class="w-full border-2 border-gray-300 p-3 rounded-lg focus:outline-none focus:border-blue-500">
+                        @for ($i = 1; $i <= min($habitacion->capacidad, 5); $i++)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                </div>
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">¿Desea reservar parking?</label>

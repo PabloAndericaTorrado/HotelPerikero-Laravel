@@ -18,6 +18,7 @@ class ReservaSeeder extends Seeder
                 "check_out" => "2023-03-15",
                 "precio_total" => 300.00,
                 "pagado" => true,
+                "numero_personas" => 2,
             ],
             [
                 "users_id" => 2, // Asegúrate de que este ID de usuario exista
@@ -26,6 +27,7 @@ class ReservaSeeder extends Seeder
                 "check_out" => "2023-03-25",
                 "precio_total" => 350.00,
                 "pagado" => false,
+                "numero_personas" => 2,
             ],
             [
                 "users_id" => 5, // Asegúrate de que este ID de usuario exista
@@ -34,6 +36,7 @@ class ReservaSeeder extends Seeder
                 "check_out" => "2023-04-05",
                 "precio_total" => 400.00,
                 "pagado" => true,
+                "numero_personas" => 4,
             ],
             [
                 "users_id" => 5, // Asegúrate de que este ID de usuario exista
@@ -42,6 +45,7 @@ class ReservaSeeder extends Seeder
                 "check_out" => "2023-03-05",
                 "precio_total" => 400.00,
                 "pagado" => true,
+                "numero_personas" => 3,
             ],
         ];
 
@@ -53,6 +57,7 @@ class ReservaSeeder extends Seeder
                 'check_out' => $reserva['check_out'],
                 'precio_total' => $reserva['precio_total'],
                 'pagado' => $reserva['pagado'],
+                'numero_personas' => $reserva['numero_personas'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

@@ -62,6 +62,7 @@ class ReservaController extends Controller
         $habitacionId = $request->habitacion_id;
         $checkIn = $request->check_in;
         $checkOut = $request->check_out;
+        $numero_personas = $request->numero_personas;
 
         if (!$this->habitacionDisponible($habitacionId, $checkIn, $checkOut)) {
             throw ValidationException::withMessages(['error' => 'La habitación no está disponible para las fechas seleccionadas.']);
@@ -72,6 +73,7 @@ class ReservaController extends Controller
             'habitacion_id' => $habitacionId,
             'check_in' => $checkIn,
             'check_out' => $checkOut,
+            'numero_personas' => $numero_personas,
             'precio_total' => 0, // Este valor se calculará después de agregar servicios
             'pagado' => false // Asumiendo que el pago no se realiza inmediatamente
         ]);
