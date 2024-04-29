@@ -15,6 +15,7 @@ class CreateHabitacionesTable extends Migration
             $table->decimal('precio', 8, 2);
             $table->text('descripcion')->nullable();
             $table->integer('capacidad')->default(2);
+            $table->string('caracteristicas')->nullable();
             $table->boolean('disponibilidad')->default(true);
             $table->timestamps();
         });

@@ -8,22 +8,47 @@
             <button id="toggleFilters" class="bg-blue-500 text-white px-4 py-2 rounded-md mr-4">Filtros</button>
         </div>
 
-        <div id="filtersContainer" class="hidden mb-8">
-            <form action="{{ route('habitaciones.filtrar') }}" method="POST" class="mb-8">
-                @csrf <!-- Agrega el token CSRF para protección contra falsificación de solicitudes entre sitios -->
-                <label for="capacidad" class="block mb-2">Selecciona la capacidad:</label>
-                <select name="capacidad" id="capacidad" class="border border-gray-300 rounded-md p-2">
-                    <option value="1">Selección</option>
+        <div id="filtersContainer" class="hidden mb-8 flex flex-wrap justify-between items-center">
+            <form action="{{ route('habitaciones.filtrar') }}" method="POST" class="mb-8 flex items-center">
+                @csrf
+                <!-- Agrega el token CSRF para protección contra falsificación de solicitudes entre sitios -->
+
+                <label for="capacidad" class="block mb-2 mr-4">Capacidad:</label>
+                <select name="capacidad" id="capacidad" class="border border-gray-300 rounded-md p-2 mr-4">
                     <option value="1">1 Persona</option>
                     <option value="2">2 Personas</option>
                     <option value="3">3 Personas</option>
                     <option value="4">4 Personas</option>
                 </select>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md ml-4">Filtrar</button>
+
+                <label for="vistas" class="block mb-2 mr-4">Vistas:</label>
+                <select name="vistas" id="vistas" class="border border-gray-300 rounded-md p-2 mr-4">
+                    <option value="">Cualquier vista</option>
+                    <option value="vista_mar">Vista al Mar</option>
+                    <option value="vista_interior">Vista Interior</option>
+                    <option value="vista_ciudad">Vista a la Ciudad</option>
+                </select>
+
+                <label for="balcon" class="block mb-2 mr-4">Tipo de balcón:</label>
+                <select name="balcon" id="balcon" class="border border-gray-300 rounded-md p-2 mr-4">
+                    <option value="">Cualquier tipo</option>
+                    <option value="balcon_privado">Balcón Privado</option>
+                    <option value="balcon_compartido">Balcón Compartido</option>
+                </select>
+
+                <div class="flex items-center mr-4">
+                    <input type="checkbox" name="mascotas" id="mascotas" value="1" class="mr-2">
+                    <label for="mascotas">¿Mascotas?</label>
+                </div>
+
+                <div class="flex items-center mr-4">
+                    <input type="checkbox" name="fumadores" id="fumadores" value="1" class="mr-2">
+                    <label for="fumadores">¿Fumadores?</label>
+                </div>
+
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Filtrar</button>
             </form>
-            <button id="removeFilters" class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-300">Quitar Filtros</button>
-
-
+            <button id="removeFilters" class="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-500 hover:text-white transition-colors duration-300 mt-4">Quitar Filtros</button>
         </div>
 
 

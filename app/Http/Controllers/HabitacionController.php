@@ -15,10 +15,38 @@ class HabitacionController extends Controller
         $habitaciones = Habitacion::all();
         return view('habitaciones.index', compact('habitaciones'));
     }
+
     public function filtrar(Request $request)
     {
+        // Recuperar los valores de los filtros del Request
         $capacidad = $request->input('capacidad');
-        $habitaciones = Habitacion::where('capacidad', '>=', $capacidad)->get();
+        $vistas = $request->input('vistas');
+        $balcon = $request->input('balcon');
+        $mascotas = $request->has('mascotas');
+        $fumadores = $request->has('fumadores');
+        $query = Habitacion::query();
+
+        if ($capacidad) {
+            $query->where('capacidad', '>=', $capacidad);
+        }
+        $caracteristicas = [];
+        if ($vistas) {
+            $caracteristicas[] = $vistas;
+        }
+        if ($balcon) {
+            $caracteristicas[] = $balcon;
+        }
+        if ($mascotas) {
+            $caracteristicas[] = 'mascotas';
+        }
+        if ($fumadores) {
+            $caracteristicas[] = 'fumadores';
+        }
+        if (!empty($caracteristicas)) {
+            $caracteristicasString = implode(',', $caracteristicas);
+            $query->where('caracteristicas', 'LIKE', "%$caracteristicasString%");
+        }
+        $habitaciones = $query->get();
         return view('habitaciones.index', compact('habitaciones'));
     }
 
@@ -26,6 +54,7 @@ class HabitacionController extends Controller
     {
         return view('habitaciones.contacto');
     }
+
     public function show($id)
     {
         $habitacion = Habitacion::findOrFail($id);
@@ -33,6 +62,7 @@ class HabitacionController extends Controller
 
         return view('habitaciones.show', compact('habitacion', 'servicios'));
     }
+
     public function cuenta()
     {
         $user = auth()->user(); // Obtener el usuario autenticado
@@ -43,8 +73,6 @@ class HabitacionController extends Controller
     {
         $this->middleware('auth');
     }
-
-
 
 
 }
