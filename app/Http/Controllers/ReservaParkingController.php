@@ -27,8 +27,6 @@ class ReservaParkingController extends Controller
 
         // La consulta debería buscar reservas que solapen las fechas de interés
         $plazasOcupadas = ReservaParking::where(function ($query) use ($fechaInicio, $fechaFin) {
-            // Se revisa si alguna reserva existente comienza antes o igual que la fecha de fin solicitada
-            // y termina después o igual que la fecha de inicio solicitada
             $query->where('fecha_inicio', '<=', $fechaFin)
                 ->where('fecha_fin', '>=', $fechaInicio);
         })->pluck('parking_id');
@@ -66,11 +64,7 @@ class ReservaParkingController extends Controller
                 'salida_registrada' => $reservaAnonima->salida_registrada
             ];
         }
-
-
         $plazasParking = Parking::all();
-
-        // Pasar los datos a la vista
         return view('workers.parking_day', compact('fechaActual', 'plazasParking', 'reservasData'));
     }
 
@@ -149,7 +143,6 @@ class ReservaParkingController extends Controller
                     return view('workers.parking_factura', compact('factura', 'reservaAnonima'));
 
 
-
                 } else {
                     return redirect()->route('movimientos')->with('error', 'La matrícula proporcionada no corresponde a ninguna reserva.');
                 }
@@ -157,4 +150,44 @@ class ReservaParkingController extends Controller
         }
         return redirect()->route('movimientos');
     }
+
+    public function getReservasParking()
+    {
+        $reservas = ReservaParking::all();
+        $reservasAnonimas = ReservaParkingAnonimo::all();
+
+        $reservasTransformadas = $reservas->flatMap(function ($reserva) {
+            $inicio = Carbon::parse($reserva->fecha_inicio);
+            $fin = Carbon::parse($reserva->fecha_fin);
+            $diasReserva = $inicio->diffInDays($fin);
+
+            return collect(range(0, $diasReserva))->map(function ($d) use ($reserva, $inicio) {
+                $dia = $inicio->copy()->addDays($d);
+                return [
+                    'title' => 'Reserva: ' . $reserva->matricula,
+                    'start' => $dia,
+                    'end' => $dia->copy()->endOfDay(),
+                    'color' => '#FF5733',
+                ];
+            });
+        });
+
+        // Transformar reservas anónimas
+        $reservasAnonimasTransformadas = $reservasAnonimas->map(function ($reservaAnonima) {
+            $inicio = Carbon::parse($reservaAnonima->fecha_hora_entrada);
+            $fin = $inicio->copy()->endOfDay();
+
+            return [
+                'title' => 'Reserva: ' . $reservaAnonima->matricula,
+                'start' => $inicio,
+                'end' => $fin,
+                'color' => '#3371FF',
+            ];
+        });
+
+        $reservasTotales = $reservasTransformadas->concat($reservasAnonimasTransformadas);
+
+        return response()->json($reservasTotales);
+    }
+
 }

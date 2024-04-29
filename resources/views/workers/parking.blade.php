@@ -1,47 +1,73 @@
 @extends('workers.app')
 
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        @forelse($reservasParking as $reservaParking)
-            <div class="max-w-md mx-auto mb-6">
-                <div class="border p-4 rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow duration-300 relative">
-                    <div class="absolute top-0 right-0 p-2 bg-blue-500 text-white rounded-bl-lg">
-                        <p class="font-semibold">Reserva #{{ $reservaParking->id }}</p>
-                        <p>Matrícula: {{ $reservaParking->matricula }}</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div class="col-span-1 flex justify-center items-center border-b pb-4">
-                            <p><strong>Fecha Inicio:</strong> {{ $reservaParking->fecha_inicio }}</p>
-                        </div>
-                        <div class="col-span-1 flex justify-center items-center border-b pb-4">
-                            <p><strong>Fecha Fin:</strong> {{ $reservaParking->fecha_fin }}</p>
-                        </div>
-                    </div>
-
-                    <div class="text-center">
-                        <form action="{{ route('reservas.delete.view', $reservaParking->id) }}" method="get" class="mt-4">
-                            @csrf
-                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full inline-flex items-center transition-all duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 mr-2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                Cancelar Reserva
-                            </button>
-                        </form>
-                    </div>
-                </div>
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-4">
+            <div class="w-full md:w-1/4 bg-gray-900 rounded-lg p-4 h-screen flex flex-col justify-between">
+                <ul class="list-none">
+                    <li><a class="text-white nav-link font-bold text-lg"
+                           href="{{ route('movimientos') }}">Movimientos</a></li>
+                    <li><a class="text-white nav-link font-bold text-lg" href="{{ route('parking_day') }}">Ver
+                            Parking</a></li>
+                </ul>
             </div>
-        @empty
-            <div class="col-12">
-                <div class="alert alert-info" role="alert">
-                    No hay reservas de estacionamiento disponibles.
-                </div>
+
+            <div class="w-full md:w-1/2 bg-gray-900 rounded-lg p-4">
+                <div id="scheduler"></div>
+
             </div>
-        @endforelse
+
+            <div class="w-full md:w-1/4 bg-gray-900 rounded-lg p-4">
+                <!-- Tercer cajón con campo para cambiar las tarifas del parking -->
+            </div>
+        </div>
     </div>
 
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css">
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+
+    <script>
+        var scheduleObj;
+        document.addEventListener('DOMContentLoaded', function () {
+            scheduleObj = new ej.schedule.Schedule({
+                width: '100%',
+                height: '650px',
+                currentView: 'Month',
+            });
+            scheduleObj.appendTo('#scheduler');
+            cargarReservas()
+        });
+
+        function cargarReservas() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '{{ route("parking_reservas") }}', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var data = JSON.parse(xhr.responseText);
+                        console.log('Reservas del parking cargadas exitosamente:', data);
+                        data.forEach(function (evento) {
+                            scheduleObj.addEvent({
+                                Subject: evento.title,
+                                StartTime: new Date(evento.start),
+                                EndTime: new Date(evento.end),
+                                IsAllDay: true,
+                                EventType: evento.color
+                            });
+                        });
+                    } else {
+                        console.error('Error al cargar las reservas del parking:', xhr.statusText);
+                    }
+                }
+            };
+            xhr.onerror = function () {
+                console.error('Error de red al cargar las reservas del parking.');
+            };
+            xhr.send();
+        }
 
 
-
+    </script>
 @endsection
