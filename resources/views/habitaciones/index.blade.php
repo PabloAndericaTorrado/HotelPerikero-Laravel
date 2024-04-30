@@ -72,6 +72,9 @@
                 </div>
             @endforeach
         </div>
+        <div class="mt-8">
+            {{ $habitaciones->links('vendor.pagination.tailwind') }}
+        </div>
     </div>
 
     <script>

@@ -12,7 +12,7 @@ class HabitacionController extends Controller
 {
     public function index()
     {
-        $habitaciones = Habitacion::all();
+        $habitaciones = Habitacion::paginate(9);
         return view('habitaciones.index', compact('habitaciones'));
     }
 
@@ -46,9 +46,10 @@ class HabitacionController extends Controller
             $caracteristicasString = implode(',', $caracteristicas);
             $query->where('caracteristicas', 'LIKE', "%$caracteristicasString%");
         }
-        $habitaciones = $query->get();
+        $habitaciones = $query->paginate(9); // Utiliza paginate() en lugar de get()
         return view('habitaciones.index', compact('habitaciones'));
     }
+
 
     public function contacto()
     {
