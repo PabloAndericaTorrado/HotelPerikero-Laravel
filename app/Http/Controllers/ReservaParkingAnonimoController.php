@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\View;
 
 class ReservaParkingAnonimoController extends Controller
 {
+    public static $precioPorHora = 1.5;
+
+    public function actualizarPrecioPorHora(Request $request): void
+    {
+        self::$precioPorHora = $request->input('precioHora', 1.5);
+
+    }
 
     public static function calcularFactura(ReservaParkingAnonimo $reservaAnonima)
     {
@@ -17,10 +24,9 @@ class ReservaParkingAnonimoController extends Controller
 
         $fechaHoraActual = Carbon::now();
         $diferenciaHoras = $fechaHoraActual->diffInHours($fechaHoraEntrada);
+        $precio = self::$precioPorHora;
 
-        $tarifaPorHora = 1.5;
-
-        return $tarifaPorHora * $diferenciaHoras;
+        return $precio * $diferenciaHoras;
     }
 
     public function mostrarFactura(Request $request, ReservaParkingAnonimo $reservaAnonima)
@@ -32,7 +38,7 @@ class ReservaParkingAnonimoController extends Controller
 
     public function marcarComoPagada(Request $request, ReservaParkingAnonimo $reservaAnonima)
     {
-        $montoFactura = ReservaParkingAnonimoController::calcularFactura($reservaAnonima);
+        $montoFactura = self::calcularFactura($reservaAnonima);
 
         $factura = new FacturaParking();
         $factura->matricula = $reservaAnonima->matricula;

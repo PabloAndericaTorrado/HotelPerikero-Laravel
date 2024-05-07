@@ -157,20 +157,24 @@
                 return fechasRango;
             });
 
-            flatpickr("#check_in", {
+            const checkInPicker = flatpickr("#check_in", {
                 dateFormat: "Y-m-d",
                 minDate: "today",
                 altInput: true,
                 altFormat: "F j, Y",
                 disable: disableDates,
+                onChange: function(selectedDates) {
+                    const date = selectedDates[0];
+                    checkOutPicker.set('minDate', new Date(date).fp_incr(1)); // Ajusta la fecha mínima de check-out al día después de check-in
+                }
             });
 
-            flatpickr("#check_out", {
+            const checkOutPicker = flatpickr("#check_out", {
                 dateFormat: "Y-m-d",
-                minDate: "today",
+                minDate: new Date().fp_incr(1), // Establece la fecha mínima para el día siguiente
                 altInput: true,
                 altFormat: "F j, Y",
-                disable: disableDates,
+                disable: disableDates
             });
 
             const checkboxReservarParking = document.getElementById('reservar_parking');

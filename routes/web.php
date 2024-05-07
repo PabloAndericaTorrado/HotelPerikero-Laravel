@@ -105,6 +105,7 @@ Route::post('/movimientos/registrar', [ReservaParkingController::class, 'registr
 Route::get('/factura/{reservaAnonima}', [ReservaParkingAnonimoController::class, 'mostrarFactura'])->name('factura.mostrar');
 Route::post('/factura/{reservaAnonima}/pagar', [ReservaParkingAnonimoController::class, 'marcarComoPagada'])->name('factura.pagar');
 Route::post('/parking/reservas', [ReservaParkingController::class, 'getReservasParking'])->name('parking_reservas');
+Route::post('/precio_parking',[ReservaParkingAnonimoController::class, 'actualizarPrecioPorHora'])->name('cambiar_precio_parking');
 
 
 

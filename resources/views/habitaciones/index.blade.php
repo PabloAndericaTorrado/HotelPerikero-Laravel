@@ -56,7 +56,7 @@
             @foreach($habitaciones as $habitacion)
                 <div class="bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-500 hover:shadow-lg" style="opacity: 0;" data-habitacion>
                     <div class="relative mb-4">
-                        <img src="{{ asset('habitacion_images/habitacion_' . $loop->iteration . '.jpg') }}" alt="Habitación {{ $loop->iteration }}" class="w-full h-64 object-cover">
+                        <img src="{{ asset('habitacion_images/habitacion_' . (($habitacion->id - 1) % 10 + 1) . '.jpg') }}" alt="Habitación {{ $habitacion->id }}" class="w-full h-64 object-cover">
                         <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-50">
                             <a href="{{ route('habitaciones.show', $habitacion->id) }}" class="text-white px-4 py-2 rounded-lg border border-white hover:bg-white hover:text-blue-700 transition-colors duration-300">Ver Detalles</a>
                         </div>

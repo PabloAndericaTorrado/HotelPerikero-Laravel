@@ -5,7 +5,7 @@
         <div class="flex flex-col lg:flex-row lg:items-stretch">
             <div class="flex-1">
                 <div class="bg-transparent shadow-lg rounded-lg overflow-hidden">
-                    <img id="mainImage" src="{{ asset('habitacion_images/habitacion_' . $habitacion->id . '.jpg') }}" alt="{{ $habitacion->tipo }}" class="w-full h-full object-cover transition duration-500 hover:scale-105">
+                    <img id="mainImage" src="{{ asset('habitacion_images/habitacion_' . (($habitacion->id - 1) % 10 + 1) . '.jpg') }}" alt="{{ $habitacion->tipo }}" class="w-full h-full object-cover transition duration-500 hover:scale-105">
                 </div>
             </div>
 

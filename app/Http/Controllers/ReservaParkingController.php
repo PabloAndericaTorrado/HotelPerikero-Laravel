@@ -172,17 +172,22 @@ class ReservaParkingController extends Controller
             });
         });
 
-        // Transformar reservas anónimas
-        $reservasAnonimasTransformadas = $reservasAnonimas->map(function ($reservaAnonima) {
+        $reservasAnonimasTransformadas = $reservasAnonimas->filter(function ($reservaAnonima) {
+            return !$reservaAnonima->salida_registrada;
+        })->flatMap(function ($reservaAnonima) {
             $inicio = Carbon::parse($reservaAnonima->fecha_hora_entrada);
             $fin = $inicio->copy()->endOfDay();
+            $diasReserva = $inicio->diffInDays(Carbon::now());
 
-            return [
-                'title' => 'Reserva: ' . $reservaAnonima->matricula,
-                'start' => $inicio,
-                'end' => $fin,
-                'color' => '#3371FF',
-            ];
+            return collect(range(0, $diasReserva))->map(function ($d) use ($reservaAnonima, $inicio) {
+                $dia = $inicio->copy()->addDays($d);
+                return [
+                    'title' => 'Reserva: ' . $reservaAnonima->matricula,
+                    'start' => $dia,
+                    'end' => $dia->copy()->endOfDay(),
+                    'color' => '#3371FF',
+                ];
+            });
         });
 
         $reservasTotales = $reservasTransformadas->concat($reservasAnonimasTransformadas);
