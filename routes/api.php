@@ -18,7 +18,6 @@ use \App\Http\Controllers\ApiController;
 //    return $request->user();
 //});
 
-Route::get('helloWorld', [ApiController::class, 'HelloWorld']);
 Route::get('habitaciones', [ApiController::class, 'GetHabitaciones']);
 Route::post('habitaciones', [ApiController::class, 'GetHabitacionById']);
 Route::get('servicios', [ApiController::class, 'GetServicios']);
@@ -39,6 +38,11 @@ Route::get('reservaParkingAnonimo', [ApiController::class, 'GetReservaParkingAno
 Route::post('reservaParkingAnonimo', [ApiController::class, 'GetReservaParkingAnonimoById']);
 Route::get('reservaServicio', [ApiController::class, 'GetReservaServicio']);
 Route::post('reservaServicio', [ApiController::class, 'GetReservaServicioById']);
-Route::get('users', [ApiController::class, 'GetUsers']);
-Route::post('users', [ApiController::class, 'GetUsersById']);
+Route::post('login', [ApiController::class, 'Login']);
+Route::get('facturasParking', [ApiController::class, 'GetFacturasParking']);
+Route::post('facturasParking', [ApiController::class, 'GetFacturasParkingById']);
+Route::get('facturasHabitacion', [ApiController::class, 'GetFacturasHabitacion']);
+Route::post('facturasHabitacion', [ApiController::class, 'GetFacturasHabitacionById']);
+Route::get('facturasEventos', [ApiController::class, 'GetFacturasEventos']);
+Route::post('facturasEventos', [ApiController::class, 'GetFacturasEventosById']);
 
