@@ -171,7 +171,7 @@ class ApiController extends Controller
 
     public function GetServicioEventos(): JsonResponse
     {
-        $servicioEvento = Servicio::get();
+        $servicioEvento =ServicioEvento::get();
         return response()->json([
             'message' => 'Obtenidas ' . count($servicioEvento) . ' reservas de eventos',
             'data' => $servicioEvento
