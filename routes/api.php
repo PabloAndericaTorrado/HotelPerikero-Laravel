@@ -45,4 +45,5 @@ Route::get('facturasHabitacion', [ApiController::class, 'GetFacturasHabitacion']
 Route::post('facturasHabitacion', [ApiController::class, 'GetFacturasHabitacionById']);
 Route::get('facturasEventos', [ApiController::class, 'GetFacturasEventos']);
 Route::post('facturasEventos', [ApiController::class, 'GetFacturasEventosById']);
+Route::post('reservas/create', [ApiController::class, 'CreateReserva']);
 
