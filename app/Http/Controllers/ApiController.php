@@ -82,6 +82,34 @@ class ApiController extends Controller
         ]);
     }
 
+    public function CreateReserva(Request $request): JsonResponse
+{
+    $reserva = new Reserva();
+    $reserva->users_id = $request->input('users_id');
+    $reserva->habitacion_id = $request->input('habitacion_id');
+    $reserva->check_in = $request->input('check_in');
+    $reserva->check_out = $request->input('check_out');
+    $reserva->precio_total = $request->input('precio_total');
+    $reserva->pagado = $request->input('pagado');
+    $reserva->confirmado = $request->input('confirmado');
+    $reserva->dni = $request->input('dni');
+    $reserva->numero_personas = $request->input('numero_personas');
+    $reserva->created_at = $request->input('created_at');
+    $reserva->updated_at = $request->input('updated_at');
+
+    if ($reserva->save()) {
+        return response()->json([
+            'message' => 'Reserva creada exitosamente',
+            'data' => $reserva
+        ], 201);
+    } else {
+        return response()->json([
+            'message' => 'Error al crear la reserva'
+        ], 500);
+    }
+}
+
+
     public function GetReservasById(Request $request): JsonResponse
     {
         return response()->json([
