@@ -82,32 +82,57 @@ class ApiController extends Controller
         ]);
     }
 
+    //RECOGE LOS DATOS DEL POST DESDE ANDROID Y LOS GUARDA EN BBDD
     public function CreateReserva(Request $request): JsonResponse
-{
-    $reserva = new Reserva();
-    $reserva->users_id = $request->input('users_id');
-    $reserva->habitacion_id = $request->input('habitacion_id');
-    $reserva->check_in = $request->input('check_in');
-    $reserva->check_out = $request->input('check_out');
-    $reserva->precio_total = $request->input('precio_total');
-    $reserva->pagado = $request->input('pagado');
-    $reserva->confirmado = $request->input('confirmado');
-    $reserva->dni = $request->input('dni');
-    $reserva->numero_personas = $request->input('numero_personas');
-    $reserva->created_at = $request->input('created_at');
-    $reserva->updated_at = $request->input('updated_at');
+    {
+        $reserva = new Reserva();
+        $reserva->users_id = $request->input('users_id');
+        $reserva->habitacion_id = $request->input('habitacion_id');
+        $reserva->check_in = $request->input('check_in');
+        $reserva->check_out = $request->input('check_out');
+        $reserva->precio_total = $request->input('precio_total');
+        $reserva->pagado = $request->input('pagado');
+        $reserva->confirmado = $request->input('confirmado');
+        $reserva->dni = $request->input('dni');
+        $reserva->numero_personas = $request->input('numero_personas');
+        $reserva->created_at = $request->input('created_at');
+        $reserva->updated_at = $request->input('updated_at');
 
-    if ($reserva->save()) {
-        return response()->json([
-            'message' => 'Reserva creada exitosamente',
-            'data' => $reserva
-        ], 201);
-    } else {
-        return response()->json([
-            'message' => 'Error al crear la reserva'
-        ], 500);
+        if ($reserva->save()) {
+            return response()->json([
+                'message' => 'Reserva creada exitosamente',
+                'data' => $reserva
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Error al crear la reserva'
+            ], 500);
+        }
     }
-}
+
+    //Reserva de eventos:
+    public function CreateReservaEvento(Request $request): JsonResponse
+    {
+        $reservaEvento = new ReservaEvento();
+        $reservaEvento->users_id = $request->input('users_id');
+        $reservaEvento->espacio_id = $request->input('espacio_id');
+        $reservaEvento->check_in = $request->input('check_in');
+        $reservaEvento->check_out = $request->input('check_out');
+        $reservaEvento->precio_total = $request->input('precio_total');
+        $reservaEvento->pagado = $request->input('pagado');
+        $reservaEvento->cantidad_personas = $request->input('cantidad_personas');
+
+        if ($reservaEvento->save()) {
+            return response()->json([
+                'message' => 'Reserva de evento creada exitosamente',
+                'data' => $reservaEvento
+            ], 201);
+        } else {
+            return response()->json([
+                'message' => 'Error al crear la reserva del evento'
+            ], 500);
+        }
+    }
 
 
     public function GetReservasById(Request $request): JsonResponse
@@ -199,7 +224,7 @@ class ApiController extends Controller
 
     public function GetServicioEventos(): JsonResponse
     {
-        $servicioEvento =ServicioEvento::get();
+        $servicioEvento = ServicioEvento::get();
         return response()->json([
             'message' => 'Obtenidas ' . count($servicioEvento) . ' reservas de eventos',
             'data' => $servicioEvento
