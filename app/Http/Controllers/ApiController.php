@@ -162,7 +162,7 @@ class ApiController extends Controller
     {
         $reservaParking = ReservaParking::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($reservaParking) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($reservaParking) . ' reservas de parking',
             'data' => $reservaParking
         ]);
     }
@@ -178,7 +178,7 @@ class ApiController extends Controller
     {
         $reservaParkingAnonimo = ReservaParkingAnonimo::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($reservaParkingAnonimo) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($reservaParkingAnonimo) . ' reservas de parking anonimos',
             'data' => $reservaParkingAnonimo
         ]);
     }
@@ -194,7 +194,7 @@ class ApiController extends Controller
     {
         $reservaServicio = ReservaServicio::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($reservaServicio) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($reservaServicio) . ' reservas de servicios',
             'data' => $reservaServicio
         ]);
     }
@@ -210,7 +210,7 @@ class ApiController extends Controller
     {
         $servicio = Servicio::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($servicio) . ' reservas de eventos',
+            'message' => 'Obtenidos ' . count($servicio) . ' servicios',
             'data' => $servicio
         ]);
     }
@@ -226,7 +226,7 @@ class ApiController extends Controller
     {
         $servicioEvento = ServicioEvento::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($servicioEvento) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($servicioEvento) . ' servicios de eventos',
             'data' => $servicioEvento
         ]);
     }
