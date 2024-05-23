@@ -47,4 +47,10 @@ Route::get('facturasEventos', [ApiController::class, 'GetFacturasEventos']);
 Route::post('facturasEventos', [ApiController::class, 'GetFacturasEventosById']);
 Route::post('reservas/create', [ApiController::class, 'CreateReserva']);
 Route::post('reservaEventos/create', [ApiController::class, 'CreateReservaEvento']);
+Route::get('reservas/lastId', function () {
+    $lastId = DB::table('reservas')->latest('id')->value('id');
+    return response()->json(['last_id' => $lastId]);
+});
+Route::post('reservaServicios/create', [ApiController::class, 'CreateReservaServicio']);
+
 
