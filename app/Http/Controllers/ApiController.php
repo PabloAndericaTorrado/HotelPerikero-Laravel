@@ -134,6 +134,31 @@ class ApiController extends Controller
         }
     }
 
+    public function CreateReservaServicio(Request $request): JsonResponse
+    {
+        $reservaServicio = new ReservaServicio();
+        
+        $reservaServicio->reserva_id = $request->input('reserva_id');
+        $reservaServicio->servicio_id = $request->input('servicio_id');
+        $reservaServicio->cantidad = $request->input('cantidad');
+        $reservaServicio->created_at = $request->input('created_at');
+        $reservaServicio->updated_at = $request->input('updated_at');
+    
+        // Intentar guardar la reserva del servicio en la base de datos
+        if ($reservaServicio->save()) {
+            // Si se guarda correctamente, devolver una respuesta JSON con el objeto creado
+            return response()->json([
+                'message' => 'Reserva de servicio creada exitosamente',
+                'data' => $reservaServicio
+            ], 201);
+        } else {
+            // Si hay un error al guardar, devolver una respuesta JSON con un mensaje de error
+            return response()->json([
+                'message' => 'Error al crear la reserva de servicio'
+            ], 500);
+        }
+    }
+
 
     public function GetReservasById(Request $request): JsonResponse
     {
