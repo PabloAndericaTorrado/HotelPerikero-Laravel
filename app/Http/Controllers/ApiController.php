@@ -325,20 +325,21 @@ class ApiController extends Controller
         ]);
     }
 
-    public function GetPastReservasByUserId(Request $request): JsonResponse
+public function GetPastReservasByUserId(Request $request): JsonResponse
 {
-    $userId = $request->input('user_id');
-    $today = now()->format('Y-m-d');
+    $userId = $request->input('userId');
+    $today = now()->toDateString();
 
     $reservas = Reserva::where('users_id', $userId)
-        ->where('check_out', '<', $today)
-        ->get();
+                        ->where('check_out', '<', $today)
+                        ->get();
 
     return response()->json([
-        'message' => 'Obtenidas ' . count($reservas) . ' reservas anteriores',
+        'message' => 'Reservas pasadas obtenidas exitosamente',
         'data' => $reservas
     ]);
 }
+
 
 
 
