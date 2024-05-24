@@ -52,5 +52,7 @@ Route::get('reservas/lastId', function () {
     return response()->json(['last_id' => $lastId]);
 });
 Route::post('reservaServicios/create', [ApiController::class, 'CreateReservaServicio']);
+Route::post('reservas/past', [ApiController::class, 'GetPastReservasByUserId']);
+
 
 
