@@ -56,4 +56,6 @@ Route::post('reservas/past', [ApiController::class, 'GetPastReservasByUserId']);
 
 
 Route::post('resenias/create', [ApiController::class, 'CreateResenia']);
+Route::post('reservaParking/create', [ApiController::class, 'CreateReservaParking']);
+
 
