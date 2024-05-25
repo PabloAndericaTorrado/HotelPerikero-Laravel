@@ -154,6 +154,31 @@ class ApiController extends Controller
         }
     }
 
+    public function CreateReservaServicio(Request $request): JsonResponse
+    {
+        $reservaServicio = new ReservaServicio();
+
+        $reservaServicio->reserva_id = $request->input('reserva_id');
+        $reservaServicio->servicio_id = $request->input('servicio_id');
+        $reservaServicio->cantidad = $request->input('cantidad');
+        $reservaServicio->created_at = $request->input('created_at');
+        $reservaServicio->updated_at = $request->input('updated_at');
+
+        // Intentar guardar la reserva del servicio en la base de datos
+        if ($reservaServicio->save()) {
+            // Si se guarda correctamente, devolver una respuesta JSON con el objeto creado
+            return response()->json([
+                'message' => 'Reserva de servicio creada exitosamente',
+                'data' => $reservaServicio
+            ], 201);
+        } else {
+            // Si hay un error al guardar, devolver una respuesta JSON con un mensaje de error
+            return response()->json([
+                'message' => 'Error al crear la reserva de servicio'
+            ], 500);
+        }
+    }
+
 
     public function GetReservasById(Request $request): JsonResponse
     {
@@ -182,7 +207,7 @@ class ApiController extends Controller
     {
         $reservaParking = ReservaParking::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($reservaParking) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($reservaParking) . ' reservas de parking',
             'data' => $reservaParking
         ]);
     }
@@ -198,7 +223,7 @@ class ApiController extends Controller
     {
         $reservaParkingAnonimo = ReservaParkingAnonimo::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($reservaParkingAnonimo) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($reservaParkingAnonimo) . ' reservas de parking anonimos',
             'data' => $reservaParkingAnonimo
         ]);
     }
@@ -214,7 +239,7 @@ class ApiController extends Controller
     {
         $reservaServicio = ReservaServicio::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($reservaServicio) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($reservaServicio) . ' reservas de servicios',
             'data' => $reservaServicio
         ]);
     }
@@ -230,7 +255,7 @@ class ApiController extends Controller
     {
         $servicio = Servicio::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($servicio) . ' reservas de eventos',
+            'message' => 'Obtenidos ' . count($servicio) . ' servicios',
             'data' => $servicio
         ]);
     }
@@ -246,7 +271,7 @@ class ApiController extends Controller
     {
         $servicioEvento = ServicioEvento::get();
         return response()->json([
-            'message' => 'Obtenidas ' . count($servicioEvento) . ' reservas de eventos',
+            'message' => 'Obtenidas ' . count($servicioEvento) . ' servicios de eventos',
             'data' => $servicioEvento
         ]);
     }
@@ -319,6 +344,23 @@ class ApiController extends Controller
             'data' => FacturaHabitacion::find($request->input('id'))
         ]);
     }
+
+public function GetPastReservasByUserId(Request $request): JsonResponse
+{
+    $userId = $request->input('userId');
+    $today = now()->toDateString();
+
+    $reservas = Reserva::where('users_id', $userId)
+                        ->where('check_out', '<', $today)
+                        ->get();
+
+    return response()->json([
+        'message' => 'Reservas pasadas obtenidas exitosamente',
+        'data' => $reservas
+    ]);
+}
+
+
 
 
 }

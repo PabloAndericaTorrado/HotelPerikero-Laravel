@@ -83,8 +83,8 @@
                                             @php
                                                 $imagenPath = 'habitacion_images/habitacion_' . $reserva->habitacion->id . '.jpg';
                                             @endphp
-                                            @if(file_exists(public_path($imagenPath)))
-                                                <img src="{{ asset($imagenPath) }}" alt="Imagen de la habitación" class="w-full h-auto rounded-lg mb-4">
+                                            @if(true)
+                                                <img src="{{ asset('habitacion_images/habitacion_' . (($reserva->habitacion->id - 1) % 10 + 1) . '.jpg') }}" alt="Habitación {{ $reserva->habitacion->id }}" class="w-full h-64 object-cover">
                                             @else
                                                 <p class="text-gray-600 text-center p-4">No hay imagen disponible para esta habitación.</p>
                                             @endif
