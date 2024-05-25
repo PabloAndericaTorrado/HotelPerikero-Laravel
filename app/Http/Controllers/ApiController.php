@@ -178,6 +178,35 @@ class ApiController extends Controller
             ], 500);
         }
     }
+    public function CreateReservaParking(Request $request): JsonResponse
+    {
+        // Crear una nueva instancia de ReservaParking
+        $reservaParking = new ReservaParking();
+    
+        // Asignar los valores del request a los campos de la reserva de parking
+        $reservaParking->reserva_habitacion_id = $request->input('reserva_habitacion_id');
+        $reservaParking->parking_id = $request->input('parking_id');
+        $reservaParking->fecha_inicio = $request->input('fecha_inicio');
+        $reservaParking->fecha_fin = $request->input('fecha_fin');
+        $reservaParking->matricula = $request->input('matricula');
+        $reservaParking->salida_registrada = $request->input('salida_registrada');
+        $reservaParking->created_at = $request->input('created_at');
+        $reservaParking->updated_at = $request->input('updated_at');
+    
+        // Intentar guardar la reserva de parking en la base de datos
+        if ($reservaParking->save()) {
+            // Si se guarda correctamente, devolver una respuesta JSON con el objeto creado
+            return response()->json([
+                'message' => 'Reserva de parking creada exitosamente',
+                'data' => $reservaParking
+            ], 201);
+        } else {
+            // Si hay un error al guardar, devolver una respuesta JSON con un mensaje de error
+            return response()->json([
+                'message' => 'Error al crear la reserva de parking'
+            ], 500);
+        }
+    }
 
 
     public function GetReservasById(Request $request): JsonResponse
