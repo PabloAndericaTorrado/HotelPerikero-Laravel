@@ -19,6 +19,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Psy\Util\Json;
 
 class ApiController extends Controller
 {
@@ -130,6 +131,25 @@ class ApiController extends Controller
         } else {
             return response()->json([
                 'message' => 'Error al crear la reserva del evento'
+            ], 500);
+        }
+    }
+
+    public function CreateResenia(Request $request): JsonResponse {
+        $resenia = new Resenia();
+        $resenia->usuario_id = $request->input('usuario_id');
+        $resenia->reserva_id = $request->input('reserva_id');
+        $resenia->calificacion = $request->input('calificacion');
+        $resenia->comentario = $request->input('comentario');
+
+        if ($resenia->save()) {
+            return response()->json([
+               'message' => 'Reseña creada con éxito',
+               'data' => $resenia
+            ], 201);
+        }else {
+            return response()->json([
+                'message' => 'Ha ocurrido un error a la hora de crear una reseña',
             ], 500);
         }
     }
