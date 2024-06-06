@@ -10,8 +10,12 @@
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($resenias as $resenia)
+                    @php
+                        $habitacionId = $resenia->reserva->habitacion->id;
+                        $imagenId = (($habitacionId - 1) % 10) + 1;
+                    @endphp
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out hover:shadow-2xl">
-                        <img src="{{ asset('habitacion_images/habitacion_' . $resenia->reserva->habitacion->id . '.jpg') }}" alt="{{ $resenia->reserva->habitacion->tipo }}" class="w-full h-64 object-cover">
+                        <img src="{{ asset('habitacion_images/habitacion_' . $imagenId . '.jpg') }}" alt="{{ $resenia->reserva->habitacion->tipo }}" class="w-full h-64 object-cover">
 
                         <div class="p-6">
                             <div class="flex items-center mb-4">
