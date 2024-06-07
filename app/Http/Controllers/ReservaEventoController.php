@@ -98,7 +98,7 @@ class ReservaEventoController extends Controller
             }
         }
 
-        return redirect()->route('reserva_eventos.show')->with('success', 'Reserva creada con éxito.');
+        return redirect()->route('espacios.index')->with('success', 'Reserva creada con éxito.');
     }
 
 
