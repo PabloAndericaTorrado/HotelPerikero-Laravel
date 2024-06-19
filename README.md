@@ -67,3 +67,7 @@ Este documento proporciona una visión general de un sistema de reserva de habit
 - **Visualización de Espacios**: El gestor de parking puede ver el estado actual de las plazas de parking.
 - **Asignación de Plazas de Parking**: Puede asignar plazas de parking a las reservas que lo requieran.
 - **Liberación de Plazas de Parking**: Cuando una reserva se cancela o termina, el gestor de parking puede marcar la plaza como disponible nuevamente.
+
+## Video Demostración
+
+[![Demostración]](https://drive.google.com/file/d/1RwiQEp_Cu14HrR0IgDVlKmnMjDvbfDLF/view?usp=sharing)
