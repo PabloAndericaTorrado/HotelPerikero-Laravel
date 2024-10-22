@@ -25,7 +25,6 @@ class ReservaParkingController extends Controller
         $fechaInicio = $request->input('check_in');
         $fechaFin = $request->input('check_out');
 
-        // La consulta debería buscar reservas que solapen las fechas de interés
         $plazasOcupadas = ReservaParking::where(function ($query) use ($fechaInicio, $fechaFin) {
             $query->where('fecha_inicio', '<=', $fechaFin)
                 ->where('fecha_fin', '>=', $fechaInicio);
@@ -48,7 +47,6 @@ class ReservaParkingController extends Controller
         $reservasAnonimas = ReservaParkingAnonimo::where('salida_registrada', false)
             ->select('parking_id', 'matricula')
             ->get();
-
 
         // Combinar las reservas de usuarios y las reservas anónimas
         $reservasData = [];
@@ -96,8 +94,6 @@ class ReservaParkingController extends Controller
             ]);
 
             $matricula = $request->input('matricula-entrada');
-
-            // Verificar si ya existe una reserva con la matrícula proporcionada
             $reservaExistente = ReservaParking::where('matricula', $matricula)->first();
 
             if ($reservaExistente) {
@@ -118,8 +114,6 @@ class ReservaParkingController extends Controller
                 ]);
 
             }
-
-
             return redirect()->route('movimientos')->with('success', 'El coche ha ingresado exitosamente al parking.');
 
         } elseif ($accion === 'salida') {
@@ -141,8 +135,6 @@ class ReservaParkingController extends Controller
                     $factura = ReservaParkingAnonimoController::calcularFactura($reservaAnonima);
 
                     return view('workers.parking_factura', compact('factura', 'reservaAnonima'));
-
-
                 } else {
                     return redirect()->route('movimientos')->with('error', 'La matrícula proporcionada no corresponde a ninguna reserva.');
                 }

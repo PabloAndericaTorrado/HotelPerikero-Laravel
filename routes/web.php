@@ -33,10 +33,6 @@ Route::get('/servicios', [ServicioController::class, 'index'])->name('servicios.
 Auth::routes();
 // web.php
 
-
-
-
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/perfil', function () {
         return view('perfil');

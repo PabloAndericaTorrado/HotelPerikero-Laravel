@@ -75,21 +75,19 @@ class ReservaController extends Controller
             'check_out' => $checkOut,
             'numero_personas' => $numero_personas,
             'precio_total' => 0, // Este valor se calculará después de agregar servicios
-            'pagado' => false // Asumiendo que el pago no se realiza inmediatamente
+            'pagado' => false
         ]);
 
         // Asociar servicios seleccionados, si se eligieron
         if ($request->has('servicios') && is_array($request->input('servicios'))) {
             $servicios = [];
             foreach ($request->input('servicios') as $servicioId) {
-                // Puedes ajustar la cantidad según tus necesidades, por ahora se asume 1
                 $servicios[$servicioId] = ['cantidad' => 1];
             }
             $reserva->servicios()->attach($servicios);
         }
 
         // Calcular el precio total y actualizar la reserva
-        // Asegúrate de que el método calculateTotalPrice esté definido y calcule correctamente el precio
         $reserva->precio_total = $reserva->calculateTotalPriceWithServices();
 
         $reserva->save();
@@ -165,15 +163,11 @@ class ReservaController extends Controller
     public function update(Request $request, Reserva $reserva)
     {
         // Lógica para actualizar la reserva en la base de datos
-        // Asegúrate de validar los datos del formulario antes de actualizarlos
-
-        // Ejemplo:
         $reserva->update([
             'user_id' => $request->user_id,
             'habitacion_id' => $request->habitacion_id,
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_fin' => $request->fecha_fin,
-            // ... otras columnas de la tabla de reservas
         ]);
 
         return redirect()->route('reservas.index')->with('success', 'Reserva actualizada con éxito');
@@ -183,8 +177,6 @@ class ReservaController extends Controller
     {
         // Eliminar los registros relacionados en la tabla reserva_servicios
         $reserva->servicios()->detach();
-
-        // Ahora puedes eliminar la reserva
         $reserva->delete();
 
         return redirect()->route('habitaciones.index')->with('success', 'Reserva eliminada con éxito');
@@ -204,9 +196,7 @@ class ReservaController extends Controller
 
     public function todayReservations()
     {
-        $today = Carbon::now()->format('Y-m-d'); // Obtiene la fecha actual
-
-        // Obtén todas las reservas para el día actual
+        $today = Carbon::now()->format('Y-m-d');
         $reservasHoy = Reserva::whereDate('check_in', $today)->get();
 
         return view('admins.today_reservations', compact('reservasHoy'));
@@ -235,7 +225,6 @@ class ReservaController extends Controller
     {
         $habitaciones = Habitacion::all();
         $servicios = Servicio::all();
-        // Obtén las fechas reservadas para la primera habitación por defecto, ajusta según tu lógica
         $fechasReservadas = $this->getFechasReservadas($habitaciones->first()->id);
         $plazasParking = Parking::all();
         return view('admins.create_reservation', compact('habitaciones', 'servicios', 'fechasReservadas', 'plazasParking'));
@@ -300,9 +289,7 @@ class ReservaController extends Controller
                     return redirect()->back()->with('error', 'La plaza de parking seleccionada ya no está disponible.');
                 }
             }
-
         }
-
         return redirect()->route('admins.create_reservation')->with('success', 'Reserva creada con éxito');
     }
 
@@ -334,10 +321,8 @@ class ReservaController extends Controller
     public function generatePDF($id)
     {
         $reserva = Reserva::findOrFail($id);
-        // Asumiendo que tu vista se llama 'pdf.detalles' y que pasas los datos de reserva
         $pdf = PDF::loadView('pdf.detalles', compact('reserva'));
 
-        // Descargar el PDF con el nombre 'reserva-detalle.pdf'
         return $pdf->download('reserva-detalle.pdf');
     }
 

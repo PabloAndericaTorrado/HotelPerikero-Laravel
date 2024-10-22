@@ -11,7 +11,6 @@ class UserController extends Controller
         $campo = $request->input('campo');
         $valor = $request->input('valor');
 
-        // Actualizar el usuario en la base de datos según el campo y valor proporcionados
         auth()->user()->update([$campo => $valor]);
 
         return response()->json(['mensaje' => 'Usuario actualizado correctamente']);

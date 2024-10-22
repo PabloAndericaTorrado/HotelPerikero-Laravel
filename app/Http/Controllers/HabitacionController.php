@@ -18,7 +18,6 @@ class HabitacionController extends Controller
 
     public function filtrar(Request $request)
     {
-        // Recuperar los valores de los filtros del Request
         $capacidad = $request->input('capacidad');
         $vistas = $request->input('vistas');
         $balcon = $request->input('balcon');
